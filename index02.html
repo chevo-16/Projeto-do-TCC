@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lojas Buenão - Principal</title>
+    <link rel="stylesheet" href="css/style02.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="js/script02.js"></script>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="logo">LOJAS<br>BUENÃO</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Pesquisar...">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <div class="header-icons">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <i class="fa-solid fa-house"></i>
+            <i class="fa-solid fa-heart"></i>
+            <i class="fa-solid fa-user"></i>
+        </div>
+    </header>
+
+    <nav class="nav-bar">
+        <button id="btn-categorias" class="btn-cat">Categorias</button>
+    </nav>
+
+    <section class="hero-section">
+        <div class="main-banner">
+            <div class="banner-text">
+                <h1>NOVA COLEÇÃO<br>de Inverno 2026</h1>
+            </div>
+            <img src="images/banner-modelos.png" alt="Coleção Inverno">
+        </div>
+        <div class="side-banners">
+            <div class="side-item pink-gradient">
+                <img src="images/vestido-destaque.png" alt="Vestido">
+            </div>
+            <div class="side-item green-gradient">
+                <img src="images/tenis-destaque.png" alt="Tênis">
+            </div>
+        </div>
+    </section>
+
+    <section class="products-section">
+        <h2 class="section-title">Mais Vendidos</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-img-box">
+                    <img src="images/vestido-red.png" alt="Produto">
+                </div>
+                <div class="product-info">
+                    <p class="p-name">Vestido</p>
+                    <p class="p-price">R$ 150</p>
+                </div>
+            </div>
+            </div>
+    </section>
+
+    <div id="category-overlay" class="overlay hidden">
+        <div class="overlay-content">
+            <button id="close-cat" class="close-btn">&times;</button>
+            <div class="cat-item cat-fem">Feminino <i class="fa-solid fa-shirt"></i></div>
+            <div class="cat-item cat-masc">Masculino <i class="fa-solid fa-user-tie"></i></div>
+            <div class="cat-item cat-calc">Calçados <i class="fa-solid fa-shoe-prints"></i></div>
+            <div class="cat-item cat-inf">Infantil <i class="fa-solid fa-child"></i></div>
+        </div>
+    </div>
+
+    <script src="js/loja.js"></script>
+</body>
+</html>
