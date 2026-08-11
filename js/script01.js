@@ -7,3 +7,7 @@ window.addEventListener('DOMContentLoaded', () => {
     loginScreen.classList.remove('hidden');
   }, 3000);
 });
+function abrirNovaAba() {
+    window.open('index02.html', '_blank');
+}
+
