@@ -21,11 +21,11 @@ body, html {
 }
 
 #splash-screen {
-  background: radial-gradient(circle, #83e85a 0%, #46b828 65%, #2d8218 100%);
+  background: radial-gradient(circle, #83e85a 0%, #46b828 0%, #369374 100%);
 }
 
 #login-screen {
-  background: radial-gradient(circle, #85eb5b 0%, #49bd2a 70%, #328a1c 100%);
+  background: radial-gradient(circle, #83e85a 0%, #46b828 0%, #369374 100%);
 }
 
 .hidden {
@@ -39,7 +39,7 @@ body, html {
 }
 
 .login-card {
-  background: #39a31f;
+  background: #267133;
   padding: 2.5rem 2rem;
   border-radius: 30px;
   display: flex;
