@@ -1,0 +1,239 @@
+:root {
+  --green-main: #007a3d;
+  --green-dark: #004d26;
+  --green-light: #e8f5e9;
+  --accent-gold: #ffc107;
+  --bg-color: #f4f6f8;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  background-color: var(--bg-color);
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+/* Header Estilo Loja */
+.top-header {
+  background-color: var(--green-main);
+  color: white;
+  padding: 20px 10px 10px 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.logo-area .logo {
+  max-width: 180px;
+  height: auto;
+  margin-bottom: 5px;
+}
+
+.top-header h1 {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  margin: 2px 0 10px 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.address-bar {
+  background-color: var(--green-dark);
+  padding: 8px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Área do Jogo */
+.game-wrapper {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+.controls {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.controls button {
+  padding: 10px 18px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: var(--green-main);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.controls button:hover {
+  background-color: var(--green-dark);
+  transform: translateY(-2px);
+}
+
+.game-container {
+  display: inline-block;
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  border: 2px solid var(--green-light);
+}
+
+.header {
+  background: var(--green-light);
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+}
+
+#mine-count, #timer {
+  background: #222;
+  color: var(--accent-gold);
+  font-size: 22px;
+  padding: 6px 12px;
+  font-family: monospace;
+  border-radius: 4px;
+  min-width: 60px;
+  text-align: center;
+}
+
+#reset-btn {
+  font-size: 24px;
+  width: 45px;
+  height: 45px;
+  border: none;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.grid {
+  display: grid;
+  gap: 3px;
+  background: #e0e0e0;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.cell {
+  width: 32px;
+  height: 32px;
+  background: #ffffff;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: inset -1px -1px 2px rgba(0,0,0,0.1);
+}
+
+.cell:hover {
+  background: #f0f0f0;
+}
+
+.cell.revealed {
+  background: #e8e8e8;
+  box-shadow: none;
+}
+
+.cell.flagged::after {
+  content: "🏷️";
+  font-size: 16px;
+}
+
+.cell.mine { 
+  background: #ffebee; 
+}
+
+.cell.mine::after { 
+  content: "💥"; 
+  font-size: 18px; 
+}
+
+.num1 { color: #1976d2; }
+.num2 { color: #388e3c; }
+.num3 { color: #d32f2f; }
+.num4 { color: #7b1fa2; }
+
+.discount-banner {
+  margin-top: 20px;
+  background: #e8f5e9;
+  border: 2px dashed var(--green-main);
+  padding: 20px;
+  border-radius: 10px;
+  animation: popIn 0.5s ease;
+}
+
+.discount-banner.hidden {
+  display: none;
+}
+
+.coupon-code {
+  font-size: 26px;
+  font-weight: bold;
+  color: var(--green-dark);
+  background: white;
+  padding: 10px 20px;
+  display: inline-block;
+  border-radius: 6px;
+  border: 1px solid var(--green-main);
+  margin-top: 10px;
+  letter-spacing: 3px;
+}
+
+.retry-banner {
+  margin-top: 20px;
+  background: #fff3e0;
+  border: 2px dashed #f57c00;
+  padding: 20px;
+  border-radius: 10px;
+  animation: popIn 0.5s ease;
+}
+
+.retry-banner.hidden {
+  display: none;
+}
+
+.retry-banner h3 {
+  color: #e65100;
+  margin-top: 0;
+}
+
+.retry-btn {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: var(--green-main);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.retry-btn:hover {
+  background-color: var(--green-dark);
+  transform: scale(1.05);
+}
+
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}

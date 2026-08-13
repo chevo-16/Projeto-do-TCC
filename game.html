@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desafio Buenão - Ganhe Descontos Exclusivos</title>
+  <link rel="stylesheet" href="game/style.css">
+</head>
+<body>
+
+  <header class="top-header">
+    <div class="logo-area">
+      <img src="images/logo.png" alt="Buenão Moda e Calçados" class="logo" id="logo-img">
+      <h1>BUENÃO</h1>
+      <p class="subtitle">Moda, Calçados & Acessórios</p>
+    </div>
+    <div class="address-bar">
+      📍 Cascavel - PR | Encontre o produto premiado e ganhe descontos!
+    </div>
+  </header>
+
+  <main class="game-wrapper">
+    <h2>🎯 Caça ao Desconto Buenão</h2>
+    <p class="game-instructions">Escolha um nível, encontre os looks sem pisar nas peças esgotadas e garanta seu cupom!</p>
+
+    <div class="controls">
+      <button onclick="setDifficulty(9,9,10, '5%')">Nível 1 (5% OFF)</button>
+      <button onclick="setDifficulty(12,12,20, '10%')">Nível 2 (10% OFF)</button>
+      <button onclick="setDifficulty(16,16,35, '15%')">Nível 3 (15% OFF)</button>
+    </div>
+
+    <div class="game-container">
+      <div class="header">
+        <div id="mine-count" title="Peças para encontrar">000</div>
+        <button id="reset-btn" onclick="resetGame()">🛍️</button>
+        <div id="timer" title="Tempo decorrido">000</div>
+      </div>
+      <div id="grid" class="grid"></div>
+    </div>
+
+    <div id="discount-banner" class="discount-banner hidden">
+      <h3>🎉 PARABÉNS! VOCÊ GANHOU <span id="discount-val">10%</span> DE DESCONTO!</h3>
+      <p>Apresente o código abaixo no caixa das lojas Buenão em Cascavel:</p>
+      <div class="coupon-code" id="coupon-code">BUENAO10</div>
+    </div>
+
+    <div id="retry-banner" class="retry-banner hidden">
+      <h3>😅 Ops! Não foi dessa vez...</h3>
+      <p>Você encontrou uma peça esgotada no <span id="retry-level-name">Nível 1</span>.</p>
+      <button onclick="resetGame()" class="retry-btn">🔄 Reiniciar Nível</button>
+    </div>
+  </main>
+
+  <script src="game/script.js"></script>
+</body>
+</html>
