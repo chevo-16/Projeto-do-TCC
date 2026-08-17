@@ -4,6 +4,15 @@
   box-sizing: border-box;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+@font-face {
+  font-family: 'Borel';
+  src: url('../fonts/Borel-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Borel';
+  src: url('../fonts/Brygada1918-VariableFont_wght.ttf') format('truetype');
+}
 
 body {
   background: radial-gradient(circle at center, #86ec5b 0%, #46bd28 65%, #237311 100%);
@@ -127,6 +136,7 @@ body {
   text-shadow: 0 1px 4px rgba(0,0,0,0.25);
   z-index: 2;
   margin: 0;
+  font-family: 'Brygada', serif;
 }
 
 .banner-img {
@@ -254,6 +264,9 @@ body {
   color: white;
 }
 
+/* ==========================================
+   MODAL DE CATEGORIAS (ESTILO FIGMA)
+   ========================================== */
 .overlay {
   position: fixed;
   top: 0;
@@ -273,54 +286,78 @@ body {
 }
 
 .modal-card {
-  background-color: #62c436;
-  width: 310px;
-  padding: 35px 20px 20px 20px;
+  background-color: #46bd28;
+  width: 330px;
+  padding: 40px 20px 25px 20px;
   border-radius: 25px;
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
 .close-btn {
   position: absolute;
-  top: 8px;
+  top: 10px;
   right: 15px;
   background: none;
   border: none;
-  font-size: 24px;
+  font-size: 26px;
   color: #1a4d12;
   cursor: pointer;
   font-weight: bold;
 }
 
+/* ESTILO BASE DO BOTÃO */
 .cat-button {
-  background-color: white;
-  border-radius: 15px;
-  padding: 8px 15px;
+  border-radius: 18px;
+  padding: 6px 8px 6px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-weight: bold;
-  color: #2b8217;
-  font-size: 16px;
+  font-weight: 800;
+  font-size: 20px;
+  color: #1e3a1e;
   cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  height: 58px;
 }
 
-.pill {
-  width: 36px;
-  height: 36px;
-  border-radius: 12px;
+/* GRADIENTES DE FUNDO DO FIGMA */
+.cat-feminino {
+  background: linear-gradient(90deg, #369374 0%, #FC78E1 100%);
+}
+
+.cat-masculino {
+  background: linear-gradient(90deg, #369374 0%, #505BFA 100%);
+}
+
+.cat-calcados {
+  background: linear-gradient(90deg, #369374 0%, #4BA334 100%);
+}
+
+.cat-infantil {
+  background: linear-gradient(90deg, #369374 0%, #FC78E1 50%, #505BFA 100%);
+}
+
+/* CÍRCULO BRANCO PARA O ÍCONE/IMAGEM */
+.icon-circle {
+  width: 44px;
+  height: 44px;
+  background-color: #ffffff;
+  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 16px;
-  color: #444;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
-.pill-pink { background: linear-gradient(135deg, #fbcfe8, #f472b6); }
-.pill-blue { background: linear-gradient(135deg, #bae6fd, #38bdf8); }
-.pill-yellow { background: linear-gradient(135deg, #fef08a, #facc15); }
-.pill-purple { background: linear-gradient(135deg, #ddd6fe, #a78bfa); }
+/* AJUSTE AUTOMÁTICO DA SUA IMAGEM */
+.icon-circle img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}

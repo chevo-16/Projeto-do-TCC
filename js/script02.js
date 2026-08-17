@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const bottomBanners = [
     { img: 'images/tenis2.png', bg: 'linear-gradient(90deg, #369374 0%, #4ade80 100%)' },
-    { img: 'images/roupa2.png', bg: 'linear-gradient(90deg, #369374 0%, #FC78E1 50%, #38bdf8 100%)' }
+    { img: 'images/infantil2.png', bg: 'linear-gradient(90deg, #369374 0%, #FC78E1 50%, #38bdf8 100%)' }
   ];
 
   let currentIdx = 0;
