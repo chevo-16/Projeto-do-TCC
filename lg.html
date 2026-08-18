@@ -3,55 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lojas Buenão - Coleção Inverno 2026</title>
+    <title>Lojas Buenão - Coleção Verão</title>
+    <meta name="description" content="Descubra a Nova Coleção de Verão das Lojas Buenão. Looks exclusivos com frete grátis e parcelamento em até 6x sem juros.">
+    <meta property="og:title" content="Lojas Buenão - Coleção Verão">
+    <meta property="og:description" content="Acesse a coleção completa de verão e garanta seus looks.">
+    
+    <!-- Fonte Montserrat Importada -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="lg.css">
 </head>
 <body>
 
-    <!-- Caixa Branca Principal (Landing Page) -->
-    <div class="landing-container">
-        
-        <!-- Topo da Página com a Imagem Oficial da Logo -->
-        <header class="navbar">
-            <img src="images/logo.png" alt="Lojas Buenão" class="logo-img">
-        </header>
+    <!-- Cabeçalho com Logo e Botões Separados -->
+    <header class="navbar">
+        <img src="images/logo.png" alt="Logotipo das Lojas Buenão" class="logo-img" width="180" height="50">
+        <div class="header-buttons">
+            <a href="game/index01.html" class="btn-secondary">Entrar</a>
+            <a href="game/index01.html" class="btn-secondary btn-register">Cadastrar</a>
+        </div>
+    </header>
 
-        <!-- Seção Principal (Hero) -->
+    <main>
+        <!-- Seção do Banner das Modelos (Caminho Local Restaurado) -->
+        <section class="banner-colecao-container">
+            <div class="banner-principal-modelos">
+                <img src="images/nova coleção.png" alt="Modelos da Nova Coleção de Verão" class="imagem-modelos-banner">
+                <div class="texto-sobreposto-banner">
+                    <h2>NOVA COLEÇÃO <span class="sub-ano">de Verão</span></h2>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Hero -->
         <section class="hero">
             <h1>Crie experiências de compra que convertem <span>sem complicação</span></h1>
-            <p class="subtitulo">Apresente a Nova Coleção de Inverno 2026 de forma visual, objetiva e com foco total em fechar vendas.</p>
+            <p class="subtitulo">Apresente a Nova Coleção de Verão de forma visual, objetiva e com foco total em fechar vendas.</p>
             <a href="game/index01.html" class="btn-primary">Acessar Coleção Agora</a>
         </section>
 
-        <!-- SEÇÃO: Vitrine Diagonal com Apenas Uma Palavra Gigante Inclinada -->
+        <!-- Vitrine de Destaques -->
         <section class="vitrine-imagens">
             <h2>Destaques da Coleção</h2>
             <div class="grid-imagens">
                 
-                <!-- Card de Roupas (Vestido na Diagonal e Fosco) -->
-                <div class="card-foto">
+                <article class="card-foto">
                     <div class="wrapper-foto">
                         <div class="moldura-diagonal">
-                            <img src="images/vestido.png" alt="Vestido" class="foto-produto-diagonal vestido-fosco">
+                            <img src="https://unsplash.com" alt="Modelo vestindo look de verão elegante" class="foto-produto-diagonal vestido-fosco" loading="lazy">
                         </div>
-                        <!-- Apenas uma palavra centralizada e gigante -->
-                        <h2 class="texto-sobreposto text-inclinado-esquerdo">ROUPAS</h2>
+                        <h3 class="texto-sobreposto text-inclinado-esquerdo">ROUPAS</h3>
                     </div>
-                </div>
+                </article>
 
-                <!-- Card de Tênis (Tênis na Diagonal e Fosco) -->
-                <div class="card-foto">
+                <article class="card-foto">
                     <div class="wrapper-foto">
                         <div class="moldura-diagonal">
-                            <img src="images/tenis.png" alt="Tênis" class="foto-produto-diagonal tenis-fosco">
+                            <img src="https://unsplash.com" alt="Tênis esportivo moderno de verão" class="foto-produto-diagonal tenis-fosco" loading="lazy">
                         </div>
-                        <!-- Apenas uma palavra centralizada e gigante -->
-                        <h2 class="texto-sobreposto text-inclinado-direito">TÊNIS</h2>
+                        <h3 class="texto-sobreposto text-inclinado-right">TÊNIS</h3>
                     </div>
-                </div>
+                </article>
 
             </div>
         </section>
@@ -61,50 +75,72 @@
             <h2>Por que focar em uma página exclusiva?</h2>
             
             <div class="grid-comparativo">
-                <div class="card-comparativo ruim">
+                <article class="card-comparativo ruim">
                     <h3>Loja Comum</h3>
                     <p class="status-desc">Sua vitrine mostra muitos produtos misturados. O cliente fica confuso com tantas opções de camisetas, tênis e vestidos, busca informações fora e pode abandonar o carrinho.</p>
-                </div>
+                </article>
                 
-                <div class="card-comparativo bom">
+                <article class="card-comparativo bom">
                     <h3>Página Focada</h3>
                     <p class="status-desc">O cliente encontra uma página dedicada ao lançamento. Informações completas do produto, botões visíveis, FAQ integrada e design direto que incentiva a compra imediata.</p>
-                </div>
+                </article>
             </div>
         </section>
 
-        <!-- Seção de Perguntas Frequentes (FAQ) -->
+        <!-- Seção FAQ Funcional -->
         <section class="faq-section">
             <h2>Dúvidas Frequentes</h2>
             
             <div class="faq-container">
                 <div class="faq-item">
-                    <button class="faq-question">Quais as opções de parcelamento? <span>+</span></button>
-                    <div class="faq-answer">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq1-answer">
+                        Quais as opções de parcelamento? 
+                        <span class="faq-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div id="faq1-answer" class="faq-answer" hidden>
                         <p>Você pode parcelar todas as suas compras da Nova Coleção em até 6x sem juros em todos os cartões de crédito.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
-                    <button class="faq-question">Como funciona a política de trocas? <span>+</span></button>
-                    <div class="faq-answer">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq2-answer">
+                        Como funciona a política de trocas? 
+                        <span class="faq-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div id="faq2-answer" class="faq-answer" hidden>
                         <p>A primeira troca das Lojas Buenão é totalmente gratuita! Você tem até 7 dias após o recebimento para solicitar de forma simples.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
-                    <button class="faq-question">Qual o prazo de entrega do frete grátis? <span>+</span></button>
-                    <div class="faq-answer">
-                        <p>O frete grátis promocional para a Coleção de Inverno possui entrega estimada entre 5 e 12 dias úteis, dependendo da sua região.</p>
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq3-answer">
+                        Qual o prazo de entrega do frete grátis? 
+                        <span class="faq-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div id="faq3-answer" class="faq-answer" hidden>
+                        <p>O frete grátis promocional para a Coleção de Verão possui entrega estimada entre 5 e 12 dias úteis, dependendo da sua região.</p>
                     </div>
                 </div>
             </div>
         </section>
+    </main>
 
-    </div>
+    <!-- Rodapé Corporativo com Informações de Contato -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>Lojas Buenão</h3>
+                <p>Sua experiência completa em moda digital de alta conversão.</p>
+            </div>
+            <div class="footer-contact">
+                <h4>Atendimento ao Cliente</h4>
+                <p>📧 E-mail: contato@lojasbuenao.com.br</p>
+                <p>📞 Telefone: (11) 4004-8899</p>
+                <p>💬 WhatsApp: (11) 99999-8888</p>
+            </div>
+        </div>
+    </footer>
 
-    <script src="lg.js"></script>
+    <script src="lg.js" defer></script>
 </body>
 </html>
-
-
