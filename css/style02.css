@@ -12,9 +12,6 @@
   font-style: normal;
 }
 
-/* ==========================================
-   2. ESTILOS GERAIS DA PÁGINA
-   ========================================== */
 * {
   margin: 0;
   padding: 0;
@@ -29,9 +26,6 @@ body {
   padding: 20px;
 }
 
-/* ==========================================
-   3. CABEÇALHO E NAVEGAÇÃO
-   ========================================== */
 .top-section {
   background-color: transparent;
   border-radius: 15px;
@@ -51,6 +45,7 @@ body {
   font-size: 22px;
   line-height: 1.1;
   letter-spacing: 1px;
+  font-family: 'Brygada', serif;
 }
 
 .search-box {
@@ -120,9 +115,6 @@ body {
   margin: 12px 0 20px 0;
 }
 
-/* ==========================================
-   4. BANNERS PRINCIPAIS
-   ========================================== */
 .hero-section {
   display: grid;
   grid-template-columns: 2.2fr 1fr;
@@ -204,9 +196,6 @@ body {
   opacity: 0 !important;
 }
 
-/* ==========================================
-   5. SEÇÃO DE PRODUTOS (7 EM CIMA E 7 EM BAIXO)
-   ========================================== */
 .products-section {
   margin-top: 10px;
 }
@@ -219,7 +208,6 @@ body {
   font-weight: bold;
 }
 
-/* FIXADO EM 7 COLUNAS */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -283,9 +271,6 @@ body {
   margin-top: 1px;
 }
 
-/* ==========================================
-   6. MODAL DE CATEGORIAS
-   ========================================== */
 .overlay {
   position: fixed;
   top: 0;
@@ -298,7 +283,6 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 999;
-  font-family: 'Borel', serif;
 }
 
 .hidden {
@@ -315,7 +299,6 @@ body {
   flex-direction: column;
   gap: 14px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  font-family: 'Borel', cursive;
 }
 
 .close-btn {
@@ -330,20 +313,33 @@ body {
   font-weight: bold;
 }
 
+
 .cat-button {
   border-radius: 18px;
-  padding: 6px 8px 6px 20px;
+  padding: 6px 8px 8px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-weight: 800;
+  font-family: 'Borel', cursive !important;
+  font-weight: 400;
   font-size: 20px;
   color: #1e3a1e;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  border: 1px solid rgba(255, 255, 255, 0.4);
   height: 58px;
-  font-family: 'Borel', serif;
+}
+
+.cat-button p,
+.cat-button span,
+.cat-button h3,
+.cat-button h4 {
+  font-family: 'Borel', cursive !important;
+  font-size: 30px !important;
+  color: #1e3a1e !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  transform: translateY(8px);
 }
 
 .cat-feminino {
