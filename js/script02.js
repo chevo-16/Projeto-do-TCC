@@ -40,13 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const imgBottom = document.getElementById('side-img-2');
 
   const topBanners = [
-    { img: 'images/vestido.png', bg: 'linear-gradient(90deg, #369374 0%, #FC78E1 100%)' },
-    { img: 'images/blusa2.png', bg: 'linear-gradient(90deg, #369374 0%, #0866FF 100%)' }
+    { img: '../images/vestido.png', bg: 'linear-gradient(90deg, #369374 0%, #FC78E1 100%)' },
+    { img: '../images/blusa2.png', bg: 'linear-gradient(90deg, #369374 0%, #0866FF 100%)' }
   ];
 
   const bottomBanners = [
-    { img: 'images/tenis2.png', bg: 'linear-gradient(90deg, #369374 0%, #4ade80 100%)' },
-    { img: 'images/infantil2.png', bg: 'linear-gradient(90deg, #369374 0%, #FC78E1 50%, #38bdf8 100%)' }
+    { img: '../images/tenis2.png', bg: 'linear-gradient(90deg, #369374 0%, #4ade80 100%)' },
+    { img: '../images/infantil2.png', bg: 'linear-gradient(90deg, #369374 0%, #FC78E1 50%, #38bdf8 100%)' }
   ];
 
   let currentIdx = 0;
