@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // ==========================================
+  // LÓGICA DO FAQ (ORIGINAL)
+  // ==========================================
   const faqQuestions = document.querySelectorAll(".faq-question");
 
   faqQuestions.forEach((question) => {
@@ -11,10 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (otherQuestion !== question) {
           otherQuestion.setAttribute("aria-expanded", "false");
           const otherAnswer = document.getElementById(
-            otherQuestion.getAttribute("aria-controls"),
+            otherQuestion.getAttribute("aria-controls")
           );
-          otherAnswer.style.maxHeight = null;
-          otherAnswer.setAttribute("hidden", "");
+          if (otherAnswer) {
+            otherAnswer.style.maxHeight = null;
+            otherAnswer.setAttribute("hidden", "");
+          }
         }
       });
 
@@ -22,11 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!isExpanded) {
         answerElement.removeAttribute("hidden");
-        
         answerElement.style.maxHeight = answerElement.scrollHeight + "px";
       } else {
         answerElement.style.maxHeight = null;
-      
         setTimeout(() => {
           if (question.getAttribute("aria-expanded") === "false") {
             answerElement.setAttribute("hidden", "");
@@ -35,4 +38,30 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  // ==========================================
+  // LÓGICA DAS LOJAS EM CASCAVEL (NOVO)
+  // ==========================================
+  const btnLojas = document.querySelector(".btn-lojas-cascavel");
+  const listaLojas = document.getElementById("lista-lojas-cascavel");
+
+  if (btnLojas && listaLojas) {
+    btnLojas.addEventListener("click", () => {
+      const isExpanded = btnLojas.getAttribute("aria-expanded") === "true";
+
+      btnLojas.setAttribute("aria-expanded", !isExpanded);
+
+      if (!isExpanded) {
+        listaLojas.removeAttribute("hidden");
+        listaLojas.style.maxHeight = listaLojas.scrollHeight + "px";
+      } else {
+        listaLojas.style.maxHeight = null;
+        setTimeout(() => {
+          if (btnLojas.getAttribute("aria-expanded") === "false") {
+            listaLojas.setAttribute("hidden", "");
+          }
+        }, 350);
+      }
+    });
+  }
 });

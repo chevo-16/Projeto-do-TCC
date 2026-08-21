@@ -441,6 +441,91 @@ main {
   font-size: 0.9rem;
 }
 
+/* LOJAS EM CASCAVEL (RODAPÉ EXPANSÍVEL) */
+.container-lojas-footer {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.btn-lojas-cascavel {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(50, 205, 50, 0.2);
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-white);
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-lojas-cascavel:hover {
+  border-color: var(--primary-green);
+  background: rgba(50, 205, 50, 0.05);
+}
+
+.btn-lojas-cascavel .icone-toggle {
+  font-size: 1.2rem;
+  color: var(--accent-yellow);
+  transition: transform 0.3s ease;
+}
+
+.btn-lojas-cascavel[aria-expanded="true"] .icone-toggle {
+  transform: rotate(45deg);
+}
+
+.conteudo-lojas {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  background: rgba(10, 20, 15, 0.5);
+  border-radius: 0 0 12px 12px;
+  padding: 0 18px;
+}
+
+.conteudo-lojas:not([hidden]) {
+  padding: 15px 18px;
+  border: 1px solid rgba(50, 205, 50, 0.1);
+  border-top: none;
+}
+
+.item-loja {
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 8px;
+}
+
+.item-loja:last-of-type {
+  border-bottom: none;
+  margin-bottom: 5px;
+}
+
+.item-loja strong {
+  color: var(--primary-green);
+  font-size: 0.9rem;
+  display: block;
+}
+
+.item-loja p {
+  color: var(--text-gray);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.cidade-uf {
+  font-size: 0.75rem;
+  color: var(--accent-yellow);
+  font-weight: 700;
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+
 /* --- REGRAS PARA TELAS MAIORES (TABLETS E COMPUTADORES) --- */
 @media (min-width: 768px) {
   main {
