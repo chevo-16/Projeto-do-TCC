@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // ==========================================
-  // LÓGICA DO FAQ (ORIGINAL)
-  // ==========================================
+
   const faqQuestions = document.querySelectorAll(".faq-question");
 
   faqQuestions.forEach((question) => {
@@ -39,9 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ==========================================
-  // LÓGICA DAS LOJAS EM CASCAVEL (NOVO)
-  // ==========================================
   const btnLojas = document.querySelector(".btn-lojas-cascavel");
   const listaLojas = document.getElementById("lista-lojas-cascavel");
 
