@@ -90,7 +90,7 @@ main {
   border: none;
 }
 
-/* BANNER RESPONSIVO (AJUSTADO PARA O CELULAR) */
+/* BANNER RESPONSIVO */
 .banner-colecao-container {
   width: 100%;
   margin-top: 20px;
@@ -99,15 +99,12 @@ main {
 .banner-principal-modelos {
   position: relative;
   width: 100%;
-  height: auto;
-  min-height: 280px;
+  height: 380px; /* Altura ideal para exibir as modelos por inteiro */
   border-radius: 16px;
   overflow: hidden;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px 10px;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(50, 205, 50, 0.15);
 }
@@ -124,29 +121,29 @@ main {
 }
 
 .imagem-modelos-banner {
-  position: relative;
-  width: 100%;
-  max-width: 220px;
-  height: auto;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%); /* Centraliza perfeitamente no meio */
+  height: 100%; /* Vai do topo até a base */
+  width: auto;
   object-fit: contain;
-  left: auto;
-  bottom: auto;
   z-index: 2;
   filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.7));
-  margin-bottom: 10px;
 }
 
 .texto-sobreposto-banner {
-  position: relative;
-  right: auto;
-  left: auto;
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
   z-index: 3;
   text-align: center;
-  width: 100%;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
 }
 
 .texto-sobreposto-banner h2 {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 900;
   line-height: 1.1;
 }
@@ -474,25 +471,27 @@ main {
   /* Restaura a estrutura do banner original no PC */
   .banner-principal-modelos {
     height: 500px;
-    flex-direction: row;
     padding: 0;
   }
 
   .imagem-modelos-banner {
     position: absolute;
     left: 5%;
+    transform: none;
     bottom: 0;
+    top: auto;
     max-width: none;
     height: 100%;
-    margin-bottom: 0;
   }
 
   .texto-sobreposto-banner {
     position: absolute;
     left: 55%;
+    bottom: auto;
     right: auto;
     text-align: left;
     width: auto;
+    text-shadow: none;
   }
 
   .texto-sobreposto-banner h2 {
