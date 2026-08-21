@@ -38,7 +38,6 @@ main {
   padding: 0 16px;
 }
 
-/* NAVBAR RESPONSIVA */
 .navbar {
   padding: 12px 16px;
   display: flex;
@@ -123,8 +122,8 @@ main {
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translateX(-50%);
-  height: 100%;
+  transform: translateX(-50%); 
+  height: 100%; 
   width: auto;
   object-fit: contain;
   z-index: 2;
@@ -298,6 +297,7 @@ main {
 .text-inclinado-esquerdo { transform: rotate(-6deg); }
 .text-inclinado-right { transform: rotate(6deg); }
 
+/* PILARES */
 .pilares-estilo {
   padding: 50px 0;
   text-align: center;
@@ -345,7 +345,6 @@ main {
   font-size: 0.95rem;
 }
 
-/* FAQ */
 .faq-section {
   padding: 40px 0 80px 0;
 }
@@ -437,15 +436,15 @@ main {
 }
 
 .container-lojas-footer {
-  margin-top: 20px;
+  margin-top: 25px;
   width: 100%;
   max-width: 400px;
 }
 
 .btn-lojas-cascavel {
   width: 100%;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(50, 205, 50, 0.2);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(50, 205, 50, 0.25);
   border-radius: 12px;
   padding: 14px 18px;
   display: flex;
@@ -459,13 +458,14 @@ main {
   transition: var(--transition);
 }
 
-.btn-lojas-cascavel:hover {
+.btn-lojas-cascavel:hover, 
+.btn-lojas-cascavel:active {
   border-color: var(--primary-green);
-  background: rgba(50, 205, 50, 0.05);
+  background: rgba(50, 205, 50, 0.08);
 }
 
 .btn-lojas-cascavel .icone-toggle {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: var(--accent-yellow);
   transition: transform 0.3s ease;
 }
@@ -478,20 +478,29 @@ main {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  background: rgba(10, 20, 15, 0.5);
+  background: rgba(10, 20, 15, 0.85);
   border-radius: 0 0 12px 12px;
-  padding: 0 18px;
 }
 
 .conteudo-lojas:not([hidden]) {
   padding: 15px 18px;
-  border: 1px solid rgba(50, 205, 50, 0.1);
+  border: 1px solid rgba(50, 205, 50, 0.15);
   border-top: none;
+  max-height: 280px; 
+  overflow-y: auto;
+}
+
+.conteudo-lojas::-webkit-scrollbar {
+  width: 4px;
+}
+.conteudo-lojas::-webkit-scrollbar-thumb {
+  background: var(--primary-green);
+  border-radius: 10px;
 }
 
 .item-loja {
   margin-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   padding-bottom: 8px;
 }
 
@@ -515,9 +524,10 @@ main {
 .cidade-uf {
   font-size: 0.75rem;
   color: var(--accent-yellow);
-  font-weight: 700;
-  margin-top: 8px;
+  font-weight: 800;
+  margin-top: 10px;
   text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 @media (min-width: 768px) {
@@ -713,4 +723,7 @@ main {
     flex-direction: row;
     justify-content: space-between;
   }
+
+  .conteudo-lojas:not([hidden]) {
+    max-height: 380px; 
 }
