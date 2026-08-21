@@ -726,4 +726,5 @@ main {
 
   .conteudo-lojas:not([hidden]) {
     max-height: 380px; 
+  }
 }
