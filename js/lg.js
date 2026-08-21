@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!isExpanded) {
         answerElement.removeAttribute("hidden");
-       
+        
         answerElement.style.maxHeight = answerElement.scrollHeight + "px";
       } else {
         answerElement.style.maxHeight = null;
