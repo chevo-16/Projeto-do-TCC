@@ -1,35 +1,35 @@
-<!doctype html>
+<!-- <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Buenão - Cadastro</title>
-    <link rel="stylesheet" href="../css/Cadastro.css" />
-  </head>
-  <body>
-    <div class="screen">
-      <div class="login-card">
-        <img src="../images/logo.png" alt="Logo Buenão" class="logo-login" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buenão - Cadastro</title>
+  
+  <link rel="stylesheet" href="../css/Cadastro.css">
+</head>
+<body>
 
-        <form class="login-form" id="form-cadastro">
-          <input type="text" placeholder="Nome Completo" required />
-          <input type="email" placeholder="E-mail" required />
-          <input type="password" placeholder="Senha" required />
-          <input type="password" placeholder="Confirmar Senha" required />
+  <div class="screen">
+    <div class="login-card">
+      <img src="../images/logo.png" alt="Logo Buenão" class="logo-login">
+      
+      <form class="login-form" id="form-cadastro" onsubmit="validarCadastro(event)">
+        <input type="text" id="cad-nome" placeholder="Nome Completo" required>
+        <input type="email" id="cad-email" placeholder="E-mail" required>
+        <input type="password" id="cad-senha" placeholder="Senha" required>
+        <input type="password" id="cad-confirmar-senha" placeholder="Confirmar Senha" required>
+        
+        <button type="submit" class="btn-entrar">Cadastrar</button>
+      </form>
 
-          <button type="submit" class="btn-entrar">Cadastrar</button>
-        </form>
+      <p id="msg-erro" style="color: #ffdddd; font-size: 13px; margin-top: 10px; display: none; text-align: center;"></p>
 
-        <button
-          type="button"
-          class="btn-cadastrar-link"
-          onclick="voltarParaLogin()"
-        >
-          Já tem uma conta? Entrar
-        </button>
-      </div>
+      <button type="button" class="btn-cadastrar-link" onclick="window.location.href='index01.html'">
+        Já tem uma conta? Entrar
+      </button>
     </div>
+  </div>
 
-    <script src="../js/Cadastro.js"></script>
-  </body>
-</html>
+  <script src="../js/Cadastro.js"></script>
+</body>
+</html> -->
