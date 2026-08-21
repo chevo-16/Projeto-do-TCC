@@ -1,26 +1,40 @@
+/* ==========================================================================
+   LOGICA JAVASCRIPT: ACORDEÃO DE FAQ SEGURO E ACESSÍVEL
+   ========================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
     const faqQuestions = document.querySelectorAll('.faq-question');
 
     faqQuestions.forEach(question => {
         question.addEventListener('click', () => {
-            const currentItem = question.closest('.faq-item');
-            
-            document.querySelectorAll('.faq-item').forEach(item => {
-                if (item !== currentItem) {
-                    item.classList.remove('open');
-                    item.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
-                    item.querySelector('.faq-answer').setAttribute('hidden', '');
+            const answerId = question.getAttribute('aria-controls');
+            const answerElement = document.getElementById(answerId);
+            const isExpanded = question.getAttribute('aria-expanded') === 'true';
+
+            // Fecha outros painéis que possam estar abertos (opcional para efeito solo)
+            faqQuestions.forEach(otherQuestion => {
+                if (otherQuestion !== question) {
+                    otherQuestion.setAttribute('aria-expanded', 'false');
+                    const otherAnswer = document.getElementById(otherQuestion.getAttribute('aria-controls'));
+                    otherAnswer.style.maxHeight = null;
+                    otherAnswer.setAttribute('hidden', '');
                 }
             });
 
-            const isOpen = currentItem.classList.toggle('open');
-            question.setAttribute('aria-expanded', isOpen);
-            
-            const answer = currentItem.querySelector('.faq-answer');
-            if (isOpen) {
-                answer.removeAttribute('hidden');
+            // Altera o estado de expansão atual
+            question.setAttribute('aria-expanded', !isExpanded);
+
+            if (!isExpanded) {
+                answerElement.removeAttribute('hidden');
+                // Define a altura máxima dinamicamente baseado no tamanho do texto interno
+                answerElement.style.maxHeight = answerElement.scrollHeight + 'px';
             } else {
-                answer.setAttribute('hidden', '');
+                answerElement.style.maxHeight = null;
+                // Aguarda o término da animação CSS para ocultar completamente do leitor de tela
+                setTimeout(() => {
+                    if (question.getAttribute('aria-expanded') === 'false') {
+                        answerElement.setAttribute('hidden', '');
+                    }
+                }, 350);
             }
         });
     });
