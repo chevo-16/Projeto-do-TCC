@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
   background-color: var(--bg-color);
   margin: 0;
@@ -20,7 +20,7 @@ body {
   background-color: var(--green-main);
   color: white;
   padding: 20px 10px 10px 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .logo-area .logo {
@@ -72,7 +72,9 @@ body {
   color: white;
   border: none;
   border-radius: 6px;
-  transition: transform 0.2s, background-color 0.2s;
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
 }
 
 .controls button:hover {
@@ -85,7 +87,7 @@ body {
   background: white;
   padding: 15px;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   border: 2px solid var(--green-light);
 }
 
@@ -99,7 +101,8 @@ body {
   border-radius: 8px;
 }
 
-#mine-count, #timer {
+#mine-count,
+#timer {
   background: #222;
   color: var(--accent-gold);
   font-size: 22px;
@@ -118,7 +121,7 @@ body {
   background: white;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .grid {
@@ -140,7 +143,7 @@ body {
   font-weight: bold;
   cursor: pointer;
   user-select: none;
-  box-shadow: inset -1px -1px 2px rgba(0,0,0,0.1);
+  box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .cell:hover {
@@ -157,19 +160,27 @@ body {
   font-size: 16px;
 }
 
-.cell.mine { 
-  background: #ffebee; 
+.cell.mine {
+  background: #ffebee;
 }
 
-.cell.mine::after { 
-  content: "💥"; 
-  font-size: 18px; 
+.cell.mine::after {
+  content: "💥";
+  font-size: 18px;
 }
 
-.num1 { color: #1976d2; }
-.num2 { color: #388e3c; }
-.num3 { color: #d32f2f; }
-.num4 { color: #7b1fa2; }
+.num1 {
+  color: #1976d2;
+}
+.num2 {
+  color: #388e3c;
+}
+.num3 {
+  color: #d32f2f;
+}
+.num4 {
+  color: #7b1fa2;
+}
 
 .discount-banner {
   margin-top: 20px;
@@ -225,7 +236,9 @@ body {
   border-radius: 6px;
   cursor: pointer;
   margin-top: 10px;
-  transition: background-color 0.2s, transform 0.2s;
+  transition:
+    background-color 0.2s,
+    transform 0.2s;
 }
 
 .retry-btn:hover {
@@ -234,6 +247,12 @@ body {
 }
 
 @keyframes popIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

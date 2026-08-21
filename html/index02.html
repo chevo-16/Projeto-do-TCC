@@ -1,152 +1,230 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lojas Buenão - Principal</title>
-  <link rel="stylesheet" href="../css/style02.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lojas Buenão - Principal</title>
+    <link rel="stylesheet" href="../css/style02.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">LOJAS<br />&nbsp;BUENÃO</div>
 
-  <header class="header">
-    <div class="logo">
-      LOJAS<br>&nbsp;BUENÃO
+      <div class="search-box">
+        <input type="text" placeholder="Pesquisar..." />
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+
+      <div class="header-icons">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <i class="fa-solid fa-house"></i>
+        <i class="fa-solid fa-heart"></i>
+        <i class="fa-solid fa-user"></i>
+      </div>
+    </header>
+
+    <div class="nav-container">
+      <button id="btn-open-cat" type="button" class="btn-categorias">
+        Categorias
+      </button>
     </div>
 
-    <div class="search-box">
-      <input type="text" placeholder="Pesquisar...">
-      <i class="fa-solid fa-magnifying-glass"></i>
-    </div>
+    <div class="divider"></div>
 
-    <div class="header-icons">
-      <i class="fa-solid fa-bag-shopping"></i>
-      <i class="fa-solid fa-house"></i>
-      <i class="fa-solid fa-heart"></i>
-      <i class="fa-solid fa-user"></i>
-    </div>
-  </header>
-
-  <div class="nav-container">
-    <button id="btn-open-cat" type="button" class="btn-categorias">Categorias</button>
-  </div>
-
-  <div class="divider"></div>
-
-  <section class="hero-section">
-    <div class="main-banner">
-      <h2>NOVA COLEÇÃO<br>de Inverno 2026</h2>
-      <img src="../images/nova coleção.png" alt="Modelos Inverno" class="banner-img">
-    </div>
-
-    <div class="side-banners">
-      <div id="card-top" class="side-card pink-card">
-        <img id="side-img-1" src="../images/destaque-rosa.png" alt="Destaque Superior">
-      </div>
-      <div id="card-bottom" class="side-card green-card">
-        <img id="side-img-2" src="../images/destaque-verde.png" alt="Destaque Inferior">
-      </div>
-    </div>
-  </section>
-
-  <section class="products-section">
-    <h3 class="section-title">Mais Vendidos</h3>
-
-    <div class="product-grid">
-      <div class="product-card">
-        <div class="img-container"><img src="../images/vestido.png" alt="Vestido"></div>
-        <div class="product-info"><span class="p-title">Vestido</span><span class="p-price">R$150</span></div>
-      </div>
-      <div class="product-card">
-        <div class="img-container"><img src="../images/tenis.png" alt="Tênis"></div>
-        <div class="product-info"><span class="p-title">Tênis</span><span class="p-price">R$200</span></div>
-      </div>
-      <div class="product-card">
-        <div class="img-container"><img src="../images/saia.png" alt="Saia"></div>
-        <div class="product-info"><span class="p-title">Saia</span><span class="p-price">R$80</span></div>
-      </div>
-      <div class="product-card">
-        <div class="img-container"><img src="../images/camiseta.png" alt="Camiseta"></div>
-        <div class="product-info"><span class="p-title">Camiseta</span><span class="p-price">R$100</span></div>
-      </div>
-      <div class="product-card">
-        <div class="img-container"><img src="../images/jaqueta2.png" alt="Jaqueta"></div>
-        <div class="product-info"><span class="p-title">Jaqueta</span><span class="p-price">R$150</span></div>
-      </div>
-      <div class="product-card">
-        <div class="img-container"><img src="../images/jaqueta1.png" alt="Jaqueta"></div>
-        <div class="product-info"><span class="p-title">Jaqueta</span><span class="p-price">R$150</span></div>
-      </div>
-      <div class="product-card">
-        <div class="img-container"><img src="../images/calça.png" alt="Calça"></div>
-        <div class="product-info"><span class="p-title">Calça</span><span class="p-price">R$150</span></div>
+    <section class="hero-section">
+      <div class="main-banner">
+        <h2>NOVA COLEÇÃO<br />de Inverno 2026</h2>
+        <img
+          src="../images/nova coleção.png"
+          alt="Modelos Inverno"
+          class="banner-img"
+        />
       </div>
 
-      <div class="product-card">
-        <div class="img-container"><img src="../images/tenis2.png" alt="Tênis"></div>
-        <div class="product-info"><span class="p-title">Tênis</span><span class="p-price">R$200</span></div>
-      </div>
-      <div class="product-card">
-        <div class="img-container"><img src="../images/vestido2.png" alt="Vestido"></div>
-        <div class="product-info"><span class="p-title">Vestido</span><span class="p-price">R$150</span></div>
-      </div>
-      <div class="product-card">
-        <div class="img-container"><img src="../images/camiseta2.png" alt="Camiseta"></div>
-        <div class="product-info"><span class="p-title">Camiseta</span><span class="p-price">R$100</span></div>
-      </div>
-      <div class="product-card">
-        <div class="img-container"><img src="../images/tenis2.png" alt="Tênis"></div>
-        <div class="product-info"><span class="p-title">Tênis</span><span class="p-price">R$200</span></div>
-      </div>
-      <div class="product-card">
-        <div class="img-container"><img src="../images/blusa.png" alt="Blusa"></div>
-        <div class="product-info"><span class="p-title">Blusa</span><span class="p-price">R$150</span></div>
-      </div>
-      <div class="product-card">
-        <div class="img-container"><img src="../images/blusa2.png" alt="Blusa"></div>
-        <div class="product-info"><span class="p-title">Blusa</span><span class="p-price">R$150</span></div>
-      </div>
-      <div class="product-card">
-        <div class="img-container"><img src="../images/calca2.png" alt="Calça"></div>
-        <div class="product-info"><span class="p-title">Calça</span><span class="p-price">R$180</span></div>
-      </div>
-    </div>
-  </section>
-
-  <div id="modal-categorias" class="overlay hidden">
-    <div class="modal-card">
-      <button id="btn-close-cat" type="button" class="close-btn">&times;</button>
-
-      <div class="cat-button cat-feminino" data-categoria="feminino">
-        <span>Feminino</span>
-        <div class="icon-circle">
-          <img src="../images/roupa-feminina.png" alt="Feminino">
+      <div class="side-banners">
+        <div id="card-top" class="side-card pink-card">
+          <img
+            id="side-img-1"
+            src="../images/destaque-rosa.png"
+            alt="Destaque Superior"
+          />
+        </div>
+        <div id="card-bottom" class="side-card green-card">
+          <img
+            id="side-img-2"
+            src="../images/destaque-verde.png"
+            alt="Destaque Inferior"
+          />
         </div>
       </div>
+    </section>
 
-      <div class="cat-button cat-masculino" data-categoria="masculino">
-        <span>Masculino</span>
-        <div class="icon-circle">
-          <img src="../images/roupas-masculinas.png" alt="Masculino">
+    <section class="products-section">
+      <h3 class="section-title">Mais Vendidos</h3>
+
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="img-container">
+            <img src="../images/vestido.png" alt="Vestido" />
+          </div>
+          <div class="product-info">
+            <span class="p-title">Vestido</span
+            ><span class="p-price">R$150</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="img-container">
+            <img src="../images/tenis.png" alt="Tênis" />
+          </div>
+          <div class="product-info">
+            <span class="p-title">Tênis</span><span class="p-price">R$200</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="img-container">
+            <img src="../images/saia.png" alt="Saia" />
+          </div>
+          <div class="product-info">
+            <span class="p-title">Saia</span><span class="p-price">R$80</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="img-container">
+            <img src="../images/camiseta.png" alt="Camiseta" />
+          </div>
+          <div class="product-info">
+            <span class="p-title">Camiseta</span
+            ><span class="p-price">R$100</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="img-container">
+            <img src="../images/jaqueta2.png" alt="Jaqueta" />
+          </div>
+          <div class="product-info">
+            <span class="p-title">Jaqueta</span
+            ><span class="p-price">R$150</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="img-container">
+            <img src="../images/jaqueta1.png" alt="Jaqueta" />
+          </div>
+          <div class="product-info">
+            <span class="p-title">Jaqueta</span
+            ><span class="p-price">R$150</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="img-container">
+            <img src="../images/calça.png" alt="Calça" />
+          </div>
+          <div class="product-info">
+            <span class="p-title">Calça</span><span class="p-price">R$150</span>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="img-container">
+            <img src="../images/tenis2.png" alt="Tênis" />
+          </div>
+          <div class="product-info">
+            <span class="p-title">Tênis</span><span class="p-price">R$200</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="img-container">
+            <img src="../images/vestido2.png" alt="Vestido" />
+          </div>
+          <div class="product-info">
+            <span class="p-title">Vestido</span
+            ><span class="p-price">R$150</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="img-container">
+            <img src="../images/camiseta2.png" alt="Camiseta" />
+          </div>
+          <div class="product-info">
+            <span class="p-title">Camiseta</span
+            ><span class="p-price">R$100</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="img-container">
+            <img src="../images/tenis2.png" alt="Tênis" />
+          </div>
+          <div class="product-info">
+            <span class="p-title">Tênis</span><span class="p-price">R$200</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="img-container">
+            <img src="../images/blusa.png" alt="Blusa" />
+          </div>
+          <div class="product-info">
+            <span class="p-title">Blusa</span><span class="p-price">R$150</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="img-container">
+            <img src="../images/blusa2.png" alt="Blusa" />
+          </div>
+          <div class="product-info">
+            <span class="p-title">Blusa</span><span class="p-price">R$150</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="img-container">
+            <img src="../images/calca2.png" alt="Calça" />
+          </div>
+          <div class="product-info">
+            <span class="p-title">Calça</span><span class="p-price">R$180</span>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="cat-button cat-calcados" data-categoria="calcados">
-        <span>Calçados</span>
-        <div class="icon-circle">
-          <img src="../images/sapato.png" alt="Calçados">
+    <div id="modal-categorias" class="overlay hidden">
+      <div class="modal-card">
+        <button id="btn-close-cat" type="button" class="close-btn">
+          &times;
+        </button>
+
+        <div class="cat-button cat-feminino" data-categoria="feminino">
+          <span>Feminino</span>
+          <div class="icon-circle">
+            <img src="../images/roupa-feminina.png" alt="Feminino" />
+          </div>
         </div>
-      </div>
 
-      <div class="cat-button cat-infantil" data-categoria="infantil">
-        <span>Infantil</span>
-        <div class="icon-circle">
-          <img src="../images/infantil.png" alt="Infantil">
+        <div class="cat-button cat-masculino" data-categoria="masculino">
+          <span>Masculino</span>
+          <div class="icon-circle">
+            <img src="../images/roupas-masculinas.png" alt="Masculino" />
+          </div>
+        </div>
+
+        <div class="cat-button cat-calcados" data-categoria="calcados">
+          <span>Calçados</span>
+          <div class="icon-circle">
+            <img src="../images/sapato.png" alt="Calçados" />
+          </div>
+        </div>
+
+        <div class="cat-button cat-infantil" data-categoria="infantil">
+          <span>Infantil</span>
+          <div class="icon-circle">
+            <img src="../images/infantil.png" alt="Infantil" />
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script src="../js/script02.js"></script>
-</body>
+    <script src="../js/script02.js"></script>
+  </body>
 </html>

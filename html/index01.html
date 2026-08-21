@@ -1,38 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buenão</title>
-  <link rel="stylesheet" href="../css/style01.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buenão - Login</title>
+    <link rel="stylesheet" href="../css/style01.css" />
+  </head>
+  <body>
+    <div id="splash-screen" class="screen">
+      <img src="../images/logo.png" alt="Logo Buenão" class="logo-splash" />
+    </div>
 
-  <div id="splash-screen" class="screen">
-    <img src="../images/logo.png" alt="Logo Buenão" class="logo-splash">
-  </div>
+    <div id="login-screen" class="screen hidden">
+      <div class="login-card">
+        <img src="../images/logo.png" alt="Logo Buenão" class="logo-login" />
 
-  <div id="login-screen" class="screen hidden">
-    <div class="login-card">
-      <img src="../images/logo.png" alt="Logo Buenão" class="logo-login">
-      
-      <form class="login-form">
-        <input type="email" placeholder="E-mail" required>
-        <input type="password" placeholder="Senha" required>
-        <button type="submit" class="btn-entrar" onclick="abrirNovaAba()">Entrar</button>
-      </form>
+        <form
+          class="login-form"
+          onsubmit="
+            event.preventDefault();
+            abrirHTML2();
+          "
+        >
+          <input type="email" placeholder="E-mail" required />
+          <input type="password" placeholder="Senha" required />
+          <button type="submit" class="btn-entrar">Entrar</button>
+        </form>
 
-      <div class="social-buttons">
-        <button type="button" class="btn-social google">
-          <img src="../images/google-icon.svg.png" alt="Google"> Google
-        </button>
-        <button type="button" class="btn-social facebook">
-          <img src="../images/facebook-icon.svg.png" alt="Facebook"> Facebook
+        <div class="social-buttons">
+          <button type="button" class="btn-social google">
+            <img src="../images/google-icon.svg.png" alt="Google" /> Google
+          </button>
+          <button type="button" class="btn-social facebook">
+            <img src="../images/facebook-icon.svg.png" alt="Facebook" />
+            Facebook
+          </button>
+        </div>
+
+        <button
+          type="button"
+          class="btn-cadastrar-link"
+          onclick="irParaCadastro()"
+        >
+          <span class="icone-maleta"></span> Cadastrar-se
         </button>
       </div>
     </div>
-  </div>
 
-  <script src="../js/script01.js"></script>
-</body>
+    <script src="../js/script01.js"></script>
+  </body>
 </html>
