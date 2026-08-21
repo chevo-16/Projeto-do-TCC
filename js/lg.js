@@ -59,4 +59,18 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  const cardsFoto = document.querySelectorAll(".card-foto");
+
+  cardsFoto.forEach((card) => {
+    card.addEventListener("click", function () {
+      if (this.classList.contains("active-touch")) {
+        this.classList.remove("active-touch");
+      } else {
+        cardsFoto.forEach((c) => c.classList.remove("active-touch"));
+        this.classList.add("active-touch");
+      }
+    });
+  });
+
 });

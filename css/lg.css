@@ -227,6 +227,7 @@ main {
   border: 1px solid rgba(50, 205, 50, 0.08);
   transition: var(--transition);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
 }
 
 .wrapper-foto {
@@ -300,16 +301,43 @@ main {
 
 .texto-sobreposto {
   position: absolute;
-  font-size: 3rem;
+  top: 15px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 1.2rem;
   font-weight: 900;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.7);
   pointer-events: none;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
   z-index: 3;
+  transition: var(--transition);
 }
 
-.text-inclinado-esquerdo { transform: rotate(-6deg); }
-.text-inclinado-right { transform: rotate(6deg); }
+.text-inclinado-esquerdo,
+.text-inclinado-right {
+  transform: rotate(0deg);
+}
+
+.card-foto:active,
+.card-foto.active-touch {
+  transform: translateY(-8px);
+  border-color: var(--accent-yellow);
+  box-shadow: 0 20px 40px rgba(50, 205, 50, 0.2);
+}
+
+.card-foto:active .foto-produto-diagonal,
+.card-foto.active-touch .foto-produto-diagonal {
+  transform: scale(1.05) rotate(0deg);
+  opacity: 1;
+}
+
+.card-foto:active .texto-sobreposto,
+.card-foto.active-touch .texto-sobreposto {
+  color: var(--accent-yellow);
+  letter-spacing: 3px;
+}
 
 /* PILARES */
 .pilares-estilo {
@@ -670,7 +698,8 @@ main {
   }
 
   .texto-sobreposto {
-    font-size: 4.8rem;
+    font-size: 1.5rem;
+    top: 20px;
   }
 
   .card-foto:hover {
@@ -686,7 +715,7 @@ main {
 
   .card-foto:hover .texto-sobreposto {
     color: var(--accent-yellow);
-    letter-spacing: 12px;
+    letter-spacing: 5px;
   }
 
   .pilares-estilo {
