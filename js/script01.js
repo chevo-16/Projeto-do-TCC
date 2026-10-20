@@ -1,5 +1,17 @@
 import { auth, googleProvider } from './firebase-config.js';
-import { signInWithEmailAndPassword, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { 
+  signInWithEmailAndPassword, 
+  signInWithPopup, 
+  onAuthStateChanged 
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+// VERIFICAÇÃO AUTOMÁTICA DE LOGADO
+// Se já estiver logado (Google, E-mail, etc.), entra direto no catálogo
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    window.location.href = "index02.html";
+  }
+});
 
 // Função para esconder a splash screen e exibir a tela de login
 function iniciarTela() {

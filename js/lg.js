@@ -1,5 +1,51 @@
+import { auth } from './firebase-config.js';
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
 document.addEventListener("DOMContentLoaded", () => {
 
+  // --- CONTROLE DE AUTENTICAÇÃO / SESSÃO DA LANDING PAGE ---
+  const authDeslogado = document.getElementById("auth-deslogado");
+  const authLogado = document.getElementById("auth-logado");
+  const userPhoto = document.getElementById("user-photo");
+  const userName = document.getElementById("user-name");
+  const btnLogout = document.getElementById("btn-logout");
+
+  // Escuta o estado do usuário (detecta se a conta está salva)
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // Se estiver logado
+      if (authDeslogado) authDeslogado.classList.add("hidden");
+      if (authLogado) authLogado.classList.remove("hidden");
+
+      // Atualiza foto e nome do perfil
+      if (userPhoto) {
+        userPhoto.src = user.photoURL || "../images/default-avatar.png";
+      }
+
+      if (userName) {
+        const primeiroNome = user.displayName ? user.displayName.split(" ")[0] : "Conta";
+        userName.textContent = primeiroNome;
+      }
+    } else {
+      // Se estiver deslogado
+      if (authDeslogado) authDeslogado.classList.remove("hidden");
+      if (authLogado) authLogado.classList.add("hidden");
+    }
+  });
+
+  // Botão de Sair da conta
+  if (btnLogout) {
+    btnLogout.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+        window.location.reload();
+      } catch (error) {
+        console.error("Erro ao encerrar sessão:", error);
+      }
+    });
+  }
+
+  // --- ACORDION FAQ ---
   const faqQuestions = document.querySelectorAll(".faq-question");
 
   faqQuestions.forEach((question) => {
@@ -37,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // --- LISTA EXPANSÍVEL DE LOJAS (CASCAVEL) ---
   const btnLojas = document.querySelector(".btn-lojas-cascavel");
   const listaLojas = document.getElementById("lista-lojas-cascavel");
 
@@ -60,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // --- INTERAÇÃO TOUCH NOS CARDS DE FOTO ---
   const cardsFoto = document.querySelectorAll(".card-foto");
 
   cardsFoto.forEach((card) => {
@@ -72,4 +120,5 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
 });

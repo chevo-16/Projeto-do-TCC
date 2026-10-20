@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lojas Buenão - Meus Favoritos</title>
+    <link rel="stylesheet" href="../css/favoritos.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">LOJAS<br />&nbsp;BUENÃO</div>
+
+      <div class="search-box">
+        <input type="text" placeholder="Pesquisar favoritos..." />
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+
+      <div class="header-icons">
+        <i class="fa-solid fa-bag-shopping" title="Carrinho" id="icon-carrinho"></i>
+        <i class="fa-solid fa-house" title="Início" onclick="window.location.href='index02.html'"></i>
+        <i class="fa-solid fa-heart active-icon" title="Favoritos" onclick="window.location.href='favoritos.html'"></i>
+        <i class="fa-solid fa-gamepad" title="Desafio Buenão" onclick="window.location.href='game.html'"></i>
+        <i class="fa-solid fa-user" title="Perfil" id="icon-perfil"></i>
+      </div>
+    </header>
+
+    <div class="divider"></div>
+
+    <section class="products-section">
+      <h3 class="section-title">Meus Favoritos ❤️</h3>
+
+      <!-- Mensagem quando não houver favoritos -->
+      <div id="empty-state" class="empty-state hidden">
+        <i class="fa-regular fa-heart"></i>
+        <p>Você ainda não favoritou nenhum produto.</p>
+        <a href="index02.html" class="btn-voltar">Explorar Produtos</a>
+      </div>
+
+      <!-- Grid de Favoritos (preenchida dinamicamente via JS) -->
+      <div id="favoritos-grid" class="product-grid"></div>
+    </section>
+
+    <script type="module" src="../js/favoritos.js"></script>
+  </body>
+</html>

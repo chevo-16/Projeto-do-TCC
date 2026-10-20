@@ -18,14 +18,13 @@
         <input type="text" placeholder="Pesquisar..." />
         <i class="fa-solid fa-magnifying-glass"></i>
       </div>
-
-      <div class="header-icons">
-        <i class="fa-solid fa-bag-shopping" title="Carrinho" id="icon-carrinho"></i>
-        <i class="fa-solid fa-house" title="Início" onclick="window.location.href='index02.html'"></i>
-        <i class="fa-solid fa-heart" title="Favoritos" id="icon-favoritos"></i>
-        <i class="fa-solid fa-gamepad" title="Desafio Buenão" onclick="window.location.href='game.html'"></i>
-        <i class="fa-solid fa-user" title="Perfil" id="icon-perfil"></i>
-      </div>
+<div class="header-icons">
+  <i class="fa-solid fa-bag-shopping" title="Carrinho" id="icon-carrinho" onclick="window.location.href='carrinho.html'"></i>
+  <i class="fa-solid fa-house" title="Início" onclick="window.location.href='index02.html'"></i>
+  <i class="fa-solid fa-heart" title="Favoritos" id="icon-favoritos" onclick="window.location.href='favoritos.html'"></i>
+  <i class="fa-solid fa-gamepad" title="Desafio Buenão" onclick="window.location.href='game.html'"></i>
+  <i class="fa-solid fa-user" title="Perfil" id="icon-perfil" onclick="window.location.href='perfil.html'"></i>
+</div>
     </header>
 
     <div class="nav-container">
@@ -68,6 +67,7 @@
       <h3 class="section-title">Mais Vendidos</h3>
 
       <div class="product-grid">
+        <!-- Produto 1 -->
         <div class="product-card" data-id="p1" data-nome="Vestido" data-preco="150" data-img="../images/vestido.png">
           <div class="img-container">
             <img src="../images/vestido.png" alt="Vestido" />
@@ -76,11 +76,12 @@
             <span class="p-title">Vestido</span><span class="p-price">R$150</span>
           </div>
           <div class="card-actions">
-            <button type="button" class="btn-fav" onclick="alternarFavorito('p1', 'Vestido', 150, '../images/vestido.png')"><i class="fa-regular fa-heart"></i></button>
-            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p1', 'Vestido', 150, '../images/vestido.png')"><i class="fa-solid fa-cart-shopping"></i></button>
+            <button type="button" class="btn-fav" onclick="alternarFavorito('p1', 'Vestido', 150, '../images/vestido.png', this)"><i class="fa-regular fa-heart"></i></button>
+            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p1', 'Vestido', 150, '../images/vestido.png', this)"><i class="fa-solid fa-cart-shopping"></i></button>
           </div>
         </div>
 
+        <!-- Produto 2 -->
         <div class="product-card" data-id="p2" data-nome="Tênis" data-preco="200" data-img="../images/tenis.png">
           <div class="img-container">
             <img src="../images/tenis.png" alt="Tênis" />
@@ -89,11 +90,12 @@
             <span class="p-title">Tênis</span><span class="p-price">R$200</span>
           </div>
           <div class="card-actions">
-            <button type="button" class="btn-fav" onclick="alternarFavorito('p2', 'Tênis', 200, '../images/tenis.png')"><i class="fa-regular fa-heart"></i></button>
-            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p2', 'Tênis', 200, '../images/tenis.png')"><i class="fa-solid fa-cart-shopping"></i></button>
+            <button type="button" class="btn-fav" onclick="alternarFavorito('p2', 'Tênis', 200, '../images/tenis.png', this)"><i class="fa-regular fa-heart"></i></button>
+            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p2', 'Tênis', 200, '../images/tenis.png', this)"><i class="fa-solid fa-cart-shopping"></i></button>
           </div>
         </div>
 
+        <!-- Produto 3 -->
         <div class="product-card" data-id="p3" data-nome="Saia" data-preco="80" data-img="../images/saia.png">
           <div class="img-container">
             <img src="../images/saia.png" alt="Saia" />
@@ -102,11 +104,12 @@
             <span class="p-title">Saia</span><span class="p-price">R$80</span>
           </div>
           <div class="card-actions">
-            <button type="button" class="btn-fav" onclick="alternarFavorito('p3', 'Saia', 80, '../images/saia.png')"><i class="fa-regular fa-heart"></i></button>
-            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p3', 'Saia', 80, '../images/saia.png')"><i class="fa-solid fa-cart-shopping"></i></button>
+            <button type="button" class="btn-fav" onclick="alternarFavorito('p3', 'Saia', 80, '../images/saia.png', this)"><i class="fa-regular fa-heart"></i></button>
+            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p3', 'Saia', 80, '../images/saia.png', this)"><i class="fa-solid fa-cart-shopping"></i></button>
           </div>
         </div>
 
+        <!-- Produto 4 -->
         <div class="product-card" data-id="p4" data-nome="Camiseta" data-preco="100" data-img="../images/camiseta.png">
           <div class="img-container">
             <img src="../images/camiseta.png" alt="Camiseta" />
@@ -115,11 +118,12 @@
             <span class="p-title">Camiseta</span><span class="p-price">R$100</span>
           </div>
           <div class="card-actions">
-            <button type="button" class="btn-fav" onclick="alternarFavorito('p4', 'Camiseta', 100, '../images/camiseta.png')"><i class="fa-regular fa-heart"></i></button>
-            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p4', 'Camiseta', 100, '../images/camiseta.png')"><i class="fa-solid fa-cart-shopping"></i></button>
+            <button type="button" class="btn-fav" onclick="alternarFavorito('p4', 'Camiseta', 100, '../images/camiseta.png', this)"><i class="fa-regular fa-heart"></i></button>
+            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p4', 'Camiseta', 100, '../images/camiseta.png', this)"><i class="fa-solid fa-cart-shopping"></i></button>
           </div>
         </div>
 
+        <!-- Produto 5 -->
         <div class="product-card" data-id="p5" data-nome="Jaqueta" data-preco="150" data-img="../images/jaqueta2.png">
           <div class="img-container">
             <img src="../images/jaqueta2.png" alt="Jaqueta" />
@@ -128,11 +132,12 @@
             <span class="p-title">Jaqueta</span><span class="p-price">R$150</span>
           </div>
           <div class="card-actions">
-            <button type="button" class="btn-fav" onclick="alternarFavorito('p5', 'Jaqueta', 150, '../images/jaqueta2.png')"><i class="fa-regular fa-heart"></i></button>
-            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p5', 'Jaqueta', 150, '../images/jaqueta2.png')"><i class="fa-solid fa-cart-shopping"></i></button>
+            <button type="button" class="btn-fav" onclick="alternarFavorito('p5', 'Jaqueta', 150, '../images/jaqueta2.png', this)"><i class="fa-regular fa-heart"></i></button>
+            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p5', 'Jaqueta', 150, '../images/jaqueta2.png', this)"><i class="fa-solid fa-cart-shopping"></i></button>
           </div>
         </div>
 
+        <!-- Produto 6 -->
         <div class="product-card" data-id="p6" data-nome="Jaqueta Couro" data-preco="150" data-img="../images/jaqueta1.png">
           <div class="img-container">
             <img src="../images/jaqueta1.png" alt="Jaqueta" />
@@ -141,11 +146,12 @@
             <span class="p-title">Jaqueta</span><span class="p-price">R$150</span>
           </div>
           <div class="card-actions">
-            <button type="button" class="btn-fav" onclick="alternarFavorito('p6', 'Jaqueta Couro', 150, '../images/jaqueta1.png')"><i class="fa-regular fa-heart"></i></button>
-            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p6', 'Jaqueta Couro', 150, '../images/jaqueta1.png')"><i class="fa-solid fa-cart-shopping"></i></button>
+            <button type="button" class="btn-fav" onclick="alternarFavorito('p6', 'Jaqueta Couro', 150, '../images/jaqueta1.png', this)"><i class="fa-regular fa-heart"></i></button>
+            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p6', 'Jaqueta Couro', 150, '../images/jaqueta1.png', this)"><i class="fa-solid fa-cart-shopping"></i></button>
           </div>
         </div>
 
+        <!-- Produto 7 -->
         <div class="product-card" data-id="p7" data-nome="Calça" data-preco="150" data-img="../images/calça.png">
           <div class="img-container">
             <img src="../images/calça.png" alt="Calça" />
@@ -154,11 +160,12 @@
             <span class="p-title">Calça</span><span class="p-price">R$150</span>
           </div>
           <div class="card-actions">
-            <button type="button" class="btn-fav" onclick="alternarFavorito('p7', 'Calça', 150, '../images/calça.png')"><i class="fa-regular fa-heart"></i></button>
-            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p7', 'Calça', 150, '../images/calça.png')"><i class="fa-solid fa-cart-shopping"></i></button>
+            <button type="button" class="btn-fav" onclick="alternarFavorito('p7', 'Calça', 150, '../images/calça.png', this)"><i class="fa-regular fa-heart"></i></button>
+            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p7', 'Calça', 150, '../images/calça.png', this)"><i class="fa-solid fa-cart-shopping"></i></button>
           </div>
         </div>
 
+        <!-- Produto 8 -->
         <div class="product-card" data-id="p8" data-nome="Tênis Urbano" data-preco="200" data-img="../images/tenis2.png">
           <div class="img-container">
             <img src="../images/tenis2.png" alt="Tênis" />
@@ -167,11 +174,12 @@
             <span class="p-title">Tênis</span><span class="p-price">R$200</span>
           </div>
           <div class="card-actions">
-            <button type="button" class="btn-fav" onclick="alternarFavorito('p8', 'Tênis Urbano', 200, '../images/tenis2.png')"><i class="fa-regular fa-heart"></i></button>
-            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p8', 'Tênis Urbano', 200, '../images/tenis2.png')"><i class="fa-solid fa-cart-shopping"></i></button>
+            <button type="button" class="btn-fav" onclick="alternarFavorito('p8', 'Tênis Urbano', 200, '../images/tenis2.png', this)"><i class="fa-regular fa-heart"></i></button>
+            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p8', 'Tênis Urbano', 200, '../images/tenis2.png', this)"><i class="fa-solid fa-cart-shopping"></i></button>
           </div>
         </div>
 
+        <!-- Produto 9 -->
         <div class="product-card" data-id="p9" data-nome="Vestido Elegante" data-preco="150" data-img="../images/vestido2.png">
           <div class="img-container">
             <img src="../images/vestido2.png" alt="Vestido" />
@@ -180,11 +188,12 @@
             <span class="p-title">Vestido</span><span class="p-price">R$150</span>
           </div>
           <div class="card-actions">
-            <button type="button" class="btn-fav" onclick="alternarFavorito('p9', 'Vestido Elegante', 150, '../images/vestido2.png')"><i class="fa-regular fa-heart"></i></button>
-            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p9', 'Vestido Elegante', 150, '../images/vestido2.png')"><i class="fa-solid fa-cart-shopping"></i></button>
+            <button type="button" class="btn-fav" onclick="alternarFavorito('p9', 'Vestido Elegante', 150, '../images/vestido2.png', this)"><i class="fa-regular fa-heart"></i></button>
+            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p9', 'Vestido Elegante', 150, '../images/vestido2.png', this)"><i class="fa-solid fa-cart-shopping"></i></button>
           </div>
         </div>
 
+        <!-- Produto 10 -->
         <div class="product-card" data-id="p10" data-nome="Camiseta Estampada" data-preco="100" data-img="../images/camiseta2.png">
           <div class="img-container">
             <img src="../images/camiseta2.png" alt="Camiseta" />
@@ -193,11 +202,12 @@
             <span class="p-title">Camiseta</span><span class="p-price">R$100</span>
           </div>
           <div class="card-actions">
-            <button type="button" class="btn-fav" onclick="alternarFavorito('p10', 'Camiseta Estampada', 100, '../images/camiseta2.png')"><i class="fa-regular fa-heart"></i></button>
-            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p10', 'Camiseta Estampada', 100, '../images/camiseta2.png')"><i class="fa-solid fa-cart-shopping"></i></button>
+            <button type="button" class="btn-fav" onclick="alternarFavorito('p10', 'Camiseta Estampada', 100, '../images/camiseta2.png', this)"><i class="fa-regular fa-heart"></i></button>
+            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p10', 'Camiseta Estampada', 100, '../images/camiseta2.png', this)"><i class="fa-solid fa-cart-shopping"></i></button>
           </div>
         </div>
 
+        <!-- Produto 11 -->
         <div class="product-card" data-id="p11" data-nome="Tênis Esportivo" data-preco="200" data-img="../images/tenis2.png">
           <div class="img-container">
             <img src="../images/tenis2.png" alt="Tênis" />
@@ -206,11 +216,12 @@
             <span class="p-title">Tênis</span><span class="p-price">R$200</span>
           </div>
           <div class="card-actions">
-            <button type="button" class="btn-fav" onclick="alternarFavorito('p11', 'Tênis Esportivo', 200, '../images/tenis2.png')"><i class="fa-regular fa-heart"></i></button>
-            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p11', 'Tênis Esportivo', 200, '../images/tenis2.png')"><i class="fa-solid fa-cart-shopping"></i></button>
+            <button type="button" class="btn-fav" onclick="alternarFavorito('p11', 'Tênis Esportivo', 200, '../images/tenis2.png', this)"><i class="fa-regular fa-heart"></i></button>
+            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p11', 'Tênis Esportivo', 200, '../images/tenis2.png', this)"><i class="fa-solid fa-cart-shopping"></i></button>
           </div>
         </div>
 
+        <!-- Produto 12 -->
         <div class="product-card" data-id="p12" data-nome="Blusa Casual" data-preco="150" data-img="../images/blusa.png">
           <div class="img-container">
             <img src="../images/blusa.png" alt="Blusa" />
@@ -219,11 +230,12 @@
             <span class="p-title">Blusa</span><span class="p-price">R$150</span>
           </div>
           <div class="card-actions">
-            <button type="button" class="btn-fav" onclick="alternarFavorito('p12', 'Blusa Casual', 150, '../images/blusa.png')"><i class="fa-regular fa-heart"></i></button>
-            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p12', 'Blusa Casual', 150, '../images/blusa.png')"><i class="fa-solid fa-cart-shopping"></i></button>
+            <button type="button" class="btn-fav" onclick="alternarFavorito('p12', 'Blusa Casual', 150, '../images/blusa.png', this)"><i class="fa-regular fa-heart"></i></button>
+            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p12', 'Blusa Casual', 150, '../images/blusa.png', this)"><i class="fa-solid fa-cart-shopping"></i></button>
           </div>
         </div>
 
+        <!-- Produto 13 -->
         <div class="product-card" data-id="p13" data-nome="Blusa Inverno" data-preco="150" data-img="../images/blusa2.png">
           <div class="img-container">
             <img src="../images/blusa2.png" alt="Blusa" />
@@ -232,11 +244,12 @@
             <span class="p-title">Blusa</span><span class="p-price">R$150</span>
           </div>
           <div class="card-actions">
-            <button type="button" class="btn-fav" onclick="alternarFavorito('p13', 'Blusa Inverno', 150, '../images/blusa2.png')"><i class="fa-regular fa-heart"></i></button>
-            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p13', 'Blusa Inverno', 150, '../images/blusa2.png')"><i class="fa-solid fa-cart-shopping"></i></button>
+            <button type="button" class="btn-fav" onclick="alternarFavorito('p13', 'Blusa Inverno', 150, '../images/blusa2.png', this)"><i class="fa-regular fa-heart"></i></button>
+            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p13', 'Blusa Inverno', 150, '../images/blusa2.png', this)"><i class="fa-solid fa-cart-shopping"></i></button>
           </div>
         </div>
 
+        <!-- Produto 14 -->
         <div class="product-card" data-id="p14" data-nome="Calça Jeans" data-preco="180" data-img="../images/calca2.png">
           <div class="img-container">
             <img src="../images/calca2.png" alt="Calça" />
@@ -245,8 +258,8 @@
             <span class="p-title">Calça</span><span class="p-price">R$180</span>
           </div>
           <div class="card-actions">
-            <button type="button" class="btn-fav" onclick="alternarFavorito('p14', 'Calça Jeans', 180, '../images/calca2.png')"><i class="fa-regular fa-heart"></i></button>
-            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p14', 'Calça Jeans', 180, '../images/calca2.png')"><i class="fa-solid fa-cart-shopping"></i></button>
+            <button type="button" class="btn-fav" onclick="alternarFavorito('p14', 'Calça Jeans', 180, '../images/calca2.png', this)"><i class="fa-regular fa-heart"></i></button>
+            <button type="button" class="btn-cart" onclick="adicionarAoCarrinho('p14', 'Calça Jeans', 180, '../images/calca2.png', this)"><i class="fa-solid fa-cart-shopping"></i></button>
           </div>
         </div>
       </div>

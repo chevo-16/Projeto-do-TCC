@@ -2,102 +2,147 @@ import { auth, db } from './firebase-config.js';
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-// --- INTEGRAÇÃO FIREBASE AUTH & FAVORITOS ---
+// --- VERIFICAÇÃO DE SESSÃO E CARREGAMENTO DE FAVORITOS E CARRINHO DO BANCO ---
 onAuthStateChanged(auth, async (user) => {
   if (user) {
-    carregarFavoritosDoUsuario(user.uid);
+    carregarEstadoUsuario(user.uid);
   } else {
     window.location.href = "index01.html";
   }
 });
 
-async function carregarFavoritosDoUsuario(uid) {
+async function carregarEstadoUsuario(uid) {
   try {
     const userRef = doc(db, "usuarios", uid);
     const userSnap = await getDoc(userRef);
 
     if (userSnap.exists()) {
-      const curtidas = userSnap.data().curtidas || [];
+      const data = userSnap.data();
+      const curtidas = data.curtidas || [];
+      const carrinho = data.carrinho || [];
+
       const idsFavoritados = curtidas.map(p => p.id);
+      const idsCarrinho = carrinho.map(p => p.id);
 
       document.querySelectorAll(".product-card").forEach(card => {
         const id = card.getAttribute("data-id");
-        const btnHeart = card.querySelector(".btn-fav i");
-
+        
+        // Aplica o estado salvo dos favoritos ao carregar a página
+        const btnFav = card.querySelector(".btn-fav");
+        const btnHeart = btnFav ? btnFav.querySelector("i") : null;
         if (idsFavoritados.includes(id) && btnHeart) {
           btnHeart.classList.remove("fa-regular");
           btnHeart.classList.add("fa-solid");
-          btnHeart.style.color = "#ff4d4d";
+          btnHeart.style.color = "#38a11e"; // Verde musgo
+          if (btnFav) btnFav.classList.add("favoritado");
+        }
+
+        // Aplica o estado salvo do carrinho ao carregar a página
+        const btnCart = card.querySelector(".btn-cart");
+        const iconeCart = btnCart ? btnCart.querySelector("i") : null;
+        if (idsCarrinho.includes(id) && iconeCart) {
+          btnCart.classList.add("no-carrinho");
+          iconeCart.className = "fa-solid fa-check";
+          iconeCart.style.color = "#38a11e"; // Verde musgo
         }
       });
     }
   } catch (error) {
-    console.error("Erro ao carregar favoritos:", error);
+    console.error("Erro ao carregar dados do usuário:", error);
   }
 }
 
-// Funções globais chamadas diretamente no HTML
-window.adicionarAoCarrinho = async function(id, nome, preco, img) {
+// --- ADICIONAR / REMOVER DO CARRINHO (Toggle pelo Card) ---
+window.adicionarAoCarrinho = async function(id, nome, preco, img, elemento) {
+  const card = elemento ? elemento.closest('.product-card') : document.querySelector(`.product-card[data-id="${id}"]`);
+  const btnCart = card ? card.querySelector(".btn-cart") : null;
+  const iconeCart = btnCart ? btnCart.querySelector("i") : null;
+
+  if (!btnCart || !iconeCart) return;
+
+  const jaNoCarrinho = btnCart.classList.contains("no-carrinho");
+
+  // 1. ALTERAÇÃO VISUAL INSTANTÂNEA
+  if (jaNoCarrinho) {
+    // Cancela/Remove do carrinho e volta o ícone original
+    btnCart.classList.remove("no-carrinho");
+    iconeCart.className = "fa-solid fa-cart-shopping";
+    iconeCart.style.color = ""; // Volta pro branco
+  } else {
+    // Adiciona ao carrinho e coloca o check verde
+    btnCart.classList.add("no-carrinho");
+    iconeCart.className = "fa-solid fa-check";
+    iconeCart.style.color = "#38a11e"; // Verde musgo
+  }
+
+  // 2. ATUALIZAÇÃO NO FIRESTORE (Em segundo plano)
   const user = auth.currentUser;
-  if (!user) {
-    alert("Você precisa estar logado para adicionar produtos ao carrinho!");
-    return;
-  }
+  if (user) {
+    try {
+      const userRef = doc(db, "usuarios", user.uid);
+      const userSnap = await getDoc(userRef);
 
-  const userRef = doc(db, "usuarios", user.uid);
-  const produto = { id, nome, preco, img, dataAdicionado: new Date().toISOString() };
+      if (userSnap.exists()) {
+        const carrinhoAtual = userSnap.data().carrinho || [];
 
-  try {
-    await updateDoc(userRef, {
-      carrinho: arrayUnion(produto)
-    });
-    alert(`"${nome}" adicionado ao carrinho!`);
-  } catch (error) {
-    console.error("Erro ao adicionar ao carrinho:", error);
-    alert("Erro ao adicionar ao carrinho. Tente novamente.");
-  }
-};
-
-window.alternarFavorito = async function(id, nome, preco, img) {
-  const user = auth.currentUser;
-  if (!user) {
-    alert("Você precisa estar logado para favoritar produtos!");
-    return;
-  }
-
-  const userRef = doc(db, "usuarios", user.uid);
-  const produto = { id, nome, preco, img };
-
-  const card = document.querySelector(`.product-card[data-id="${id}"]`);
-  const btnHeart = card ? card.querySelector(".btn-fav i") : null;
-  const isFavorited = btnHeart ? btnHeart.classList.contains("fa-solid") : false;
-
-  try {
-    if (isFavorited) {
-      await updateDoc(userRef, {
-        curtidas: arrayRemove(produto)
-      });
-      if (btnHeart) {
-        btnHeart.classList.remove("fa-solid");
-        btnHeart.classList.add("fa-regular");
-        btnHeart.style.color = "";
+        if (jaNoCarrinho) {
+          // Filtra e remove todas as instâncias desse produto
+          const novoCarrinho = carrinhoAtual.filter(p => p.id !== id);
+          await updateDoc(userRef, { carrinho: novoCarrinho });
+        } else {
+          // Adiciona o novo item ao array
+          const produto = { id, nome, preco, img, dataAdicionado: new Date().toISOString() };
+          await updateDoc(userRef, { carrinho: arrayUnion(produto) });
+        }
       }
-    } else {
-      await updateDoc(userRef, {
-        curtidas: arrayUnion(produto)
-      });
-      if (btnHeart) {
-        btnHeart.classList.remove("fa-regular");
-        btnHeart.classList.add("fa-solid");
-        btnHeart.style.color = "#ff4d4d";
-      }
+    } catch (error) {
+      console.error("Erro ao atualizar carrinho no banco:", error);
     }
-  } catch (error) {
-    console.error("Erro ao alternar favorito:", error);
   }
 };
 
-// --- CÓDIGO ORIGINAL DAS CATEGORIAS E BANNERS ---
+// --- ALTERNAR FAVORITO (Troca instantânea para Coração Verde Musgo) ---
+window.alternarFavorito = async function(id, nome, preco, img, elemento) {
+  const card = elemento ? elemento.closest('.product-card') : document.querySelector(`.product-card[data-id="${id}"]`);
+  const btnFav = card ? card.querySelector(".btn-fav") : null;
+  const btnHeart = btnFav ? btnFav.querySelector("i") : null;
+
+  if (!btnHeart) return;
+
+  const isFavorited = btnHeart.classList.contains("fa-solid");
+
+  // 1. ALTERAÇÃO VISUAL INSTANTÂNEA
+  if (isFavorited) {
+    btnHeart.classList.remove("fa-solid");
+    btnHeart.classList.add("fa-regular");
+    btnHeart.style.color = ""; // Volta para a cor padrão (branco)
+    if (btnFav) btnFav.classList.remove("favoritado");
+  } else {
+    btnHeart.classList.remove("fa-regular");
+    btnHeart.classList.add("fa-solid");
+    btnHeart.style.color = "#38a11e"; // Verde musgo do projeto
+    if (btnFav) btnFav.classList.add("favoritado");
+  }
+
+  // 2. ATUALIZAÇÃO NO FIRESTORE (Em segundo plano)
+  const user = auth.currentUser;
+  if (user) {
+    try {
+      const userRef = doc(db, "usuarios", user.uid);
+      const produto = { id, nome, preco, img };
+
+      if (isFavorited) {
+        await updateDoc(userRef, { curtidas: arrayRemove(produto) });
+      } else {
+        await updateDoc(userRef, { curtidas: arrayUnion(produto) });
+      }
+    } catch (error) {
+      console.error("Erro ao sincronizar favoritos com o banco:", error);
+    }
+  }
+};
+
+// --- CÓDIGO DAS CATEGORIAS E BANNERS ---
 document.addEventListener("DOMContentLoaded", () => {
   const btnOpen = document.getElementById("btn-open-cat");
   const btnClose = document.getElementById("btn-close-cat");

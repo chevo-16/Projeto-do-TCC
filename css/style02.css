@@ -415,3 +415,17 @@ body {
   height: 70%;
   object-fit: contain;
 }
+
+/* Estado do Coração Favoritado (Verde Fechado/Musgo) */
+.btn-fav.favoritado i,
+.btn-fav i.fa-solid {
+  color: #38a11e !important;
+  transform: scale(1.15);
+}
+
+/* Estado do Carrinho Adicionado (Certinho Verde) */
+.btn-cart.no-carrinho i,
+.btn-cart i.fa-check {
+  color: #38a11e !important;
+  transform: scale(1.15);
+}

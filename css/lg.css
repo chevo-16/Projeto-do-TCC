@@ -777,3 +777,64 @@ main {
     max-height: 380px; 
   }
 }
+
+/* --- AJUSTE PERFEITO DO BOTÃO E AVATAR LOGADO --- */
+.header-buttons {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.user-auth-block {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.user-profile-link {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  text-decoration: none !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+
+/* Avatar perfeitamente redondo e sem distorção */
+.user-avatar {
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  min-height: 40px !important;
+  max-width: 40px !important;
+  max-height: 40px !important;
+  border-radius: 50% !important; /* Arredonda 100% */
+  object-fit: cover !important;  /* Impede que a foto estique */
+  border: 2px solid #ffffff !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
+  display: block !important;
+}
+
+/* Ajuste do botão de Sair */
+.btn-logout {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid #ffffff !important;
+  color: #ffffff !important;
+  padding: 6px 14px !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  font-size: 13px !important;
+  line-height: 1 !important;
+}
+
+.btn-logout:hover {
+  background-color: #ff4d4d !important;
+  border-color: #ff4d4d !important;
+  color: #ffffff !important;
+}
+
+.hidden {
+  display: none !important;
+}
