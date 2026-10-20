@@ -1,3 +1,107 @@
+import { auth, db } from './firebase-config.js';
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+// Verificação de autenticação do usuário
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    console.log("Usuário logado:", user.displayName || user.email);
+    carregarFavoritosDoUsuario(user.uid);
+  } else {
+    // Redireciona para o login se não estiver autenticado
+    window.location.href = "index01.html";
+  }
+});
+
+// Marca visualmente os corações dos produtos que o usuário já favoritou no Firestore
+async function carregarFavoritosDoUsuario(uid) {
+  try {
+    const userRef = doc(db, "usuarios", uid);
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap.exists()) {
+      const curtidas = userSnap.data().curtidas || [];
+      const idsFavoritados = curtidas.map(p => p.id);
+
+      document.querySelectorAll(".product-card").forEach(card => {
+        const id = card.getAttribute("data-id");
+        const btnHeart = card.querySelector(".btn-favorito i");
+
+        if (idsFavoritados.includes(id) && btnHeart) {
+          btnHeart.classList.remove("fa-regular");
+          btnHeart.classList.add("fa-solid");
+          btnHeart.style.color = "#ff4d4d";
+        }
+      });
+    }
+  } catch (error) {
+    console.error("Erro ao carregar favoritos:", error);
+  }
+}
+
+// Função para Adicionar ao Carrinho (conectada ao Firebase)
+window.adicionarAoCarrinho = async function(id, nome, preco, img) {
+  const user = auth.currentUser;
+  if (!user) {
+    alert("Você precisa estar logado para adicionar produtos ao carrinho!");
+    return;
+  }
+
+  const userRef = doc(db, "usuarios", user.uid);
+  const produto = { id, nome, preco, img, dataAdicionado: new Date().toISOString() };
+
+  try {
+    await updateDoc(userRef, {
+      carrinho: arrayUnion(produto)
+    });
+    alert(`"${nome}" foi adicionado ao seu carrinho!`);
+  } catch (error) {
+    console.error("Erro ao adicionar ao carrinho:", error);
+    alert("Erro ao adicionar ao carrinho. Tente novamente.");
+  }
+};
+
+// Função para Curtir / Favoritar (conectada ao Firebase)
+window.alternarFavorito = async function(id, nome, preco, img) {
+  const user = auth.currentUser;
+  if (!user) {
+    alert("Você precisa estar logado para favoritar produtos!");
+    return;
+  }
+
+  const userRef = doc(db, "usuarios", user.uid);
+  const produto = { id, nome, preco, img };
+
+  const card = document.querySelector(`.product-card[data-id="${id}"]`);
+  const btnHeart = card ? card.querySelector(".btn-favorito i") : null;
+  const isFavorited = btnHeart ? btnHeart.classList.contains("fa-solid") : false;
+
+  try {
+    if (isFavorited) {
+      await updateDoc(userRef, {
+        curtidas: arrayRemove(produto)
+      });
+      if (btnHeart) {
+        btnHeart.classList.remove("fa-solid");
+        btnHeart.classList.add("fa-regular");
+        btnHeart.style.color = "";
+      }
+    } else {
+      await updateDoc(userRef, {
+        curtidas: arrayUnion(produto)
+      });
+      if (btnHeart) {
+        btnHeart.classList.remove("fa-regular");
+        btnHeart.classList.add("fa-solid");
+        btnHeart.style.color = "#ff4d4d";
+      }
+    }
+  } catch (error) {
+    console.error("Erro ao alternar favorito:", error);
+  }
+};
+
+// Lógica de manipulação de DOM da loja (Categorias e Banners)
 document.addEventListener("DOMContentLoaded", () => {
   const btnOpen = document.getElementById("btn-open-cat");
   const btnClose = document.getElementById("btn-close-cat");

@@ -1,3 +1,6 @@
+import { auth, db } from '../js/firebase-config.js';
+import { doc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
 let rows = 9,
   cols = 9,
   mines = 10;
@@ -34,6 +37,10 @@ function setDifficulty(r, c, m, discount) {
 
   resetGame();
 }
+
+// Torna a função acessível para os botões do HTML
+window.setDifficulty = setDifficulty;
+window.resetGame = resetGame;
 
 function createEmptyBoard() {
   board = Array(rows)
@@ -202,11 +209,26 @@ function checkWin() {
   return true;
 }
 
-function showDiscount() {
+async function showDiscount() {
+  const codigoGerado = `BUENAO${currentDiscount.replace("%", "")}OFF`;
   discountVal.textContent = currentDiscount;
-  couponCode.textContent = `BUENAO${currentDiscount.replace("%", "")}OFF`;
+  couponCode.textContent = codigoGerado;
   discountBanner.classList.remove("hidden");
   retryBanner.classList.add("hidden");
+
+  // Salva o cupom no perfil do usuário se ele estiver logado
+  const user = auth.currentUser;
+  if (user) {
+    try {
+      const userRef = doc(db, "usuarios", user.uid);
+      await updateDoc(userRef, {
+        cupons: arrayUnion({ codigo: codigoGerado, desconto: currentDiscount })
+      });
+      console.log("Cupom salvo na conta do usuário!");
+    } catch (err) {
+      console.error("Erro ao salvar cupom no Firebase:", err);
+    }
+  }
 }
 
 function showRetry() {

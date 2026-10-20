@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -13,7 +13,7 @@
     <div class="login-card">
       <img src="../images/logo.png" alt="Logo Buenão" class="logo-login">
       
-      <form class="login-form" id="form-cadastro" onsubmit="validarCadastro(event)">
+      <form class="login-form" id="form-cadastro">
         <input type="text" id="cad-nome" placeholder="Nome Completo" required>
         <input type="email" id="cad-email" placeholder="E-mail" required>
         <input type="password" id="cad-senha" placeholder="Senha" required>
@@ -30,6 +30,7 @@
     </div>
   </div>
 
-  <script src="../js/Cadastro.js"></script>
+  <!-- Alterado para type="module" para suportar a integração do Firebase -->
+  <script type="module" src="../js/Cadastro.js"></script>
 </body>
-</html> -->
+</html>
