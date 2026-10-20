@@ -12,6 +12,7 @@
   font-style: normal;
 }
 
+/* Reset universal corrigido */
 * {
   margin: 0;
   padding: 0;
@@ -213,7 +214,7 @@ body {
   gap: 10px;
 }
 
-/* Card do Produto com Ajustes de Transparência */
+/* --- CARD DE PRODUTO --- */
 .product-card {
   background-color: transparent;
   border: 1.5px solid rgba(255, 255, 255, 0.65);
@@ -221,17 +222,18 @@ body {
   padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
   overflow: hidden;
   height: 200px;
   position: relative;
 }
 
+/* Quadro branco encostado na margem */
 .img-container {
   width: 100%;
-  height: 110px;
+  height: 115px;
   background-color: white;
-  border-radius: 16px;
+  border-radius: 16px 16px 22px 22px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -247,18 +249,31 @@ body {
   object-fit: contain;
 }
 
-.product-info {
+/* Área de texto e ações */
+.card-content-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
   width: 100%;
-  background-color: transparent;
-  padding: 4px 8px;
+  padding: 4px 12px 10px 12px;
+  box-sizing: border-box;
+}
+
+.product-info {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  text-align: left;
+  padding: 0;
+  margin-left: 6px;
+  position: relative;
+  bottom: 15px;
+
 }
 
 .p-title {
   font-family: 'Brygada', serif;
-  font-size: 13px;
+  font-size: 16px;
   color: white;
   font-weight: 600;
   line-height: 1.1;
@@ -266,32 +281,35 @@ body {
 
 .p-price {
   font-family: 'Brygada', serif;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: bold;
   color: white;
-  margin-top: 1px;
+  margin-top: 2px;
 }
 
-/* Estilização Transparente das Ações (Coração e Carrinho) */
+/* Ajuste individual dos ícones para subir e recuar da linha do card */
 .card-actions {
-  width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 12px;
-  padding: 4px 0 6px 0;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
   background: transparent !important;
+  position: relative;
+  right: 10px;  /* Empurra os ícones 10px para a esquerda (para dentro) */
+  bottom: 6px;  /* Sobe os ícones 6px para cima */
 }
 
 .card-actions button,
 .btn-fav,
 .btn-cart {
   background: transparent !important;
-  background-color: transparent !important;
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
-  padding: 2px 4px;
+  padding: 0;
+  margin: 0;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -301,16 +319,31 @@ body {
 .btn-fav i,
 .btn-cart i {
   background: transparent !important;
-  font-size: 1.2rem;
-  color: #ffffff; /* Ícones em tom branco vazado */
+  font-size: 0.95rem;
+  color: #ffffff;
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .btn-fav:hover i,
 .btn-cart:hover i {
-  transform: scale(1.2);
+  transform: scale(1.15);
 }
 
+/* Estado do Coração Favoritado */
+.btn-fav.favoritado i,
+.btn-fav i.fa-solid {
+  color: #38a11e !important;
+  transform: scale(1.15);
+}
+
+/* Estado do Carrinho Adicionado */
+.btn-cart.no-carrinho i,
+.btn-cart i.fa-check {
+  color: #38a11e !important;
+  transform: scale(1.15);
+}
+
+/* --- MODAL E OVERLAY --- */
 .overlay {
   position: fixed;
   top: 0;
@@ -414,18 +447,4 @@ body {
   width: 70%;
   height: 70%;
   object-fit: contain;
-}
-
-/* Estado do Coração Favoritado (Verde Fechado/Musgo) */
-.btn-fav.favoritado i,
-.btn-fav i.fa-solid {
-  color: #38a11e !important;
-  transform: scale(1.15);
-}
-
-/* Estado do Carrinho Adicionado (Certinho Verde) */
-.btn-cart.no-carrinho i,
-.btn-cart i.fa-check {
-  color: #38a11e !important;
-  transform: scale(1.15);
 }

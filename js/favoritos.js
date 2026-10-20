@@ -1,12 +1,12 @@
 import { auth, db } from './firebase-config.js';
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { doc, getDoc, updateDoc, arrayRemove, arrayUnion } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const grid = document.getElementById("favoritos-grid");
   const emptyState = document.getElementById("empty-state");
 
-  // Escuta autenticação do usuário
+  // Monitora autenticação
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       carregarFavoritos(user.uid);
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Carrega os dados salvos no Firestore
+  // Busca dados no Firestore
   async function carregarFavoritos(uid) {
     try {
       const userRef = doc(db, "usuarios", uid);
@@ -25,20 +25,22 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = userSnap.data();
         const curtidas = data.curtidas || [];
         const carrinho = data.carrinho || [];
-        const idsCarrinho = carrinho.map(p => p.id);
+        const idsCarrinho = carrinho.map(p => typeof p === 'object' ? p.id : p);
 
-        renderizarProdutos(curtidas, idsCarrinho);
+        renderizarProdutos(curtidas, idsCarrinho, uid);
+      } else {
+        emptyState.classList.remove("hidden");
       }
     } catch (error) {
-      console.error("Erro ao carregar favoritos:", error);
+      console.error("Erro ao carregar favoritos do Firestore:", error);
     }
   }
 
-  // Renderiza os cards dinamicamente
-  function renderizarProdutos(curtidas, idsCarrinho) {
+  // Renderiza a grade exatamente igual ao layout do index02
+  function renderizarProdutos(curtidas, idsCarrinho, uid) {
     grid.innerHTML = "";
 
-    if (curtidas.length === 0) {
+    if (!curtidas || curtidas.length === 0) {
       emptyState.classList.remove("hidden");
       return;
     }
@@ -46,68 +48,75 @@ document.addEventListener("DOMContentLoaded", () => {
     emptyState.classList.add("hidden");
 
     curtidas.forEach(produto => {
-      const noCarrinho = idsCarrinho.includes(produto.id);
+      const id = typeof produto === 'object' ? produto.id : produto;
+      const nome = produto.nome || "Produto";
+      const preco = produto.preco || "0";
+      const img = produto.img || "";
+
+      const noCarrinho = idsCarrinho.includes(id);
 
       const card = document.createElement("div");
       card.className = "product-card";
-      card.setAttribute("data-id", produto.id);
+      card.setAttribute("data-id", id);
 
+      // Estrutura ajustada com card-content-bottom
       card.innerHTML = `
         <div class="img-container">
-          <img src="${produto.img}" alt="${produto.nome}" />
+          <img src="${img}" alt="${nome}" />
         </div>
-        <div class="product-info">
-          <span class="p-title">${produto.nome}</span>
-          <span class="p-price">R$${produto.preco}</span>
-        </div>
-        <div class="card-actions">
-          <button type="button" class="btn-fav favoritado" title="Remover dos favoritos">
-            <i class="fa-solid fa-heart"></i>
-          </button>
-          <button type="button" class="btn-cart ${noCarrinho ? 'no-carrinho' : ''}" title="Adicionar ao carrinho">
-            <i class="fa-solid ${noCarrinho ? 'fa-check' : 'fa-cart-shopping'}"></i>
-          </button>
+        <div class="card-content-bottom">
+          <div class="product-info">
+            <span class="p-title">${nome}</span>
+            <span class="p-price">R$${preco}</span>
+          </div>
+          <div class="card-actions">
+            <button type="button" class="btn-fav favoritado" title="Remover dos favoritos">
+              <i class="fa-solid fa-heart" style="color: #38a11e;"></i>
+            </button>
+            <button type="button" class="btn-cart ${noCarrinho ? 'no-carrinho' : ''}" title="Adicionar ao carrinho">
+              <i class="fa-solid ${noCarrinho ? 'fa-check' : 'fa-cart-shopping'}" ${noCarrinho ? 'style="color: #38a11e;"' : ''}></i>
+            </button>
+          </div>
         </div>
       `;
 
-      // Evento para desfavoritar e remover da tela na hora
+      // Evento de desfavoritar
       const btnFav = card.querySelector(".btn-fav");
-      btnFav.addEventListener("click", () => removerFavorito(produto, card));
+      btnFav.addEventListener("click", () => removerFavorito(id, uid, card));
 
-      // Evento para adicionar/remover do carrinho
+      // Evento de adicionar/remover do carrinho
       const btnCart = card.querySelector(".btn-cart");
-      btnCart.addEventListener("click", () => alternarCarrinho(produto, btnCart));
+      btnCart.addEventListener("click", () => alternarCarrinho(produto, btnCart, uid));
 
       grid.appendChild(card);
     });
   }
 
-  // Remove dos favoritos e atualiza o banco
-  async function removerFavorito(produto, cardElement) {
-    const user = auth.currentUser;
-    if (!user) return;
-
-    cardElement.remove(); // Remove o card da tela na hora
+  // Remove o produto do banco e da tela
+  async function removerFavorito(id, uid, cardElement) {
+    cardElement.remove();
 
     if (grid.children.length === 0) {
       emptyState.classList.remove("hidden");
     }
 
     try {
-      const userRef = doc(db, "usuarios", user.uid);
-      await updateDoc(userRef, {
-        curtidas: arrayRemove(produto)
-      });
+      const userRef = doc(db, "usuarios", uid);
+      const userSnap = await getDoc(userRef);
+
+      if (userSnap.exists()) {
+        const curtidasAtuais = userSnap.data().curtidas || [];
+        const novasCurtidas = curtidasAtuais.filter(p => (typeof p === 'object' ? p.id : p) !== id);
+        
+        await setDoc(userRef, { curtidas: novasCurtidas }, { merge: true });
+      }
     } catch (error) {
       console.error("Erro ao remover favorito:", error);
     }
   }
 
-  // Função toggle do carrinho
-  async function alternarCarrinho(produto, btnCart) {
-    const user = auth.currentUser;
-    if (!user) return;
-
+  // Alterna estado do carrinho
+  async function alternarCarrinho(produto, btnCart, uid) {
     const icone = btnCart.querySelector("i");
     const jaNoCarrinho = btnCart.classList.contains("no-carrinho");
 
@@ -122,21 +131,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const userRef = doc(db, "usuarios", user.uid);
+      const userRef = doc(db, "usuarios", uid);
       const userSnap = await getDoc(userRef);
 
+      let carrinhoAtual = [];
       if (userSnap.exists()) {
-        const carrinhoAtual = userSnap.data().carrinho || [];
-
-        if (jaNoCarrinho) {
-          const novoCarrinho = carrinhoAtual.filter(p => p.id !== produto.id);
-          await updateDoc(userRef, { carrinho: novoCarrinho });
-        } else {
-          await updateDoc(userRef, {
-            carrinho: arrayUnion({ ...produto, dataAdicionado: new Date().toISOString() })
-          });
-        }
+        carrinhoAtual = userSnap.data().carrinho || [];
       }
+
+      let novoCarrinho;
+      if (jaNoCarrinho) {
+        novoCarrinho = carrinhoAtual.filter(p => (typeof p === 'object' ? p.id : p) !== produto.id);
+      } else {
+        const itemCarrinho = { ...produto, dataAdicionado: new Date().toISOString() };
+        novoCarrinho = [...carrinhoAtual.filter(p => (typeof p === 'object' ? p.id : p) !== produto.id), itemCarrinho];
+      }
+
+      await setDoc(userRef, { carrinho: novoCarrinho }, { merge: true });
     } catch (error) {
       console.error("Erro ao atualizar carrinho:", error);
     }
