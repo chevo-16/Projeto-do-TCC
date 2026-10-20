@@ -5,15 +5,12 @@ import {
   onAuthStateChanged 
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-// VERIFICAÇÃO AUTOMÁTICA DE LOGADO
-// Se já estiver logado (Google, E-mail, etc.), entra direto no catálogo
 onAuthStateChanged(auth, (user) => {
   if (user) {
     window.location.href = "index02.html";
   }
 });
 
-// Função para esconder a splash screen e exibir a tela de login
 function iniciarTela() {
   const splashScreen = document.getElementById("splash-screen");
   const loginScreen = document.getElementById("login-screen");
@@ -22,10 +19,9 @@ function iniciarTela() {
     setTimeout(() => {
       splashScreen.classList.add("hidden");
       loginScreen.classList.remove("hidden");
-    }, 3000); // 3 segundos na logo
+    }, 3000);
   }
 
-  // Listener do formulário de Login
   const formLogin = document.querySelector(".login-form");
   if (formLogin && !document.getElementById("form-cadastro")) {
     formLogin.addEventListener("submit", async (e) => {
@@ -46,7 +42,6 @@ function iniciarTela() {
     });
   }
 
-  // Listener para o botão do Google
   const btnGoogle = document.querySelector(".btn-social.google");
   if (btnGoogle) {
     btnGoogle.addEventListener("click", async () => {
@@ -61,7 +56,6 @@ function iniciarTela() {
   }
 }
 
-// Executa imediatamente se o DOM já carregou, ou aguarda o evento
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", iniciarTela);
 } else {

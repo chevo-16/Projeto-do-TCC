@@ -2,7 +2,6 @@ import { auth, db } from './firebase-config.js';
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-// --- VERIFICAÇÃO DE SESSÃO E CARREGAMENTO DE ESTADO ---
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     carregarEstadoUsuario(user.uid);
@@ -21,14 +20,12 @@ async function carregarEstadoUsuario(uid) {
       const curtidas = data.curtidas || [];
       const carrinho = data.carrinho || [];
 
-      // Mapeia os IDs salvos no banco
       const idsFavoritados = curtidas.map(p => typeof p === 'object' ? p.id : p);
       const idsCarrinho = carrinho.map(p => typeof p === 'object' ? p.id : p);
 
       document.querySelectorAll(".product-card").forEach(card => {
         const id = card.getAttribute("data-id");
         
-        // Aplica estado dos favoritos ao carregar
         const btnFav = card.querySelector(".btn-fav");
         const btnHeart = btnFav ? btnFav.querySelector("i") : null;
         if (idsFavoritados.includes(id) && btnHeart) {
@@ -38,7 +35,6 @@ async function carregarEstadoUsuario(uid) {
           if (btnFav) btnFav.classList.add("favoritado");
         }
 
-        // Aplica estado do carrinho ao carregar
         const btnCart = card.querySelector(".btn-cart");
         const iconeCart = btnCart ? btnCart.querySelector("i") : null;
         if (idsCarrinho.includes(id) && iconeCart) {
@@ -53,7 +49,6 @@ async function carregarEstadoUsuario(uid) {
   }
 }
 
-// --- ADICIONAR / REMOVER DO CARRINHO ---
 window.adicionarAoCarrinho = async function(id, nome, preco, img, elemento) {
   const card = elemento ? elemento.closest('.product-card') : document.querySelector(`.product-card[data-id="${id}"]`);
   const btnCart = card ? card.querySelector(".btn-cart") : null;
@@ -63,7 +58,6 @@ window.adicionarAoCarrinho = async function(id, nome, preco, img, elemento) {
 
   const jaNoCarrinho = btnCart.classList.contains("no-carrinho");
 
-  // 1. Feedback visual instantâneo
   if (jaNoCarrinho) {
     btnCart.classList.remove("no-carrinho");
     iconeCart.className = "fa-solid fa-cart-shopping";
@@ -74,7 +68,6 @@ window.adicionarAoCarrinho = async function(id, nome, preco, img, elemento) {
     iconeCart.style.color = "#38a11e";
   }
 
-  // 2. Atualização no Firestore
   const user = auth.currentUser;
   if (!user) return;
 
@@ -101,7 +94,6 @@ window.adicionarAoCarrinho = async function(id, nome, preco, img, elemento) {
   }
 };
 
-// --- ALTERNAR FAVORITO ---
 window.alternarFavorito = async function(id, nome, preco, img, elemento) {
   const card = elemento ? elemento.closest('.product-card') : document.querySelector(`.product-card[data-id="${id}"]`);
   const btnFav = card ? card.querySelector(".btn-fav") : null;
@@ -111,7 +103,6 @@ window.alternarFavorito = async function(id, nome, preco, img, elemento) {
 
   const isFavorited = btnHeart.classList.contains("fa-solid");
 
-  // 1. Feedback visual instantâneo
   if (isFavorited) {
     btnHeart.classList.remove("fa-solid");
     btnHeart.classList.add("fa-regular");
@@ -124,7 +115,6 @@ window.alternarFavorito = async function(id, nome, preco, img, elemento) {
     if (btnFav) btnFav.classList.add("favoritado");
   }
 
-  // 2. Atualização no Firestore
   const user = auth.currentUser;
   if (!user) return;
 
@@ -151,7 +141,6 @@ window.alternarFavorito = async function(id, nome, preco, img, elemento) {
   }
 };
 
-// --- CATEGORIAS E BANNERS ---
 document.addEventListener("DOMContentLoaded", () => {
   const btnOpen = document.getElementById("btn-open-cat");
   const btnClose = document.getElementById("btn-close-cat");

@@ -15,14 +15,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const senha = document.getElementById('cad-senha').value;
       const confirmarSenha = document.getElementById('cad-confirmar-senha').value;
 
-      // Validação de senhas iguais
       if (senha !== confirmarSenha) {
         msgErro.textContent = 'As senhas não coincidem! Verifique e tente novamente.';
         msgErro.style.display = 'block';
         return;
       }
 
-      // Validação mínima de segurança do Firebase (mínimo 6 caracteres)
       if (senha.length < 6) {
         msgErro.textContent = 'A senha precisa ter pelo menos 6 caracteres.';
         msgErro.style.display = 'block';
@@ -32,14 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
       msgErro.style.display = 'none';
 
       try {
-        // 1. Cria a conta no Firebase Auth
         const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
         const user = userCredential.user;
 
-        // 2. Salva o nome do usuário
         await updateProfile(user, { displayName: nome });
 
-        // 3. Salva no banco Firestore com carrinho e curtidas vazios
         await setDoc(doc(db, "usuarios", user.uid), {
           nome: nome,
           email: email,
@@ -48,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
           compras: []
         });
 
-        // 4. Redireciona para o catálogo
         window.location.href = 'index02.html';
 
       } catch (error) {
@@ -66,7 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Função para o botão "Já tem uma conta? Entrar"
 window.voltarParaLogin = function() {
   window.location.href = "index01.html";
 };

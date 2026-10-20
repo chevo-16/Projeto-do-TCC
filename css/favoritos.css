@@ -12,7 +12,6 @@
   font-style: normal;
 }
 
-/* Reset universal corrigido */
 * {
   margin: 0;
   padding: 0;
@@ -20,7 +19,6 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Fundo radial verde idêntico ao index02.html */
 body {
   background: radial-gradient(circle at center, #86ec5b 0%, #46bd28 65%, #237311 100%);
   background-attachment: fixed;
@@ -101,7 +99,6 @@ body {
   gap: 10px;
 }
 
-/* --- CARD DE PRODUTO NOS FAVORITOS --- */
 .product-card {
   background-color: transparent;
   border: 1.5px solid rgba(255, 255, 255, 0.65);
@@ -115,7 +112,6 @@ body {
   position: relative;
 }
 
-/* Quadro branco encostado na margem */
 .img-container {
   width: 100%;
   height: 115px;
@@ -136,7 +132,6 @@ body {
   object-fit: contain;
 }
 
-/* Container inferior das informações */
 .card-content-bottom {
   display: flex;
   justify-content: space-between;
@@ -146,7 +141,6 @@ body {
   box-sizing: border-box;
 }
 
-/* Informações do produto (Nome e Preço) afastadas da linha da esquerda */
 .product-info {
   display: flex;
   flex-direction: column;
@@ -175,7 +169,6 @@ body {
   margin-top: 2px;
 }
 
-/* Ações (Coração e Carrinho) posicionadas para dentro do card */
 .card-actions {
   display: flex;
   align-items: center;
@@ -206,7 +199,7 @@ body {
 
 .btn-fav i {
   font-size: 0.95rem;
-  color: #38a11e !important; /* Nos favoritos o coração vem preenchido em verde */
+  color: #38a11e !important; 
   transition: transform 0.2s ease;
 }
 
@@ -225,7 +218,6 @@ body {
   transform: scale(1.15);
 }
 
-/* Mensagem de Estado Vazio */
 .empty-state {
   display: flex;
   flex-direction: column;

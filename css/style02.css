@@ -12,7 +12,6 @@
   font-style: normal;
 }
 
-/* Reset universal corrigido */
 * {
   margin: 0;
   padding: 0;
@@ -214,7 +213,6 @@ body {
   gap: 10px;
 }
 
-/* --- CARD DE PRODUTO --- */
 .product-card {
   background-color: transparent;
   border: 1.5px solid rgba(255, 255, 255, 0.65);
@@ -228,7 +226,6 @@ body {
   position: relative;
 }
 
-/* Quadro branco encostado na margem */
 .img-container {
   width: 100%;
   height: 115px;
@@ -249,7 +246,6 @@ body {
   object-fit: contain;
 }
 
-/* Área de texto e ações */
 .card-content-bottom {
   display: flex;
   justify-content: space-between;
@@ -287,7 +283,6 @@ body {
   margin-top: 2px;
 }
 
-/* Ajuste individual dos ícones para subir e recuar da linha do card */
 .card-actions {
   display: flex;
   align-items: center;
@@ -297,8 +292,8 @@ body {
   margin: 0;
   background: transparent !important;
   position: relative;
-  right: 10px;  /* Empurra os ícones 10px para a esquerda (para dentro) */
-  bottom: 6px;  /* Sobe os ícones 6px para cima */
+  right: 10px; 
+  bottom: 6px;  
 }
 
 .card-actions button,
@@ -329,21 +324,18 @@ body {
   transform: scale(1.15);
 }
 
-/* Estado do Coração Favoritado */
 .btn-fav.favoritado i,
 .btn-fav i.fa-solid {
   color: #38a11e !important;
   transform: scale(1.15);
 }
 
-/* Estado do Carrinho Adicionado */
 .btn-cart.no-carrinho i,
 .btn-cart i.fa-check {
   color: #38a11e !important;
   transform: scale(1.15);
 }
 
-/* --- MODAL E OVERLAY --- */
 .overlay {
   position: fixed;
   top: 0;

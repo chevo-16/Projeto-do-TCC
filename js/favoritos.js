@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const grid = document.getElementById("favoritos-grid");
   const emptyState = document.getElementById("empty-state");
 
-  // Monitora autenticação
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       carregarFavoritos(user.uid);
@@ -15,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Busca dados no Firestore
   async function carregarFavoritos(uid) {
     try {
       const userRef = doc(db, "usuarios", uid);
@@ -36,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Renderiza a grade exatamente igual ao layout do index02
   function renderizarProdutos(curtidas, idsCarrinho, uid) {
     grid.innerHTML = "";
 
@@ -59,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
       card.className = "product-card";
       card.setAttribute("data-id", id);
 
-      // Estrutura ajustada com card-content-bottom
       card.innerHTML = `
         <div class="img-container">
           <img src="${img}" alt="${nome}" />
@@ -80,11 +76,9 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       `;
 
-      // Evento de desfavoritar
       const btnFav = card.querySelector(".btn-fav");
       btnFav.addEventListener("click", () => removerFavorito(id, uid, card));
 
-      // Evento de adicionar/remover do carrinho
       const btnCart = card.querySelector(".btn-cart");
       btnCart.addEventListener("click", () => alternarCarrinho(produto, btnCart, uid));
 
@@ -92,7 +86,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Remove o produto do banco e da tela
   async function removerFavorito(id, uid, cardElement) {
     cardElement.remove();
 
@@ -115,7 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Alterna estado do carrinho
   async function alternarCarrinho(produto, btnCart, uid) {
     const icone = btnCart.querySelector("i");
     const jaNoCarrinho = btnCart.classList.contains("no-carrinho");

@@ -2,7 +2,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebas
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-// SUAS CHAVE QUE Já ESTÃO AÍ NO SEU ARQUIVO:
 const firebaseConfig = {
   apiKey: "AIzaSyBegLynE1KAaymLQANO7xwJ5vrBZma-iBs",
   authDomain: "tcc-buenao.firebaseapp.com",
@@ -13,13 +12,11 @@ const firebaseConfig = {
   measurementId: "G-VCJ2CGC8MP"
 };
 
-// Inicialização
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const googleProvider = new GoogleAuthProvider();
 
-// Função que o botão do Google vai chamar
 export async function fazerLoginGoogle() {
   try {
     const result = await signInWithPopup(auth, googleProvider);
