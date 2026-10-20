@@ -15,7 +15,6 @@ body {
   color: #333;
 }
 
-/* Header Estilo Loja */
 .top-header {
   background-color: var(--green-main);
   color: white;
@@ -48,7 +47,6 @@ body {
   font-weight: 500;
 }
 
-/* Área do Jogo */
 .game-wrapper {
   max-width: 800px;
   margin: 20px auto;

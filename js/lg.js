@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // --- ACCORDION FAQ ---
+
   const faqQuestions = document.querySelectorAll(".faq-question");
 
   faqQuestions.forEach((question) => {
@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const answerElement = document.getElementById(answerId);
       const isExpanded = question.getAttribute("aria-expanded") === "true";
 
-      // Fecha as outras respostas abertas
       faqQuestions.forEach((otherQuestion) => {
         if (otherQuestion !== question) {
           otherQuestion.setAttribute("aria-expanded", "false");
@@ -38,7 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // --- ACCORDION LOJAS CASCAVEL (RODAPÉ) ---
   const btnLojas = document.querySelector(".btn-lojas-cascavel");
   const listaLojas = document.getElementById("lista-lojas-cascavel");
 
@@ -62,7 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- EFEITO TOUCH NOS CARDS EM DISPOSITIVOS MÓVEIS ---
   const cardsFoto = document.querySelectorAll(".card-foto");
 
   cardsFoto.forEach((card) => {

@@ -1,7 +1,6 @@
 import { auth, fazerLoginGoogle } from './firebase-config.js';
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-// Animação da Splash Screen (3 segundos)
 window.addEventListener("DOMContentLoaded", () => {
   const splashScreen = document.getElementById("splash-screen");
   const loginScreen = document.getElementById("login-screen");
@@ -14,7 +13,6 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Tornando as funções de navegação e Google disponíveis para os botões do HTML
 window.entrarComGoogle = fazerLoginGoogle;
 
 window.irParaCadastro = function() {
@@ -25,7 +23,6 @@ window.voltarParaLogin = function() {
   window.location.href = "index01.html";
 };
 
-// Autenticação de Login com Firebase
 const formLogin = document.getElementById("form-login") || document.querySelector(".login-form");
 const msgErro = document.getElementById("msg-erro-login");
 
@@ -36,7 +33,6 @@ if (formLogin && !document.getElementById("form-cadastro")) {
     const emailInput = document.getElementById("login-email");
     const senhaInput = document.getElementById("login-senha");
 
-    // Se os inputs existirem, realiza a validação no Firebase
     if (emailInput && senhaInput) {
       const email = emailInput.value.trim();
       const senha = senhaInput.value;
@@ -54,7 +50,6 @@ if (formLogin && !document.getElementById("form-cadastro")) {
         }
       }
     } else {
-      // Fallback para caso os inputs não estejam com os IDs configurados
       window.location.href = "index02.html";
     }
   });

@@ -38,7 +38,6 @@ function setDifficulty(r, c, m, discount) {
   resetGame();
 }
 
-// Torna a função acessível para os botões do HTML
 window.setDifficulty = setDifficulty;
 window.resetGame = resetGame;
 
@@ -216,7 +215,6 @@ async function showDiscount() {
   discountBanner.classList.remove("hidden");
   retryBanner.classList.add("hidden");
 
-  // Salva o cupom no perfil do usuário se ele estiver logado
   const user = auth.currentUser;
   if (user) {
     try {

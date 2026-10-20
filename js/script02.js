@@ -2,18 +2,16 @@ import { auth, db } from './firebase-config.js';
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-// Verificação de autenticação do usuário
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     console.log("Usuário logado:", user.displayName || user.email);
     carregarFavoritosDoUsuario(user.uid);
   } else {
-    // Redireciona para o login se não estiver autenticado
+
     window.location.href = "index01.html";
   }
 });
 
-// Marca visualmente os corações dos produtos que o usuário já favoritou no Firestore
 async function carregarFavoritosDoUsuario(uid) {
   try {
     const userRef = doc(db, "usuarios", uid);
@@ -39,7 +37,6 @@ async function carregarFavoritosDoUsuario(uid) {
   }
 }
 
-// Função para Adicionar ao Carrinho (conectada ao Firebase)
 window.adicionarAoCarrinho = async function(id, nome, preco, img) {
   const user = auth.currentUser;
   if (!user) {
@@ -61,7 +58,6 @@ window.adicionarAoCarrinho = async function(id, nome, preco, img) {
   }
 };
 
-// Função para Curtir / Favoritar (conectada ao Firebase)
 window.alternarFavorito = async function(id, nome, preco, img) {
   const user = auth.currentUser;
   if (!user) {
@@ -101,7 +97,6 @@ window.alternarFavorito = async function(id, nome, preco, img) {
   }
 };
 
-// Lógica de manipulação de DOM da loja (Categorias e Banners)
 document.addEventListener("DOMContentLoaded", () => {
   const btnOpen = document.getElementById("btn-open-cat");
   const btnClose = document.getElementById("btn-close-cat");
