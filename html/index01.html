@@ -15,20 +15,25 @@
       <div class="login-card">
         <img src="../images/logo.png" alt="Logo Buenão" class="logo-login" />
 
-        <form class="login-form" id="form-login">
-          <input type="email" id="login-email" placeholder="E-mail" required />
-          <input type="password" id="login-senha" placeholder="Senha" required />
+        <form
+          class="login-form"
+          onsubmit="
+            event.preventDefault();
+            abrirHTML2();
+          "
+        >
+          <input type="email" id="email" placeholder="E-mail" required />
+          <input type="password" id="senha" placeholder="Senha" required />
           <button type="submit" class="btn-entrar">Entrar</button>
         </form>
 
-        <p id="msg-erro-login" style="color: #ffdddd; font-size: 13px; margin-top: 10px; display: none; text-align: center;"></p>
-
         <div class="social-buttons">
-          <button type="button" class="btn-social google" onclick="entrarComGoogle()">
+          <button type="button" class="btn-social google">
             <img src="../images/google-icon.svg.png" alt="Google" /> Google
           </button>
           <button type="button" class="btn-social facebook">
-            <img src="../images/facebook-icon.svg.png" alt="Facebook" /> Facebook
+            <img src="../images/facebook-icon.svg.png" alt="Facebook" />
+            Facebook
           </button>
         </div>
 

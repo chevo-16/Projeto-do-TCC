@@ -2,12 +2,11 @@ import { auth, db } from './firebase-config.js';
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+// --- INTEGRAÇÃO FIREBASE AUTH & FAVORITOS ---
 onAuthStateChanged(auth, async (user) => {
   if (user) {
-    console.log("Usuário logado:", user.displayName || user.email);
     carregarFavoritosDoUsuario(user.uid);
   } else {
-
     window.location.href = "index01.html";
   }
 });
@@ -23,7 +22,7 @@ async function carregarFavoritosDoUsuario(uid) {
 
       document.querySelectorAll(".product-card").forEach(card => {
         const id = card.getAttribute("data-id");
-        const btnHeart = card.querySelector(".btn-favorito i");
+        const btnHeart = card.querySelector(".btn-fav i");
 
         if (idsFavoritados.includes(id) && btnHeart) {
           btnHeart.classList.remove("fa-regular");
@@ -37,6 +36,7 @@ async function carregarFavoritosDoUsuario(uid) {
   }
 }
 
+// Funções globais chamadas diretamente no HTML
 window.adicionarAoCarrinho = async function(id, nome, preco, img) {
   const user = auth.currentUser;
   if (!user) {
@@ -51,7 +51,7 @@ window.adicionarAoCarrinho = async function(id, nome, preco, img) {
     await updateDoc(userRef, {
       carrinho: arrayUnion(produto)
     });
-    alert(`"${nome}" foi adicionado ao seu carrinho!`);
+    alert(`"${nome}" adicionado ao carrinho!`);
   } catch (error) {
     console.error("Erro ao adicionar ao carrinho:", error);
     alert("Erro ao adicionar ao carrinho. Tente novamente.");
@@ -69,7 +69,7 @@ window.alternarFavorito = async function(id, nome, preco, img) {
   const produto = { id, nome, preco, img };
 
   const card = document.querySelector(`.product-card[data-id="${id}"]`);
-  const btnHeart = card ? card.querySelector(".btn-favorito i") : null;
+  const btnHeart = card ? card.querySelector(".btn-fav i") : null;
   const isFavorited = btnHeart ? btnHeart.classList.contains("fa-solid") : false;
 
   try {
@@ -97,6 +97,7 @@ window.alternarFavorito = async function(id, nome, preco, img) {
   }
 };
 
+// --- CÓDIGO ORIGINAL DAS CATEGORIAS E BANNERS ---
 document.addEventListener("DOMContentLoaded", () => {
   const btnOpen = document.getElementById("btn-open-cat");
   const btnClose = document.getElementById("btn-close-cat");
