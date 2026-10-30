@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lojas Buenão - Feminino</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/feminino.css">
+</head>
+<body>
+
+  <header class="header-feminino">
+    <div class="header-top">
+      <div class="left-section">
+        <a href="index02.html" class="btn-back" title="Voltar ao início">
+          <i class="fa-solid fa-circle-chevron-left"></i>
+        </a>
+        <div class="logo-container">
+          <span class="logo-sub">LOJAS</span>
+          <h1 class="logo-main">BUENÃO</h1>
+        </div>
+      </div>
+
+      <h2 class="category-title">Feminino</h2>
+
+      <div class="right-section">
+        <div class="header-icons">
+          <a href="index02.html" title="Início"><i class="fa-solid fa-house"></i></a>
+          <a href="favoritos.html" title="Favoritos"><i class="fa-regular fa-heart"></i></a>
+          <a href="carrinho.html" title="Carrinho"><i class="fa-solid fa-cart-shopping"></i></a>
+          <a href="lg.html" title="Perfil"><i class="fa-regular fa-user"></i></a>
+        </div>
+        <button id="btn-open-cat" type="button" class="btn-categorias">
+          Categorias
+        </button>
+      </div>
+    </div>
+
+    <!-- Pílulas de Filtro -->
+    <div class="filter-pills">
+      <button class="pill active" data-filter="todos">Todos</button>
+      <button class="pill" data-filter="vestido">Vestidos</button>
+      <button class="pill" data-filter="calca">Calças</button>
+      <button class="pill" data-filter="blusa">Blusas</button>
+      <button class="pill" data-filter="shorts">Shorts</button>
+    </div>
+  </header>
+
+  <main class="products-section">
+    <div class="product-grid" id="feminino-grid"></div>
+  </main>
+
+  <!-- Modal de Categorias -->
+  <div id="modal-categorias" class="overlay hidden">
+    <div class="modal-card">
+      <button id="btn-close-cat" type="button" class="close-btn">×</button>
+
+      <div class="cat-button cat-feminino" onclick="window.location.href='feminino.html'">
+        <span>Feminino</span>
+        <div class="icon-circle">
+          <img src="../images/roupa-feminina.png" alt="Feminino" />
+        </div>
+      </div>
+
+      <div class="cat-button cat-masculino" onclick="window.location.href='masculino.html'">
+        <span>Masculino</span>
+        <div class="icon-circle">
+          <img src="../images/roupas-masculinas.png" alt="Masculino" />
+        </div>
+      </div>
+
+      <div class="cat-button cat-calcados" onclick="window.location.href='calcados.html'">
+        <span>Calçados</span>
+        <div class="icon-circle">
+          <img src="../images/sapato.png" alt="Calçados" />
+        </div>
+      </div>
+
+      <div class="cat-button cat-infantil" onclick="window.location.href='infantil.html'">
+        <span>Infantil</span>
+        <div class="icon-circle">
+          <img src="../images/infantil.png" alt="Infantil" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../js/feminino.js"></script>
+</body>
+</html>

@@ -1,0 +1,427 @@
+@font-face {
+  font-family: 'Borel';
+  src: url('../fonts/Borel-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Brygada';
+  src: url('../fonts/Brygada1918-VariableFont_wght.ttf') format('truetype');
+}
+
+/* Seletor universal corrigido */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Gradiente de 3 cores: Verde Calçados -> Rosa Feminino -> Azul Masculino */
+body {
+  background: linear-gradient(45deg, #1e5631 0%, #2e8b57 25%, #c1549c 50%, #0066cc 75%, #0088ff 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 15px 25px;
+}
+
+/* Header */
+.header-infantil {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-back {
+  color: white;
+  font-size: 26px;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.btn-back:hover {
+  transform: scale(1.1);
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.9;
+}
+
+.logo-sub {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: 'Brygada', serif;
+  letter-spacing: 1px;
+}
+
+.logo-main {
+  font-size: 18px;
+  color: white;
+  font-family: 'Brygada', serif;
+  font-weight: 900;
+}
+
+.category-title {
+  font-family: 'Borel', cursive;
+  color: white;
+  font-size: 38px;
+  font-weight: normal;
+  text-align: center;
+  margin-left: -30px;
+}
+
+/* Lado Direito Superior */
+.right-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.header-icons {
+  display: flex;
+  gap: 15px;
+  font-size: 20px;
+}
+
+.header-icons a {
+  color: white;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.header-icons a:hover {
+  transform: scale(1.15);
+}
+
+/* Botão Categorias */
+.btn-categorias {
+  background-color: rgba(255, 255, 255, 0.85);
+  border: none;
+  border-radius: 18px;
+  padding: 4px 14px;
+  font-family: 'Brygada', serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2b2b2b;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-categorias:hover {
+  background-color: #ffffff;
+  transform: scale(1.05);
+}
+
+/* Modal de Categorias */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.overlay.hidden {
+  display: none !important;
+}
+
+.modal-card {
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 16px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 260px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666666;
+}
+
+.cat-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background-color: #f4f4f4;
+  cursor: pointer;
+  font-family: 'Brygada', serif;
+  font-weight: 600;
+  color: #2b2b2b;
+  transition: background-color 0.2s ease;
+}
+
+.cat-button:hover {
+  background-color: #e2e2e2;
+}
+
+.icon-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Filtros */
+.filter-pills {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  border-radius: 18px;
+  padding: 6px 20px;
+  font-family: 'Brygada', serif;
+  font-size: 14px;
+  color: #2b2b2b;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.pill:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.pill.active {
+  background-color: #383838;
+  color: white;
+}
+
+/* Grid de Produtos */
+.products-section {
+  margin-top: 10px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+}
+
+.product-card {
+  background-color: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.65);
+  border-radius: 18px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  height: 200px;
+  position: relative;
+}
+
+.img-container {
+  width: 100%;
+  height: 115px;
+  background-color: white;
+  border-radius: 16px 16px 22px 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+  overflow: hidden;
+}
+
+.img-container img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.card-content-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  padding: 4px 12px 10px 12px;
+  box-sizing: border-box;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding: 0;
+  margin-left: 6px;
+  position: relative;
+  bottom: 2px;
+}
+
+.p-title {
+  font-family: 'Brygada', serif;
+  font-size: 13px;
+  color: white;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.p-price {
+  font-family: 'Brygada', serif;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  margin-top: 2px;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+  background: transparent !important;
+  position: relative;
+  right: 10px;
+  bottom: 6px;
+}
+
+.card-actions button,
+.btn-fav,
+.btn-cart {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-fav i,
+.btn-cart i {
+  background: transparent !important;
+  font-size: 0.95rem;
+  color: #ffffff;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.btn-fav:hover i,
+.btn-cart:hover i {
+  transform: scale(1.15);
+}
+
+.btn-fav.favoritado i,
+.btn-fav i.fa-solid {
+  color: #1a4d12 !important;
+  transform: scale(1.15);
+}
+
+.btn-cart.no-carrinho i,
+.btn-cart i.fa-check {
+  color: #1a4d12 !important;
+  transform: scale(1.15);
+}
+
+/* =========================================================
+   ADAPTAÇÃO RESPONSIVA PARA CELULAR E TABLET (MEDIA QUERIES)
+   ========================================================= */
+
+@media (max-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 12px;
+  }
+
+  .header-top {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .category-title {
+    font-size: 30px;
+    margin-left: 0;
+    width: 100%;
+    order: 3;
+    text-align: center;
+  }
+
+  /* Pílulas de filtro ajustadas para telas menores */
+  .filter-pills {
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 5px;
+  }
+
+  .pill {
+    white-space: nowrap;
+    padding: 6px 14px;
+    font-size: 13px;
+  }
+
+  /* Grade de produtos muda para 2 colunas no celular */
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .product-card {
+    height: 205px;
+  }
+}
+
+@media (max-width: 380px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+}

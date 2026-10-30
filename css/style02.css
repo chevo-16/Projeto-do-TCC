@@ -12,6 +12,7 @@
   font-style: normal;
 }
 
+/* Seletor universal corrigido */
 * {
   margin: 0;
   padding: 0;
@@ -114,6 +115,7 @@ body {
   margin: 12px 0 20px 0;
 }
 
+/* Banner Principal e Banners Laterais */
 .hero-section {
   display: grid;
   grid-template-columns: 2.2fr 1fr;
@@ -207,6 +209,7 @@ body {
   font-weight: bold;
 }
 
+/* Grid com 7 colunas no Computador */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -264,7 +267,6 @@ body {
   margin-left: 6px;
   position: relative;
   bottom: 15px;
-
 }
 
 .p-title {
@@ -336,6 +338,7 @@ body {
   transform: scale(1.15);
 }
 
+/* Modal e Overlay */
 .overlay {
   position: fixed;
   top: 0;
@@ -439,4 +442,105 @@ body {
   width: 70%;
   height: 70%;
   object-fit: contain;
+}
+
+/* =========================================================
+   ADAPTAÇÃO RESPONSIVA PARA CELULAR E TABLET (MEDIA QUERIES)
+   ========================================================= */
+
+@media (max-width: 1024px) {
+  /* Em tablets grandes, reduz de 7 para 4 colunas */
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 12px;
+  }
+
+  /* Ajuste no Header */
+  .header {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .search-box {
+    width: 100%;
+    order: 3; /* Move a barra de pesquisa para baixo do logo no celular */
+  }
+
+  .header-icons {
+    font-size: 18px;
+    gap: 12px;
+  }
+
+  /* Banners no Celular */
+  .hero-section {
+    grid-template-columns: 1fr; /* Empilha os banners */
+    height: auto;
+    gap: 12px;
+  }
+
+  .main-banner {
+    height: 160px;
+    padding: 0 20px;
+  }
+
+  .main-banner h2 {
+    font-size: 20px;
+  }
+
+  .banner-img {
+    right: 10px;
+    max-height: 90%;
+  }
+
+  .side-banners {
+    flex-direction: row; /* Coloca os dois banners pequenos lado a lado */
+    height: 100px;
+  }
+
+  .side-card {
+    height: 100%;
+  }
+
+  /* Exibe 2 produtos por linha no celular (para não achatar os botões e os textos) */
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .product-card {
+    height: 210px;
+  }
+
+  .p-title {
+    font-size: 14px;
+  }
+
+  .p-price {
+    font-size: 14px;
+  }
+
+  /* Modal de Categorias em telas menores */
+  .modal-card {
+    width: 90%;
+    max-width: 320px;
+    padding: 35px 15px 20px 15px;
+  }
+}
+
+@media (max-width: 380px) {
+  /* Ajuste para celulares muito pequenos */
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
 }
