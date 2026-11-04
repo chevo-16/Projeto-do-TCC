@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lojas Buenão - Meu Carrinho</title>
+    <link rel="stylesheet" href="../css/carrinho.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="carrinho-container">
+      <div class="carrinho-header">
+        <h2><i class="fa-solid fa-bag-shopping"></i> Meu Carrinho</h2>
+        <a href="index02.html" class="btn-back">
+          <i class="fa-solid fa-arrow-left"></i> Voltar
+        </a>
+      </div>
+
+      <div class="select-all-box">
+        <label>
+          <input type="checkbox" id="select-all" /> Selecionar Todos
+        </label>
+      </div>
+
+      <div id="lista-carrinho"></div>
+
+      <div class="carrinho-resumo">
+        <div class="resumo-valor">
+          <span>Total dos selecionados:</span>
+          <h3 id="valor-total-carrinho">R$ 0,00</h3>
+        </div>
+        <button type="button" id="btn-finalizar-compra" class="btn-comprar-selecionados" disabled>
+          Comprar Selecionados (0)
+        </button>
+      </div>
+    </div>
+
+    <script type="module" src="../js/carrinho.js"></script>
+  </body>
+</html>

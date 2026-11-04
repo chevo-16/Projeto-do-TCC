@@ -20,11 +20,11 @@
       </div>
 
       <div class="header-icons">
-        <i class="fa-solid fa-bag-shopping" title="Carrinho" id="icon-carrinho"></i>
+        <i class="fa-solid fa-bag-shopping" title="Carrinho" id="icon-carrinho" onclick="window.location.href='carrinho.html'"></i>
         <i class="fa-solid fa-house" title="Início" onclick="window.location.href='index02.html'"></i>
         <i class="fa-solid fa-heart active-icon" title="Favoritos" onclick="window.location.href='favoritos.html'"></i>
         <i class="fa-solid fa-gamepad" title="Desafio Buenão" onclick="window.location.href='game.html'"></i>
-        <i class="fa-solid fa-user" title="Perfil" id="icon-perfil"></i>
+        <i class="fa-solid fa-user" title="Perfil" id="icon-perfil" onclick="window.location.href='lg.html'"></i>
       </div>
     </header>
 
@@ -41,6 +41,43 @@
 
       <div id="favoritos-grid" class="product-grid"></div>
     </section>
+
+    <div id="modal-produto" class="overlay hidden">
+      <div class="modal-card modal-produto-card">
+        <button id="btn-close-produto" type="button" class="close-btn">&times;</button>
+        
+        <div class="modal-produto-body">
+          <div class="modal-img-container">
+            <img id="modal-p-img" src="" alt="Produto" />
+          </div>
+
+          <div class="modal-p-detalhes">
+            <h2 id="modal-p-nome">Nome do Produto</h2>
+            <span id="modal-p-preco" class="modal-p-preco">R$ 0,00</span>
+
+            <div class="secao-opcao">
+              <label><strong>Escolha o Tamanho:</strong></label>
+              <div id="modal-p-tamanhos" class="tamanhos-grid"></div>
+            </div>
+
+            <div class="secao-opcao">
+              <label><strong>Quantidade:</strong></label>
+              <div class="qtd-selector">
+                <button type="button" id="btn-qtd-menos">-</button>
+                <span id="modal-p-qtd">1</span>
+                <button type="button" id="btn-qtd-mais">+</button>
+              </div>
+            </div>
+
+            <div class="modal-p-acoes">
+              <button type="button" id="btn-confirmar-carrinho" class="btn-carrinho-modal">
+                <i class="fa-solid fa-cart-shopping"></i> Adicionar ao Carrinho
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script type="module" src="../js/favoritos.js"></script>
   </body>
