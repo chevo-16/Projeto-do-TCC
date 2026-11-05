@@ -39,7 +39,6 @@ function escutarPedidosEmTempoReal(userId) {
       const id = docSnap.id;
       const st = (pedido.status || '').toLowerCase();
 
-      // OCULTA OS PEDIDOS CANCELADOS DA TELA DO CLIENTE
       if (st === 'cancelado') {
         return;
       }

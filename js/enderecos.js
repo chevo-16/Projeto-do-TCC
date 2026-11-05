@@ -31,7 +31,6 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
-// Busca o endereço marcado com ePadrao: true na coleção 'enderecos'
 async function carregarEnderecoPadrao(uid) {
   const elEndereco = document.getElementById("texto-endereco-padrao");
   try {
@@ -46,7 +45,7 @@ async function carregarEnderecoPadrao(uid) {
       const endData = snapshot.docs[0].data();
       enderecoPadraoTexto = `${endData.logradouro}, ${endData.numero} ${endData.complemento ? '- ' + endData.complemento : ''} - ${endData.bairro}, ${endData.cidade}/${endData.estado}`;
     } else {
-      // Caso não tenha nenhum marcado como padrão, pega o primeiro endereço cadastrado
+
       const qTodos = query(collection(db, "enderecos"), where("userId", "==", uid));
       const snapTodos = await getDocs(qTodos);
       if (!snapTodos.empty) {

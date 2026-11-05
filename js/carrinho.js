@@ -31,7 +31,6 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
-// Busca todos os endereços do usuário no Firestore e escolhe o padrão ou o primeiro disponível
 async function carregarEnderecoPadrao(uid) {
   const elEndereco = document.getElementById("texto-endereco-padrao");
   try {
