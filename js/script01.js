@@ -4,10 +4,29 @@ import {
   signInWithPopup, 
   onAuthStateChanged 
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { eAdmin } from './admin-config.js';
+
+function direcionarUsuario(user) {
+  if (!user) return;
+
+  if (eAdmin(user.email)) {
+
+    window.location.href = "admin.html";
+  } else {
+
+    window.location.href = "index02.html";
+  }
+}
+
+if (googleProvider) {
+  googleProvider.setCustomParameters({
+    prompt: 'select_account'
+  });
+}
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    window.location.href = "index02.html";
+    direcionarUsuario(user);
   }
 });
 
@@ -27,17 +46,17 @@ function iniciarTela() {
     formLogin.addEventListener("submit", async (e) => {
       e.preventDefault();
       
-      const emailInput = formLogin.querySelector('input[type="email"]');
-      const senhaInput = formLogin.querySelector('input[type="password"]');
+      const emailInput = formLogin.querySelector('input[type="email"]') || document.getElementById('email');
+      const senhaInput = formLogin.querySelector('input[type="password"]') || document.getElementById('senha');
 
       if (!emailInput || !senhaInput) return;
 
       try {
-        await signInWithEmailAndPassword(auth, emailInput.value, senhaInput.value);
-        window.location.href = "index02.html";
+        const userCredential = await signInWithEmailAndPassword(auth, emailInput.value, senhaInput.value);
+        direcionarUsuario(userCredential.user);
       } catch (error) {
         console.error("Erro no login:", error);
-        alert("E-mail ou senha incorretos!");
+        alert("E-mail ou senha incorretos! Se você ainda não tem senha cadastrada, clique no botão Cadastrar-se.");
       }
     });
   }
@@ -46,12 +65,19 @@ function iniciarTela() {
   if (btnGoogle) {
     btnGoogle.addEventListener("click", async () => {
       try {
-        await signInWithPopup(auth, googleProvider);
-        window.location.href = "index02.html";
+        const result = await signInWithPopup(auth, googleProvider);
+        direcionarUsuario(result.user);
       } catch (error) {
         console.error("Erro no login com Google:", error);
         alert("Falha ao entrar com Google.");
       }
+    });
+  }
+
+  const btnFacebook = document.querySelector(".btn-social.facebook");
+  if (btnFacebook) {
+    btnFacebook.addEventListener("click", () => {
+      alert("O login com Facebook está temporariamente em manutenção. Utilize o login por E-mail ou Google!");
     });
   }
 }

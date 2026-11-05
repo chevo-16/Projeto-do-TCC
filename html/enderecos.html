@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buenão - Meus Endereços</title>
+  <link rel="stylesheet" href="../css/enderecos.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <div class="enderecos-container">
+    <div class="header-enderecos">
+      <button class="btn-voltar" onclick="window.location.href='perfil.html'">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <h2>Meus Endereços</h2>
+    </div>
+
+    <button class="btn-novo-endereco" id="btn-abrir-form">
+      <i class="fa-solid fa-plus"></i> Adicionar Novo Endereço
+    </button>
+
+    <div id="container-form" class="card-form hidden">
+      <h3>Novo Endereço</h3>
+      <form id="form-endereco">
+        <div class="input-group">
+          <label for="cep">CEP</label>
+          <input type="text" id="cep" placeholder="00000-000" maxlength="9" required />
+        </div>
+
+        <div class="input-group">
+          <label for="logradouro">Rua / Avenida</label>
+          <input type="text" id="logradouro" placeholder="Ex: Rua das Flores" required />
+        </div>
+
+        <div class="input-row">
+          <div class="input-group">
+            <label for="numero">Número</label>
+            <input type="text" id="numero" placeholder="123" required />
+          </div>
+          <div class="input-group">
+            <label for="complemento">Complemento</label>
+            <input type="text" id="complemento" placeholder="Apt 101, Bloco B" />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="bairro">Bairro</label>
+          <input type="text" id="bairro" placeholder="Centro" required />
+        </div>
+
+        <div class="input-row">
+          <div class="input-group">
+            <label for="cidade">Cidade</label>
+            <input type="text" id="cidade" placeholder="São Paulo" required />
+          </div>
+          <div class="input-group">
+            <label for="estado">UF</label>
+            <input type="text" id="estado" placeholder="SP" maxlength="2" required />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="referencia">Ponto de Referência (Opcional)</label>
+          <input type="text" id="referencia" placeholder="Próximo ao mercado..." />
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="endereco-padrao" />
+          <label for="endereco-padrao">Definir como endereço padrão de entrega</label>
+        </div>
+
+        <div class="form-acoes">
+          <button type="button" class="btn-cancelar" id="btn-fechar-form">Cancelar</button>
+          <button type="submit" class="btn-salvar">Salvar Endereço</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="lista-enderecos" class="lista-enderecos">
+      <p class="carregando">Carregando endereços...</p>
+    </div>
+  </div>
+
+  <script type="module" src="../js/enderecos.js"></script>
+</body>
+</html>

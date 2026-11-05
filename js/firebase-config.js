@@ -29,6 +29,7 @@ export async function fazerLoginGoogle() {
       await setDoc(userRef, {
         nome: user.displayName,
         email: user.email,
+        endereco: "",
         carrinho: [],
         curtidas: [],
         compras: []

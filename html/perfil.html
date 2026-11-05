@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buenão - Perfil</title>
+  <link rel="stylesheet" href="../css/perfil.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <div class="perfil-container">
+    
+    <div class="topo-navegacao">
+      <button class="btn-home" id="btn-voltar-home" onclick="window.location.href='index02.html'" title="Página Inicial">
+        <i class="fa-solid fa-house"></i>
+      </button>
+    </div>
+
+    <div class="perfil-header">
+      <div class="avatar-container">
+        <img id="user-avatar" src="../images/logo.png" alt="Foto do Usuário" />
+      </div>
+      <h2 id="user-name">Carregando...</h2>
+      <p id="user-email">email@exemplo.com</p>
+      
+      <button class="btn-editar-perfil" id="btn-editar">Editar Perfil</button>
+    </div>
+
+    <div class="perfil-menu">
+      
+      <button class="menu-item" id="btn-pedidos" onclick="window.location.href='pedidos.html'">
+        <div class="icon-box"><i class="fa-solid fa-cart-shopping"></i></div>
+        <span class="btn-label">Pedidos</span>
+      </button>
+
+      <button class="menu-item" id="btn-enderecos" onclick="window.location.href='enderecos.html'">
+        <div class="icon-box"><i class="fa-solid fa-map-location-dot"></i></div>
+        <span class="btn-label">Endereços</span>
+      </button>
+
+      <button class="menu-item" id="btn-favoritos" onclick="window.location.href='favoritos.html'">
+        <div class="icon-box"><i class="fa-solid fa-heart"></i></div>
+        <span class="btn-label">Favoritos</span>
+      </button>
+
+      <button class="menu-item" id="btn-pagamentos" onclick="window.location.href='pagamentos.html'">
+        <div class="icon-box"><i class="fa-solid fa-credit-card"></i></div>
+        <span class="btn-label">Pagamentos</span>
+      </button>
+
+      <button class="menu-item" id="btn-suporte" onclick="window.location.href='suporte.html'">
+        <div class="icon-box"><i class="fa-solid fa-headset"></i></div>
+        <span class="btn-label">Suporte</span>
+      </button>
+
+    </div>
+
+    <button class="btn-sair" id="btn-logout">
+      <i class="fa-solid fa-right-from-bracket"></i> Sair da Conta
+    </button>
+
+  </div>
+
+  <script type="module" src="../js/perfil.js"></script>
+</body>
+</html>

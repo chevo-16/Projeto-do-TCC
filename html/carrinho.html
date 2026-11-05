@@ -38,6 +38,82 @@
       </div>
     </div>
 
+    <!-- MODAL DE CHECKOUT -->
+    <div id="modal-checkout" class="modal-overlay hidden">
+      <div class="modal-content">
+        <button type="button" id="btn-close-checkout" class="btn-close">&times;</button>
+        <h3><i class="fa-solid fa-shield-halved"></i> Finalizar Compra</h3>
+        
+        <div id="resumo-pedido" class="resumo-box"></div>
+
+        <form id="form-checkout">
+          <!-- ENDEREÇO DE ENTREGA -->
+          <div class="secao-checkout">
+            <h4><i class="fa-solid fa-location-dot"></i> Endereço de Entrega</h4>
+            <div id="box-endereco-padrao" class="box-endereco">
+              <span id="texto-endereco-padrao">Carregando endereço...</span>
+            </div>
+            
+            <div id="box-novo-endereco" class="hidden" style="margin-top: 8px;">
+              <input type="text" id="checkout-novo-endereco" placeholder="Digite o novo endereço completo" class="input-checkout" />
+            </div>
+
+            <button type="button" id="btn-toggle-endereco" class="btn-link-secundario">
+              <i class="fa-solid fa-plus"></i> Usar outro endereço
+            </button>
+          </div>
+
+          <!-- CUPOM DE DESCONTO -->
+          <div class="secao-checkout">
+            <h4><i class="fa-solid fa-ticket"></i> Cupom de Desconto (Opcional)</h4>
+            
+            <select id="select-cupons-usuario" class="input-checkout" style="margin-bottom: 8px;">
+              <option value="">Nenhum cupom selecionado</option>
+            </select>
+
+            <div class="cupom-group">
+              <input type="text" id="input-cupom" placeholder="Ou digite o código do cupom" class="input-checkout" />
+              <button type="button" id="btn-aplicar-cupom" class="btn-aplicar">Aplicar</button>
+            </div>
+            <small id="msg-cupom" class="msg-cupom"></small>
+          </div>
+
+          <!-- FORMAS DE PAGAMENTO -->
+          <div class="secao-checkout">
+            <h4><i class="fa-solid fa-wallet"></i> Forma de Pagamento</h4>
+            <div class="opcoes-pagamento">
+              <label class="opcao-pagamento">
+                <input type="radio" name="formaPagamento" value="Pix" checked />
+                <span><i class="fa-brands fa-pix" style="color: #32bcad;"></i> Pix (Aprovação Instantânea)</span>
+              </label>
+              
+              <label class="opcao-pagamento">
+                <input type="radio" name="formaPagamento" value="Boleto" />
+                <span><i class="fa-solid fa-barcode"></i> Boleto Bancário</span>
+              </label>
+              
+              <label class="opcao-pagamento">
+                <input type="radio" name="formaPagamento" value="Cartao" id="radio-cartao" />
+                <span><i class="fa-solid fa-credit-card"></i> Cartão de Crédito</span>
+              </label>
+            </div>
+
+            <div id="area-cartoes" class="hidden">
+              <label>Escolha o Cartão Cadastrado:</label>
+              <select id="select-cartao-usuario"></select>
+              <button type="button" class="btn-add-cartao-link" onclick="irParaPagamentos()">
+                <i class="fa-solid fa-plus"></i> Cadastrar Novo Cartão
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" id="btn-confirmar-pagamento" class="btn-confirmar">
+            Confirmar e Concluir Pedido
+          </button>
+        </form>
+      </div>
+    </div>
+
     <script type="module" src="../js/carrinho.js"></script>
   </body>
 </html>

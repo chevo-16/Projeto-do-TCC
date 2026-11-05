@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buenão - Painel Admin</title>
+  <link rel="stylesheet" href="../css/admin.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <div class="admin-container">
+    <div class="header-admin">
+      <h2><i class="fa-solid fa-user-shield"></i> Painel Admin</h2>
+      <button id="btn-sair-admin" class="btn-sair">Sair</button>
+    </div>
+
+    <div class="admin-tabs">
+      <button class="tab-btn active" data-tab="pedidos">Pedidos</button>
+      <button class="tab-btn" data-tab="produtos">Produtos</button>
+      <button class="tab-btn" data-tab="banners">Banners & Coleção</button>
+    </div>
+
+    <div id="aba-pedidos" class="tab-content active">
+      <div class="card-admin">
+        <h3>Pedidos dos Clientes</h3>
+        <div id="lista-pedidos-admin" class="lista-admin">
+          <p class="carregando">Carregando pedidos...</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="aba-produtos" class="tab-content">
+      <div class="card-admin">
+        <h3>Cadastrar Novo Produto</h3>
+        <form id="form-add-produto">
+          <div class="input-group">
+            <label>Nome do Produto</label>
+            <input type="text" id="prod-nome" placeholder="Ex: Camiseta Oversized" required />
+          </div>
+
+          <div class="input-row">
+            <div class="input-group">
+              <label>Preço (R$)</label>
+              <input type="number" step="0.01" id="prod-preco" placeholder="89.90" required />
+            </div>
+            <div class="input-group">
+              <label>Categoria</label>
+              <select id="prod-categoria" required>
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+                <option value="calcados">Calçados / Salto / Tênis</option>
+                <option value="infantil">Infantil</option>
+                <option value="acessorios">Acessórios</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Tipo da Peça</label>
+            <input type="text" id="prod-tipo" placeholder="Ex: Calça, Short, Vestido, Blusa..." required />
+          </div>
+
+          <div class="input-group">
+            <label>Foto do Produto (Escolher do dispositivo)</label>
+            <input type="file" id="prod-img-file" accept="image/*" required />
+          </div>
+
+          <button type="submit" class="btn-salvar-admin">Postar Produto</button>
+        </form>
+      </div>
+
+      <div class="card-admin">
+        <h3>Produtos Cadastrados</h3>
+        <div id="lista-produtos-admin" class="lista-admin">
+          <p class="carregando">Carregando produtos...</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="aba-banners" class="tab-content">
+      <div class="card-admin">
+        <h3>Alterar Banners do Carrossel (4 Fotos da Vitrine)</h3>
+        <form id="form-banners">
+          <div class="input-group">
+            <label>Foto 1 (Card de Cima - Imagem A)</label>
+            <input type="file" id="banner-file-1" accept="image/*" required />
+          </div>
+          <div class="input-group">
+            <label>Foto 2 (Card de Cima - Imagem B)</label>
+            <input type="file" id="banner-file-2" accept="image/*" required />
+          </div>
+          <div class="input-group">
+            <label>Foto 3 (Card de Baixo - Imagem A)</label>
+            <input type="file" id="banner-file-3" accept="image/*" required />
+          </div>
+          <div class="input-group">
+            <label>Foto 4 (Card de Baixo - Imagem B)</label>
+            <input type="file" id="banner-file-4" accept="image/*" required />
+          </div>
+          <button type="submit" class="btn-salvar-admin">Atualizar os 4 Banners</button>
+        </form>
+      </div>
+
+      <div class="card-admin">
+        <h3>Destaque / Estação da Coleção</h3>
+        <form id="form-colecao">
+          <div class="input-group">
+            <label>Selecione a Estação da Coleção</label>
+            <select id="nome-colecao" required>
+              <option value="Coleção Verão">Coleção Verão ☀️</option>
+              <option value="Coleção Outono">Coleção Outono 🍂</option>
+              <option value="Coleção Inverno">Coleção Inverno ❄️</option>
+              <option value="Coleção Primavera">Coleção Primavera 🌸</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Foto do Banner da Coleção</label>
+            <input type="file" id="img-colecao-file" accept="image/*" required />
+          </div>
+          <button type="submit" class="btn-salvar-admin">Atualizar Coleção</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module" src="../js/admin.js"></script>
+</body>
+</html>

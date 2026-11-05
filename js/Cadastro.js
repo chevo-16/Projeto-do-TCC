@@ -1,5 +1,9 @@
 import { auth, db } from './firebase-config.js';
-import { createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { 
+  createUserWithEmailAndPassword, 
+  updateProfile, 
+  signOut 
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -30,29 +34,42 @@ document.addEventListener("DOMContentLoaded", () => {
       msgErro.style.display = 'none';
 
       try {
+
         const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
         const user = userCredential.user;
 
         await updateProfile(user, { displayName: nome });
 
-        await setDoc(doc(db, "usuarios", user.uid), {
-          nome: nome,
-          email: email,
-          carrinho: [],
-          curtidas: [],
-          compras: []
-        });
+        try {
+          await setDoc(doc(db, "usuarios", user.uid), {
+            nome: nome,
+            email: email,
+            carrinho: [],
+            curtidas: [],
+            compras: []
+          });
+        } catch (firestoreError) {
+          console.warn("Aviso: Falhou ao gravar no Firestore:", firestoreError);
+        }
 
-        window.location.href = 'index02.html';
+        await signOut(auth);
+
+        alert("Cadastro realizado com sucesso! Faça login com seu e-mail e nova senha.");
+        window.location.href = 'index01.html';
 
       } catch (error) {
-        console.error("Erro ao cadastrar:", error);
+        console.error("Erro no cadastro:", error.code, error.message);
+
         if (error.code === 'auth/email-already-in-use') {
-          msgErro.textContent = 'Este e-mail já está cadastrado.';
+          msgErro.textContent = 'Este e-mail já está cadastrado. Se você entrou pelo Google antes, tente fazer login com a senha antiga ou delete a conta no Console.';
         } else if (error.code === 'auth/invalid-email') {
           msgErro.textContent = 'E-mail inválido. Digite um formato correto.';
+        } else if (error.code === 'auth/operation-not-allowed') {
+          msgErro.textContent = 'O cadastro por e-mail/senha não está ativado no Firebase Console.';
+        } else if (error.code === 'auth/weak-password') {
+          msgErro.textContent = 'A senha informada é muito fraca.';
         } else {
-          msgErro.textContent = 'Erro ao realizar o cadastro. Tente novamente.';
+          msgErro.textContent = `Erro (${error.code || 'desconhecido'}): ${error.message}`;
         }
         msgErro.style.display = 'block';
       }

@@ -1,0 +1,112 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+body {
+  background-color: #2e8b57;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.pedidos-container {
+  background-color: #f4f4f4;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 25px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.header-pedidos {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.btn-voltar {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  color: #27ae60;
+  cursor: pointer;
+}
+
+.header-pedidos h2 {
+  font-size: 1.3rem;
+  color: #1c1c1c;
+}
+
+.card-pedido {
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border-left: 5px solid #27ae60;
+}
+
+.pedido-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.pedido-id {
+  font-weight: bold;
+  color: #333;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.status-analise { background-color: #fff3cd; color: #856404; }
+.status-preparando { background-color: #d1ecf1; color: #0c5460; }
+.status-enviado { background-color: #d4edda; color: #155724; }
+.status-entregue { background-color: #27ae60; color: #ffffff; }
+
+.pedido-itens {
+  margin: 10px 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding: 8px 0;
+}
+
+.item-linha {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #444;
+  margin-bottom: 4px;
+}
+
+.previsao-entrega {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #27ae60;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.pedido-total {
+  text-align: right;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #1c1c1c;
+  margin-top: 8px;
+}
