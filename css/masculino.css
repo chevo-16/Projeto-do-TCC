@@ -498,7 +498,7 @@ body {
 
 .btn-fav.favoritado i,
 .btn-fav i.fa-solid {
-  color: #1a4d12 !important;
+  color: #e80808 !important;
   transform: scale(1.15);
 }
 
