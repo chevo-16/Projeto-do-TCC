@@ -22,16 +22,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const todosProdutos = [
   
-    { id: 'fem_v1', tipo: 'vestido', nome: 'Vestido ', preco: '150', img: '../images/feminino/', categoria: 'feminino' },
-    { id: 'fem_v2', tipo: 'vestido', nome: 'Vestido ', preco: '150', img: '../images/feminino/', categoria: 'feminino' },
-    { id: 'fem_v3', tipo: 'vestido', nome: 'Vestido Mid', preco: '160', img: '../images/feminino/', categoria: 'feminino' },
-    { id: 'fem_v4', tipo: 'vestido', nome: 'Vestido Curto', preco: '135', img: '../images/feminino/', categoria: 'feminino' },
-    { id: 'fem_v5', tipo: 'vestido', nome: 'Vestido Longo', preco: '180', img: '../images/feminino/', categoria: 'feminino' },
-    { id: 'fem_v6', tipo: 'vestido', nome: 'Vestido Festa', preco: '210', img: '../images/feminino/', categoria: 'feminino' },
-    { id: 'fem_v7', tipo: 'vestido', nome: 'Vestido Regata', preco: '115', img: '../images/feminino/', categoria: 'feminino' },
-    { id: 'fem_v8', tipo: 'vestido', nome: 'Vestido Tubinho', preco: '140', img: '../images/feminino/', categoria: 'feminino' },
-    { id: 'fem_v9', tipo: 'vestido', nome: 'Vestido Floral', preco: '145', img: '../images/feminino/', categoria: 'feminino' },
-    { id: 'fem_v10', tipo: 'vestido', nome: 'Vestido Elegante', preco: '190', img: '../images/feminino/', categoria: 'feminino' },
+    { id: 'fem_v1', tipo: 'vestido', nome: 'Vestido ', preco: '150', img: '../images/feminino/vestido/2ab05ce1-a652-49e0-a775-00e7b8e6ca2e.png', categoria: 'feminino' },
+    { id: 'fem_v2', tipo: 'vestido', nome: 'Vestido ', preco: '150', img: '../images/feminino/vestido/9eb5d0fa-933a-4493-97de-fddae96171d0.png', categoria: 'feminino' },
+    { id: 'fem_v3', tipo: 'vestido', nome: 'Vestido Mid', preco: '160', img: '../images/feminino/vestido/9f443dff-2c2c-48c3-9b36-e7a005ed743b.png', categoria: 'feminino' },
+    { id: 'fem_v4', tipo: 'vestido', nome: 'Vestido Curto', preco: '135', img: '../images/feminino/vestido/312eecdb-1172-416d-b227-52cb1433befd.png', categoria: 'feminino' },
+    { id: 'fem_v5', tipo: 'vestido', nome: 'Vestido Longo', preco: '180', img: '../images/feminino/vestido/b53252b2-93bd-4e1b-89c4-03adaee337f5.png', categoria: 'feminino' },
+    { id: 'fem_v6', tipo: 'vestido', nome: 'Vestido Festa', preco: '210', img: '../images/feminino/vestido/c7ec3f3d-5535-4a8e-8f3d-48361291dc89.png', categoria: 'feminino' },
+    { id: 'fem_v7', tipo: 'vestido', nome: 'Vestido Regata', preco: '115', img: '../images/feminino/vestido/e6b3c8b6-d762-4118-8eb1-3d6f72cad316.png', categoria: 'feminino' },
+    { id: 'fem_v8', tipo: 'vestido', nome: 'Vestido Tubinho', preco: '140', img: '../images/feminino/vestido/e7c020f1-33f1-47f9-8c1c-f1b3b1ff48ba.png', categoria: 'feminino' },
+    { id: 'fem_v9', tipo: 'vestido', nome: 'Vestido Floral', preco: '145', img: '../images/feminino/vestido/vestido.png', categoria: 'feminino' },
+    { id: 'fem_v10', tipo: 'vestido', nome: 'Vestido Elegante', preco: '190', img: '../images/feminino/vestido/vestido2.png', categoria: 'feminino' },
 
     { id: 'fem_c1', tipo: 'calca', nome: 'Calça Alfaiataria', preco: '150', img: '../img/produtos/calca_cinza.png', categoria: 'feminino' },
     { id: 'fem_c2', tipo: 'calca', nome: 'Calça Jeans Wide', preco: '140', img: '../img/produtos/calca_jeans.png', categoria: 'feminino' },
