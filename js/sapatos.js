@@ -22,16 +22,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const todosProdutos = [
 
-    { id: 'sap_m1', tipo: 'masculino', nome: 'Bota Couro', preco: '210', img: '../img/produtos/masc_bota1.png', categoria: 'calcados' },
-    { id: 'sap_m2', tipo: 'masculino', nome: 'Sapato Social', preco: '190', img: '../img/produtos/masc_sapato1.png', categoria: 'calcados' },
-    { id: 'sap_m3', tipo: 'masculino', nome: 'Sandália Couro', preco: '120', img: '../img/produtos/masc_sandalia1.png', categoria: 'calcados' },
-    { id: 'sap_m4', tipo: 'masculino', nome: 'Sapatênis Casual', preco: '160', img: '../img/produtos/masc_sapatenis.png', categoria: 'calcados' },
-    { id: 'sap_m5', tipo: 'masculino', nome: 'Bota Coturno', preco: '230', img: '../img/produtos/masc_bota2.png', categoria: 'calcados' },
-    { id: 'sap_m6', tipo: 'masculino', nome: 'Mocassim', preco: '175', img: '../img/produtos/masc_mocassim.png', categoria: 'calcados' },
-    { id: 'sap_m7', tipo: 'masculino', nome: 'Sandália Slide', preco: '95', img: '../img/produtos/masc_sandalia2.png', categoria: 'calcados' },
-    { id: 'sap_m8', tipo: 'masculino', nome: 'Sapato Loafer', preco: '185', img: '../img/produtos/masc_loafer.png', categoria: 'calcados' },
-    { id: 'sap_m9', tipo: 'masculino', nome: 'Bota Trekking', preco: '250', img: '../img/produtos/masc_bota3.png', categoria: 'calcados' },
-    { id: 'sap_m10', tipo: 'masculino', nome: 'Chinelo Couro', preco: '85', img: '../img/produtos/masc_chinelo.png', categoria: 'calcados' },
+    { id: 'sap_m1', tipo: 'masculino', nome: 'Bota Couro', preco: '210', img: '../images/calçados/masculino/0b199006-713f-4b58-a87c-1b1d1850d1d0.png', categoria: 'calcados' },
+    { id: 'sap_m2', tipo: 'masculino', nome: 'Sapato Social', preco: '190', img: '../images/calçados/masculino/9bd99f3e-9a69-423c-aad5-b27f43e21404.png', categoria: 'calcados' },
+    { id: 'sap_m3', tipo: 'masculino', nome: 'Sandália Couro', preco: '120', img: '../images/calçados/masculino/86b76daf-22bb-4cdb-9ed4-42fa06c43e76.png', categoria: 'calcados' },
+    { id: 'sap_m4', tipo: 'masculino', nome: 'Sapatênis Casual', preco: '160', img: '../images/calçados/masculino/2706a8a0-062b-416b-b4fc-77b426568dfc.png', categoria: 'calcados' },
+    { id: 'sap_m5', tipo: 'masculino', nome: 'Bota Coturno', preco: '230', img: '../images/calçados/masculino/b1f60fc9-bf54-45b6-9d09-be7db792cc35.png', categoria: 'calcados' },
+    { id: 'sap_m6', tipo: 'masculino', nome: 'Mocassim', preco: '175', img: '../images/calçados/masculino/ab57e186-4077-4b5c-a994-e317513e4e3d.png', categoria: 'calcados' },
+    { id: 'sap_m7', tipo: 'masculino', nome: 'Sandália Slide', preco: '95', img: '../images/calçados/masculino/bfb3ee86-4fd5-4448-a5fb-70f7572be08c.png', categoria: 'calcados' },
+    { id: 'sap_m8', tipo: 'masculino', nome: 'Sapato Loafer', preco: '185', img: '../images/calçados/masculino/c8eb80b0-ff51-4c89-9299-c2fcad3356c2.png', categoria: 'calcados' },
+    { id: 'sap_m9', tipo: 'masculino', nome: 'Bota Trekking', preco: '250', img: '../images/calçados/masculino/edb4d680-8b9a-4aa8-aaeb-accf207711a2.png', categoria: 'calcados' },
+    { id: 'sap_m10', tipo: 'masculino', nome: 'Chinelo Couro', preco: '85', img: '../images/calçados/masculino/f0f298dc-b2ac-48b0-883f-1d766b3086d2.png', categoria: 'calcados' },
 
     { id: 'sap_f1', tipo: 'feminino', nome: 'Bota Cano Curto', preco: '220', img: '/images/calçados/feminino/6cd0ffa8-7f59-4fed-8a59-f0a3501421d7.png', categoria: 'calcados' },
     { id: 'sap_f2', tipo: 'feminino', nome: 'Sapato Salto Alto', preco: '180', img: '../images/calçados/feminino/9fbd0299-5580-4d3f-8a9b-838e7002539b.png', categoria: 'calcados' },
@@ -44,16 +44,16 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: 'sap_f9', tipo: 'feminino', nome: 'Bota Coturno', preco: '210', img: '../images/calçados/feminino/e2e84f30-f6da-4a45-a75d-df93dc82ef87.png', categoria: 'calcados' },
     { id: 'sap_f10', tipo: 'feminino', nome: 'Sandália Salto Bloco', preco: '170', img: '../images/calçados/feminino/f473df8c-a89b-4bac-a2d8-f60bd9e50c3f.png', categoria: 'calcados' },
 
-    { id: 'sap_i1', tipo: 'infantil', nome: 'Bota Infantil', preco: '140', img: '../img/produtos/inf_bota1.png', categoria: 'calcados_infantil' },
-    { id: 'sap_i2', tipo: 'infantil', nome: 'Sapato Infantil', preco: '120', img: '../img/produtos/inf_sapato1.png', categoria: 'calcados_infantil' },
-    { id: 'sap_i3', tipo: 'infantil', nome: 'Sandália Infantil', preco: '90', img: '../img/produtos/inf_sandalia1.png', categoria: 'calcados_infantil' },
-    { id: 'sap_i4', tipo: 'infantil', nome: 'Tênis Velcro', preco: '130', img: '../img/produtos/inf_tenis1.png', categoria: 'calcados_infantil' },
-    { id: 'sap_i5', tipo: 'infantil', nome: 'Botinha Lurex', preco: '150', img: '../img/produtos/inf_bota2.png', categoria: 'calcados_infantil' },
-    { id: 'sap_i6', tipo: 'infantil', nome: 'Sapatilha Infantil', preco: '105', img: '../img/produtos/inf_sapatilha.png', categoria: 'calcados_infantil' },
-    { id: 'sap_i7', tipo: 'infantil', nome: 'Sandália Papete', preco: '85', img: '../img/produtos/inf_sandalia2.png', categoria: 'calcados_infantil' },
-    { id: 'sap_i8', tipo: 'infantil', nome: 'Sapato Social Inf', preco: '135', img: '../img/produtos/inf_sapato2.png', categoria: 'calcados_infantil' },
-    { id: 'sap_i9', tipo: 'infantil', nome: 'Bota Galocha', preco: '115', img: '../img/produtos/inf_bota3.png', categoria: 'calcados_infantil' },
-    { id: 'sap_i10', tipo: 'infantil', nome: 'Chinelo Infantil', preco: '65', img: '../img/produtos/inf_chinelo.png', categoria: 'calcados_infantil' }
+    { id: 'sap_i1', tipo: 'infantil', nome: 'Bota Infantil', preco: '140', img: '../images/calçados/infantil/1c088951-cd1b-4f95-b576-51870753b1aa.png', categoria: 'calcados_infantil' },
+    { id: 'sap_i2', tipo: 'infantil', nome: 'Sapato Infantil', preco: '120', img: '../images/calçados/infantil/4f7f298d-a973-449f-b637-c1dc54c73216.png', categoria: 'calcados_infantil' },
+    { id: 'sap_i3', tipo: 'infantil', nome: 'Sandália Infantil', preco: '90', img: '../images/calçados/infantil/706ca687-3392-473c-b76f-d4d1c5e12b44.png', categoria: 'calcados_infantil' },
+    { id: 'sap_i4', tipo: 'infantil', nome: 'Tênis Velcro', preco: '130', img: '../images/calçados/infantil/908e8f62-4d1f-4dfd-b502-4a12005c4aef.png', categoria: 'calcados_infantil' },
+    { id: 'sap_i5', tipo: 'infantil', nome: 'Botinha Lurex', preco: '150', img: '../images/calçados/infantil/5641cbd5-9ab6-486b-9f0e-69606eebeea2.png', categoria: 'calcados_infantil' },
+    { id: 'sap_i6', tipo: 'infantil', nome: 'Sapatilha Infantil', preco: '105', img: '../images/calçados/infantil/7054fa50-ea1e-4438-9b96-c00ec0af27cd.png', categoria: 'calcados_infantil' },
+    { id: 'sap_i7', tipo: 'infantil', nome: 'Sandália Papete', preco: '85', img: '../images/calçados/infantil/b7b9836d-d4bc-43b5-b0eb-c41d0a8dcb69.png', categoria: 'calcados_infantil' },
+    { id: 'sap_i8', tipo: 'infantil', nome: 'Sapato Social Inf', preco: '135', img: '../images/calçados/infantil/ba5435c0-e8a9-4190-91c4-7b221e1e1f75.png', categoria: 'calcados_infantil' },
+    { id: 'sap_i9', tipo: 'infantil', nome: 'Bota Galocha', preco: '115', img: '../images/calçados/infantil/c07a8c53-05d1-4d76-8dec-3d595639f38a.png', categoria: 'calcados_infantil' },
+    { id: 'sap_i10', tipo: 'infantil', nome: 'Chinelo Infantil', preco: '65', img: '../images/calçados/infantil/f7f0a9fe-0507-4092-9e31-433fb11ea14e.png', categoria: 'calcados_infantil' }
   ];
 
   let filtroAtual = 'todos';
