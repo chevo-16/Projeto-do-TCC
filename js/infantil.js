@@ -58,14 +58,14 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: 'inf_t7', tipo: 'camiseta', nome: 'Camiseta', preco: '60', img: '../images/infantil/camisetas/b392d8bf-a53c-4fd5-9dae-3b43bae39425.png', categoria: 'infantil' },
     { id: 'inf_t8', tipo: 'camiseta', nome: 'Camisa', preco: '75', img: '../images/infantil/camisetas/bdc433d7-af38-4e2c-bfac-60f08b1f2a32.png', categoria: 'infantil' },
 
-    { id: 'inf_v1', tipo: 'vestido', nome: 'Vestido Floral Inf', preco: '85', img: '../', categoria: 'infantil' },
-    { id: 'inf_v2', tipo: 'vestido', nome: 'Vestido Rodado', preco: '95', img: '../', categoria: 'infantil' },
-    { id: 'inf_v3', tipo: 'vestido', nome: 'Vestido Festa Inf', preco: '130', img: '../', categoria: 'infantil' },
-    { id: 'inf_v4', tipo: 'vestido', nome: 'Vestido Jeans Inf', preco: '100', img: '../', categoria: 'infantil' },
-    { id: 'inf_v5', tipo: 'vestido', nome: 'Vestido Regata', preco: '70', img: '../', categoria: 'infantil' },
-    { id: 'inf_v6', tipo: 'vestido', nome: 'Vestido Manga Longa', preco: '90', img: '../', categoria: 'infantil' },
-    { id: 'inf_v7', tipo: 'vestido', nome: 'Vestido Tule', preco: '115', img: '../', categoria: 'infantil' },
-    { id: 'inf_v8', tipo: 'vestido', nome: 'Vestido Algodão', preco: '65', img: '../', categoria: 'infantil' }
+    { id: 'inf_v1', tipo: 'vestido', nome: 'Vestido Floral Inf', preco: '85', img: '../images/infantil/vestidos/2dcdff72-277e-4747-bc5c-abe56e9eab70.png', categoria: 'infantil' },
+    { id: 'inf_v2', tipo: 'vestido', nome: 'Vestido Rodado', preco: '95', img: '../images/infantil/vestidos/17c084bc-1514-4a0f-9383-404910283533.png', categoria: 'infantil' },
+    { id: 'inf_v3', tipo: 'vestido', nome: 'Vestido Festa Inf', preco: '130', img: '../images/infantil/vestidos/67afdac0-5eb2-4759-966f-69c3339ff9ae.png', categoria: 'infantil' },
+    { id: 'inf_v4', tipo: 'vestido', nome: 'Vestido Jeans Inf', preco: '100', img: '../images/infantil/vestidos/259cf7b6-2631-41ad-9758-5afa5c265328 (1).png', categoria: 'infantil' },
+    { id: 'inf_v5', tipo: 'vestido', nome: 'Vestido Regata', preco: '70', img: '../images/infantil/vestidos/3351ccc1-dd43-4f75-8a42-90af755974f6.png', categoria: 'infantil' },
+    { id: 'inf_v6', tipo: 'vestido', nome: 'Vestido Manga Longa', preco: '90', img: '../images/infantil/vestidos/9419dccb-5876-4545-a1e1-752bb005b7c2.png', categoria: 'infantil' },
+    { id: 'inf_v7', tipo: 'vestido', nome: 'Vestido Tule', preco: '115', img: '../images/infantil/vestidos/c39d4c76-56ae-4f68-a51c-08791c4cbfb4.png', categoria: 'infantil' },
+    { id: 'inf_v8', tipo: 'vestido', nome: 'Vestido Algodão', preco: '65', img: '../images/infantil/vestidos/cc5200cf-6b4d-4521-bfed-efd61283b1e5.png', categoria: 'infantil' }
   ];
 
   let filtroAtual = 'todos';

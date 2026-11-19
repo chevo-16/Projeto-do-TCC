@@ -306,13 +306,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const topBanners = [
-    { img: "../images/vestido.png", bg: "linear-gradient(90deg, #369374 0%, #FC78E1 100%)" },
-    { img: "../images/blusa2.png", bg: "linear-gradient(90deg, #369374 0%, #0866FF 100%)" }
+    { img: "../images/feminino/vestido/b53252b2-93bd-4e1b-89c4-03adaee337f5.png", bg: "linear-gradient(90deg, #369374 0%, #FC78E1 100%)" },
+    { img: "../images/masculino/blusas/46c25090-f284-455d-8ee3-703f8c7c8b7e.png", bg: "linear-gradient(90deg, #369374 0%, #0866FF 100%)" }
   ];
 
   const bottomBanners = [
-    { img: "../images/tenis2.png", bg: "linear-gradient(90deg, #369374 0%, #4ade80 100%)" },
-    { img: "../images/infantil2.png", bg: "linear-gradient(90deg, #369374 0%, #FC78E1 50%, #38bdf8 100%)" }
+    { img: "../images/calçados/masculino/9bd99f3e-9a69-423c-aad5-b27f43e21404.png", bg: "linear-gradient(90deg, #369374 0%, #4ade80 100%)" },
+    { img: "../images/calçados/infantil/7054fa50-ea1e-4438-9b96-c00ec0af27cd.png", bg: "linear-gradient(90deg, #369374 0%, #FC78E1 50%, #38bdf8 100%)" }
   ];
 
   let currentIdx = 0;
