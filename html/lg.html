@@ -1,94 +1,73 @@
+@ -1,289 +1,289 @@
 <!doctype html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lojas Buenão - Coleção de Inverno</title>
+    <meta
+      name="description"
+      content="Descubra a Nova Coleção das Lojas Buenão. Looks exclusivos com frete grátis e parcelamento em até 6x sem juros."
+    />
+    <meta property="og:title" content="Lojas Buenão - Coleção Inverno" />
+    <meta
+      property="og:description"
+      content="Acesse a coleção completa de inverno e garanta seus looks."
+    />
+    <meta property="og:image" content="../images/og-image.png" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lojas Buenão - Coleção de Inverno</title>
-  <meta name="description"
-    content="Descubra a Nova Coleção das Lojas Buenão. Looks exclusivos com frete grátis e parcelamento em até 6x sem juros." />
-  <meta property="og:title" content="Lojas Buenão - Coleção Inverno" />
-  <meta property="og:description" content="Acesse a coleção completa de inverno e garanta seus looks." />
-  <meta property="og:image" content="../images/og-image.png" />
+    <link rel="preconnect" href="https://googleapis.com" />
+    <link rel="preconnect" href="https://gstatic.com" crossorigin />
+    <link
+      href="https://googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
 
-  <link rel="preconnect" href="https://googleapis.com" />
-  <link rel="preconnect" href="https://gstatic.com" crossorigin />
-  <link href="https://googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/lg.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <img
+        src="../images/logo.png"
+        alt="Logotipo das Lojas Buenão"
+        class="logo-img"
+        width="180"
+        height="50"
+      />
+      
+      <div class="header-buttons">
+        <a href="game.html" class="btn-secondary">Jogo</a>
+        <a href="#destaques" class="btn-secondary">Promoção</a>
 
-  <link rel="stylesheet" href="../css/lg.css" />
-</head>
+        <div id="auth-deslogado" class="user-auth-block">
+          <a href="index01.html" class="btn-secondary">Entrar</a>
+          <a href="Cadastro.html" class="btn-secondary btn-register">Cadastrar</a>
+        </div>
 
-<body>
-  <header class="navbar">
-    <img src="../images/logo.png" alt="Logotipo das Lojas Buenão" class="logo-img" width="180" height="50" />
-
-    <div class="header-buttons">
-      <a href="game.html" class="btn-secondary">Jogo</a>
-      <a href="#destaques" class="btn-secondary">Promoção</a>
-
-      <div id="auth-deslogado" class="user-auth-block">
-        <a href="index01.html" class="btn-secondary">Entrar</a>
-        <a href="Cadastro.html" class="btn-secondary btn-register">Cadastrar</a>
-      </div>
-
-      <div id="auth-logado" class="user-auth-block hidden">
-        <a href="index02.html" class="user-profile-link" title="Ir para a loja">
-          <img id="user-photo" src="../images/default-avatar.png" alt="Foto do Usuário" class="user-avatar" />
-          <span id="user-name" class="user-name"></span>
-        </a>
-        <button id="btn-logout" class="btn-secondary btn-logout" type="button">Sair</button>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <section class="banner-colecao-container">
-      <div class="banner-principal-modelos">
-        <img src="../images/nova coleção2.png" alt="Modelos da Nova Coleção" class="imagem-modelos-banner" />
-        <div class="texto-sobreposto-banner">
-          <h2>NOVA COLEÇÃO <span class="sub-ano">de Inverno 2026</span></h2>
+        <div id="auth-logado" class="user-auth-block hidden">
+          <a href="index02.html" class="user-profile-link" title="Ir para a loja">
+            <img id="user-photo" src="../images/default-avatar.png" alt="Foto do Usuário" class="user-avatar" />
+            <span id="user-name" class="user-name"></span>
+          </a>
+          <button id="btn-logout" class="btn-secondary btn-logout" type="button">Sair</button>
         </div>
       </div>
-    </section>
+    </header>
 
-    <section class="hero">
-      <h1>
-        Crie experiências de compra que convertem <span>sem complicação</span>
-      </h1>
-      <p class="subtitulo">
-        Apresente a Nova Coleção de Inverno de forma visual, objetiva e com foco
-        total em fechar vendas.
-      </p>
-      <a href="index01.html" class="btn-primary">Acessar Coleção Agora</a>
-    </section>
-
-    <section id="destaques" class="vitrine-imagens">
-      <h2>Promoção da loja</h2>
-      <div class="grid-imagens">
-        <article class="card-foto">
-          <div class="wrapper-foto">
-            <span class="badge-oferta">OFERTA</span>
-            <div class="moldura-diagonal">
-              <img src="../images/vestido.png" alt="Modelo vestindo look elegante"
-                class="foto-produto-diagonal vestido-fosco" loading="lazy" />
-            </div>
-            <h3 class="texto-sobreposto text-inclinado-esquerdo">ROUPAS</h3>
-
-            <div class="preco-tag">
-              <del class="preco-antigo">R$ 149,90</del>
-              <span class="preco-novo">R$ 99,00 cada</span>
-            </div>
+    <main>
+      <section class="banner-colecao-container">
+        <div class="banner-principal-modelos">
+          <img
+            src="../images/nova coleção2.png"
+            alt="Modelos da Nova Coleção"
+            class="imagem-modelos-banner"
+          />
+          <div class="texto-sobreposto-banner">
+            <h2>NOVA COLEÇÃO <span class="sub-ano">de Inverno 2026</span></h2>
           </div>
-        </article>
+        </div>
+      </section>
 
-<<<<<<< HEAD
-        <article class="card-foto">
-          <div class="wrapper-foto">
-            <span class="badge-oferta">OFERTA</span>
-            <div class="moldura-diagonal">
-              <img src="../images/tenis.png" alt="Tênis esportivo moderno" class="foto-produto-diagonal tenis-fosco"
-                loading="lazy" />
-=======
       <section class="hero">
         <h1>
           Crie experiências de compra que convertem <span>sem complicação</span>
@@ -122,15 +101,9 @@
                 <del class="preco-antigo">R$ 149,90</del>
                 <span class="preco-novo">R$ 99,00 cada</span>
               </div>
->>>>>>> 32ffe979d1432b99708c0eab0ece51d358eb03a5
             </div>
-            <h3 class="texto-sobreposto text-inclinado-right">TÊNIS</h3>
+          </article>
 
-<<<<<<< HEAD
-            <div class="preco-tag">
-              <del class="preco-antigo">R$ 179,90</del>
-              <span class="preco-novo">R$ 99,00 cada</span>
-=======
           <article class="card-foto">
             <div class="wrapper-foto">
               <span class="badge-oferta">OFERTA</span>
@@ -148,159 +121,170 @@
                 <del class="preco-antigo">R$ 179,90</del>
                 <span class="preco-novo">R$ 99,00 cada</span>
               </div>
->>>>>>> 32ffe979d1432b99708c0eab0ece51d358eb03a5
             </div>
-          </div>
-        </article>
-      </div>
-    </section>
+          </article>
+        </div>
+      </section>
 
-    <section class="pilares-estilo">
-      <h2>O Conceito por Trás do Seu Look</h2>
-      <p class="subtitulo-secao">
-        Muito além de roupas. Criamos peças que unem as maiores tendências
-        globais ao seu bem-estar diário.
-      </p>
+      <section class="pilares-estilo">
+        <h2>O Conceito por Trás do Seu Look</h2>
+        <p class="subtitulo-secao">
+          Muito além de roupas. Criamos peças que unem as maiores tendências
+          globais ao seu bem-estar diário.
+        </p>
 
-      <div class="grid-pilares">
-        <article class="card-pilar versatilidade">
-          <div class="tag-pilar">Tendência 01</div>
-          <h3>Do Dia para a Noite</h3>
-          <p class="desc-pilar">
-            Peças versáteis com design inteligente. Combine o mesmo vestido ou
-            tênis com acessórios diferentes e mude de um look casual
-            para um visual noturno elegante em minutos.
-          </p>
-        </article>
-
-        <article class="card-pilar conforto">
-          <div class="tag-pilar">Tendência 02</div>
-          <h3>Leveza Absoluta</h3>
-          <p class="desc-pilar">
-            Modelagens soltas e fluidas pensadas estrategicamente para
-            acompanhar o seu movimento natural com máximo conforto.
-          </p>
-        </article>
-
-        <article class="card-pilar exclusividade">
-          <div class="tag-pilar">Tendência 03</div>
-          <h3>Cores da Estação</h3>
-          <p class="desc-pilar">
-            Uma paleta vibrante e exclusiva inspirada na estação.
-            Tons marcantes misturados a neutros sofisticados.
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <section class="faq-section">
-      <h2>Dúvidas Frequentes</h2>
-      <div class="faq-container">
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false" aria-controls="faq1-answer">
-            Quais as opções de parcelamento?
-            <span class="faq-icon" aria-hidden="true">+</span>
-          </button>
-          <div id="faq1-answer" class="faq-answer" hidden>
-            <p>
-              Você pode parcelar todas as suas compras da Nova Coleção em até
-              6x sem juros em todos os cartões de crédito.
+        <div class="grid-pilares">
+          <article class="card-pilar versatilidade">
+            <div class="tag-pilar">Tendência 01</div>
+            <h3>Do Dia para a Noite</h3>
+            <p class="desc-pilar">
+              Peças versáteis com design inteligente. Combine o mesmo vestido ou
+              tênis com acessórios diferentes e mude de um look casual
+              para um visual noturno elegante em minutos.
             </p>
-          </div>
-        </div>
+          </article>
 
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false" aria-controls="faq2-answer">
-            Como funciona a política de trocas?
-            <span class="faq-icon" aria-hidden="true">+</span>
-          </button>
-          <div id="faq2-answer" class="faq-answer" hidden>
-            <p>
-              A primeira troca das Lojas Buenão é totalmente gratuita! Você
-              tem até 7 dias após o recebimento para solicitar de forma
-              simples.
+          <article class="card-pilar conforto">
+            <div class="tag-pilar">Tendência 02</div>
+            <h3>Leveza Absoluta</h3>
+            <p class="desc-pilar">
+              Modelagens soltas e fluidas pensadas estrategicamente para
+              acompanhar o seu movimento natural com máximo conforto.
             </p>
-          </div>
-        </div>
+          </article>
 
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false" aria-controls="faq3-answer">
-            Qual o prazo de entrega do frete grátis?
-            <span class="faq-icon" aria-hidden="true">+</span>
-          </button>
-          <div id="faq3-answer" class="faq-answer" hidden>
-            <p>
-              O frete grátis promocional para a Coleção possui
-              entrega estimada entre 5 e 12 dias úteis, dependendo da sua
-              região.
+          <article class="card-pilar exclusividade">
+            <div class="tag-pilar">Tendência 03</div>
+            <h3>Cores da Estação</h3>
+            <p class="desc-pilar">
+              Uma paleta vibrante e exclusiva inspirada na estação.
+              Tons marcantes misturados a neutros sofisticados.
             </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="faq-section">
+        <h2>Dúvidas Frequentes</h2>
+        <div class="faq-container">
+          <div class="faq-item">
+            <button
+              class="faq-question"
+              aria-expanded="false"
+              aria-controls="faq1-answer"
+            >
+              Quais as opções de parcelamento?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div id="faq1-answer" class="faq-answer" hidden>
+              <p>
+                Você pode parcelar todas as suas compras da Nova Coleção em até
+                6x sem juros em todos os cartões de crédito.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button
+              class="faq-question"
+              aria-expanded="false"
+              aria-controls="faq2-answer"
+            >
+              Como funciona a política de trocas?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div id="faq2-answer" class="faq-answer" hidden>
+              <p>
+                A primeira troca das Lojas Buenão é totalmente gratuita! Você
+                tem até 7 dias após o recebimento para solicitar de forma
+                simples.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button
+              class="faq-question"
+              aria-expanded="false"
+              aria-controls="faq3-answer"
+            >
+              Qual o prazo de entrega do frete grátis?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div id="faq3-answer" class="faq-answer" hidden>
+              <p>
+                O frete grátis promocional para a Coleção possui
+                entrega estimada entre 5 e 12 dias úteis, dependendo da sua
+                região.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
 
-  <footer class="main-footer">
-    <div class="footer-content">
-      <div class="footer-info">
-        <h3>Lojas Buenão</h3>
-        <p>Sua experiência completa em moda digital de alta conversão.</p>
-
-        <div class="container-lojas-footer">
-          <button class="btn-lojas-cascavel" aria-expanded="false" aria-controls="lista-lojas-cascavel">
-            <span>Lojas em Cascavel</span>
-            <span class="icone-toggle" aria-hidden="true">+</span>
-          </button>
-          <div id="lista-lojas-cascavel" class="conteudo-lojas" hidden>
-            <div class="item-loja">
-              <strong>Matriz Periolo</strong>
-              <p>Rua Europa, 1815 - Bairro Periolo</p>
+    <footer class="main-footer">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h3>Lojas Buenão</h3>
+          <p>Sua experiência completa em moda digital de alta conversão.</p>
+          
+          <div class="container-lojas-footer">
+            <button
+              class="btn-lojas-cascavel"
+              aria-expanded="false"
+              aria-controls="lista-lojas-cascavel"
+            >
+              <span>Lojas em Cascavel</span>
+              <span class="icone-toggle" aria-hidden="true">+</span>
+            </button>
+            <div id="lista-lojas-cascavel" class="conteudo-lojas" hidden>
+              <div class="item-loja">
+                <strong>Matriz Periolo</strong>
+                <p>Rua Europa, 1815 - Bairro Periolo</p>
+              </div>
+              <div class="item-loja">
+                <strong>Loja Centro</strong>
+                <p>Av. Brasil, 6300 - Centro</p>
+              </div>
+              <div class="item-loja">
+                <strong>Loja Floresta</strong>
+                <p>Av. das Papagaios - Bairro Floresta</p>
+              </div>
+              <div class="item-loja">
+                <strong>Loja Coqueiral / Parque Verde</strong>
+                <p>Rua Francisco Bartinik, 1306 - Bairro Coqueiral</p>
+              </div>
+              <div class="item-loja">
+                <strong>Loja Maria Luíza</strong>
+                <p>Av. Carlos Gomes, 2576 - Bairro Maria Luíza</p>
+              </div>
+              <div class="item-loja">
+                <strong>Loja Santa Cruz</strong>
+                <p>Rua Xavantes - Bairro Santa Cruz</p>
+              </div>
+              <div class="item-loja">
+                <strong>Loja Cascavel Velho</strong>
+                <p>Rua Itália - Bairro Cascavel Velho</p>
+              </div>
+              <div class="item-loja">
+                <strong>Loja Consolata</strong>
+                <p>Rua Agostinho dos Santos - Bairro Consolata</p>
+              </div>
+              <p class="cidade-uf">Cascavel - Paraná</p>
             </div>
-            <div class="item-loja">
-              <strong>Loja Centro</strong>
-              <p>Av. Brasil, 6300 - Centro</p>
-            </div>
-            <div class="item-loja">
-              <strong>Loja Floresta</strong>
-              <p>Av. das Papagaios - Bairro Floresta</p>
-            </div>
-            <div class="item-loja">
-              <strong>Loja Coqueiral / Parque Verde</strong>
-              <p>Rua Francisco Bartinik, 1306 - Bairro Coqueiral</p>
-            </div>
-            <div class="item-loja">
-              <strong>Loja Maria Luíza</strong>
-              <p>Av. Carlos Gomes, 2576 - Bairro Maria Luíza</p>
-            </div>
-            <div class="item-loja">
-              <strong>Loja Santa Cruz</strong>
-              <p>Rua Xavantes - Bairro Santa Cruz</p>
-            </div>
-            <div class="item-loja">
-              <strong>Loja Cascavel Velho</strong>
-              <p>Rua Itália - Bairro Cascavel Velho</p>
-            </div>
-            <div class="item-loja">
-              <strong>Loja Consolata</strong>
-              <p>Rua Agostinho dos Santos - Bairro Consolata</p>
-            </div>
-            <p class="cidade-uf">Cascavel - Paraná</p>
           </div>
         </div>
+
+        <div class="footer-contact">
+          <h4>Atendimento ao Cliente</h4>
+          <p>📧 E-mail: contato@lojasbuenao.com.br</p>
+          <p>📞 Telefone: (45) 3227-2243</p>
+          <p>💬 WhatsApp: (45) 8417-7756</p>
+        </div>
       </div>
+    </footer>
 
-      <div class="footer-contact">
-        <h4>Atendimento ao Cliente</h4>
-        <p>📧 E-mail: contato@lojasbuenao.com.br</p>
-        <p>📞 Telefone: (45) 3227-2243</p>
-        <p> <img src="../images/image.png" alt="Ícone do WhatsApp"
-            style="height: 1em; width: 1em; vertical-align: -0.15em;">
-          WhatsApp: (45) 8417-7756</p>
-      </div>
-    </div>
-  </footer>
-
-  <script type="module" src="../js/lg.js"></script>
-</body>
-
+    <script type="module" src="../js/lg.js"></script>
+  </body>
 </html>
