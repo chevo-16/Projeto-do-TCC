@@ -13,42 +13,44 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 let carrinhoLocal = [];
-let uidUsuario = null;
-let usuarioEmail = null;
+let cuponsUsuarioLocal = [];
+let identificadorUsuario = null;
+let emailUsuario = null;
 let enderecoPadraoTexto = "Nenhum endereço padrão cadastrado";
 let valorDescontoAplicado = 0;
+let percentualDescontoAtivo = 0;
 let cupomAplicadoNome = "";
 
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    uidUsuario = user.uid;
-    usuarioEmail = user.email;
-    await carregarEnderecoPadrao(uidUsuario);
-    await carregarCuponsUsuario(uidUsuario);
-    await carregarCarrinho(uidUsuario);
+onAuthStateChanged(auth, async (usuario) => {
+  if (usuario) {
+    identificadorUsuario = usuario.uid;
+    emailUsuario = usuario.email;
+    await carregarEnderecoPadrao(identificadorUsuario);
+    await carregarCuponsUsuario(identificadorUsuario);
+    await carregarCarrinho(identificadorUsuario);
   } else {
     window.location.href = "index01.html";
   }
 });
 
-async function carregarEnderecoPadrao(uid) {
-  const elEndereco = document.getElementById("texto-endereco-padrao");
+async function carregarEnderecoPadrao(identificador) {
+  const elementoEndereco = document.getElementById("texto-endereco-padrao");
   try {
-    const qTodos = query(collection(db, "enderecos"), where("userId", "==", uid));
-    const snapTodos = await getDocs(qTodos);
+    const consultaEnderecos = query(collection(db, "enderecos"), where("userId", "==", identificador));
+    const documentosEnderecos = await getDocs(consultaEnderecos);
 
-    if (!snapTodos.empty) {
+    if (!documentosEnderecos.empty) {
       let enderecoSelecionado = null;
 
-      snapTodos.forEach(docSnap => {
-        const d = docSnap.data();
-        if (d.ePadrao === true || d.ePadrao === "true") {
-          enderecoSelecionado = d;
+      documentosEnderecos.forEach(documento => {
+        const dados = documento.data();
+        if (dados.ePadrao === true || dados.ePadrao === "true") {
+          enderecoSelecionado = dados;
         }
       });
 
       if (!enderecoSelecionado) {
-        enderecoSelecionado = snapTodos.docs[0].data();
+        enderecoSelecionado = documentosEnderecos.docs[0].data();
       }
 
       const logradouro = enderecoSelecionado.logradouro || '';
@@ -63,65 +65,66 @@ async function carregarEnderecoPadrao(uid) {
       enderecoPadraoTexto = "Nenhum endereço padrão cadastrado";
     }
 
-    if (elEndereco) elEndereco.textContent = enderecoPadraoTexto;
-  } catch (error) {
-    console.error("Erro ao carregar endereço padrão:", error);
-    if (elEndereco) elEndereco.textContent = "Erro ao carregar endereço";
+    if (elementoEndereco) elementoEndereco.textContent = enderecoPadraoTexto;
+  } catch (erro) {
+    console.error("Erro ao carregar endereço padrão:", erro);
+    if (elementoEndereco) elementoEndereco.textContent = "Erro ao carregar endereço";
   }
 }
 
-async function carregarCuponsUsuario(uid) {
+async function carregarCuponsUsuario(identificador) {
   try {
-    const userSnap = await getDoc(doc(db, "usuarios", uid));
-    if (userSnap.exists()) {
-      const data = userSnap.data();
-      const selectCupons = document.getElementById("select-cupons-usuario");
-      if (selectCupons && data.cupons && Array.isArray(data.cupons)) {
-        selectCupons.innerHTML = `<option value="">Nenhum cupom selecionado</option>`;
-        data.cupons.forEach(c => {
-          selectCupons.innerHTML += `<option value="${c.desconto}">${c.nome} (${c.desconto}% OFF)</option>`;
+    const documentoUsuario = await getDoc(doc(db, "usuarios", identificador));
+    if (documentoUsuario.exists()) {
+      const dados = documentoUsuario.data();
+      cuponsUsuarioLocal = Array.isArray(dados.cupons) ? dados.cupons : [];
+      const selecaoCupons = document.getElementById("select-cupons-usuario");
+      if (selecaoCupons) {
+        selecaoCupons.innerHTML = `<option value="">Nenhum cupom selecionado</option>`;
+        cuponsUsuarioLocal.forEach(cupom => {
+          selecaoCupons.innerHTML += `<option value="${cupom.desconto}" data-nome="${cupom.nome}">${cupom.nome} (${cupom.desconto}% OFF)</option>`;
         });
       }
     }
-  } catch (error) {
-    console.error("Erro ao carregar cupons do usuário:", error);
+  } catch (erro) {
+    console.error("Erro ao carregar cupons do usuário:", erro);
   }
 }
 
-async function carregarCarrinho(uid) {
+async function carregarCarrinho(identificador) {
   try {
-    const userRef = doc(db, "usuarios", uid);
-    const userSnap = await getDoc(userRef);
+    const referenciaUsuario = doc(db, "usuarios", identificador);
+    const documentoUsuario = await getDoc(referenciaUsuario);
 
-    if (userSnap.exists()) {
-      carrinhoLocal = userSnap.data().carrinho || [];
+    if (documentoUsuario.exists()) {
+      carrinhoLocal = documentoUsuario.data().carrinho || [];
       renderizarCarrinho();
     } else {
       renderizarCarrinho();
     }
-  } catch (error) {
-    console.error("Erro ao carregar carrinho:", error);
+  } catch (erro) {
+    console.error("Erro ao carregar carrinho:", erro);
     renderizarCarrinho();
   }
 }
 
 function formatarTamanhoItem(item) {
   if (item.tamanho) return item.tamanho;
-  const idStr = String(item.id || '');
-  if (idStr.startsWith('sap_i')) return '28';
-  if (idStr.startsWith('sap_') || item.categoria === 'calcados') return '40';
-  if (idStr.startsWith('inf_') || item.categoria === 'infantil') return '10';
+  const codigoTexto = String(item.id || '');
+  if (codigoTexto.startsWith('sap_i')) return '28';
+  if (codigoTexto.startsWith('sap_') || item.categoria === 'calcados') return '40';
+  if (codigoTexto.startsWith('inf_') || item.categoria === 'infantil') return '10';
   return 'M';
 }
 
 function renderizarCarrinho() {
-  const container = document.getElementById("lista-carrinho");
-  if (!container) return;
+  const listaContainer = document.getElementById("lista-carrinho");
+  if (!listaContainer) return;
   
-  container.innerHTML = "";
+  listaContainer.innerHTML = "";
 
   if (carrinhoLocal.length === 0) {
-    container.innerHTML = `<div style="text-align: center; padding: 40px 0; color: #666;">
+    listaContainer.innerHTML = `<div style="text-align: center; padding: 40px 0; color: #666;">
       <i class="fa-solid fa-cart-flatbed" style="font-size: 48px; color: #ccc; margin-bottom: 12px;"></i>
       <p style="font-size: 16px; font-weight: 500;">Seu carrinho está vazio.</p>
     </div>`;
@@ -129,34 +132,34 @@ function renderizarCarrinho() {
     return;
   }
 
-  carrinhoLocal.forEach((item, index) => {
-    const div = document.createElement("div");
-    div.className = "item-carrinho";
+  carrinhoLocal.forEach((item, indice) => {
+    const cartaoItem = document.createElement("div");
+    cartaoItem.className = "item-carrinho";
     
     const tamanhoExibicao = formatarTamanhoItem(item);
-    const qtdItem = item.quantidade || item.qtd || 1;
+    const quantidadeItem = item.quantidade || item.qtd || 1;
     const precoUnitario = Number(item.preco) || 0;
-    const subtotal = (precoUnitario * qtdItem).toFixed(2);
+    const subtotal = (precoUnitario * quantidadeItem).toFixed(2);
 
-    div.innerHTML = `
-      <input type="checkbox" class="chk-item" data-index="${index}" />
+    cartaoItem.innerHTML = `
+      <input type="checkbox" class="chk-item" data-index="${indice}" />
       <img src="${item.img}" alt="${item.nome}" />
       <div class="item-detalhes">
         <h4>${item.nome}</h4>
         <div class="item-meta">Tamanho: <strong>${tamanhoExibicao}</strong></div>
         <div class="qtd-controle" style="display: flex; align-items: center; gap: 8px; margin: 6px 0;">
-          <button type="button" class="btn-menos-cart" data-index="${index}">-</button>
-          <span style="font-weight: bold; font-size: 14px;">${qtdItem}</span>
-          <button type="button" class="btn-mais-cart" data-index="${index}">+</button>
+          <button type="button" class="btn-menos-cart" data-index="${indice}">-</button>
+          <span style="font-weight: bold; font-size: 14px;">${quantidadeItem}</span>
+          <button type="button" class="btn-mais-cart" data-index="${indice}">+</button>
         </div>
         <div class="item-preco">R$ ${subtotal}</div>
       </div>
-      <button type="button" class="btn-remover" data-index="${index}">
+      <button type="button" class="btn-remover" data-index="${indice}">
         <i class="fa-solid fa-trash"></i>
       </button>
     `;
 
-    container.appendChild(div);
+    listaContainer.appendChild(cartaoItem);
   });
 
   vincularEventosItens();
@@ -164,43 +167,43 @@ function renderizarCarrinho() {
 }
 
 function vincularEventosItens() {
-  document.querySelectorAll(".chk-item").forEach(chk => {
-    chk.addEventListener("change", () => {
-      const todos = document.querySelectorAll(".chk-item");
-      const todosMarcados = Array.from(todos).length > 0 && Array.from(todos).every(c => c.checked);
-      const chkSelectAll = document.getElementById("select-all");
-      if (chkSelectAll) chkSelectAll.checked = todosMarcados;
+  document.querySelectorAll(".chk-item").forEach(caixaSelecao => {
+    caixaSelecao.addEventListener("change", () => {
+      const todasCaixas = document.querySelectorAll(".chk-item");
+      const todasMarcadas = Array.from(todasCaixas).length > 0 && Array.from(todasCaixas).every(caixa => caixa.checked);
+      const selecionarTodos = document.getElementById("select-all");
+      if (selecionarTodos) selecionarTodos.checked = todasMarcadas;
 
       atualizarResumo();
     });
   });
 
-  document.querySelectorAll(".btn-remover").forEach(btn => {
-    btn.addEventListener("click", async (e) => {
-      const idx = Number(e.currentTarget.getAttribute("data-index"));
-      carrinhoLocal.splice(idx, 1);
+  document.querySelectorAll(".btn-remover").forEach(botao => {
+    botao.addEventListener("click", async (evento) => {
+      const indice = Number(evento.currentTarget.getAttribute("data-index"));
+      carrinhoLocal.splice(indice, 1);
       await salvarCarrinhoNoBanco();
       renderizarCarrinho();
     });
   });
 
-  document.querySelectorAll(".btn-menos-cart").forEach(btn => {
-    btn.addEventListener("click", async (e) => {
-      const idx = Number(e.currentTarget.getAttribute("data-index"));
-      const qtdAtual = carrinhoLocal[idx].quantidade || carrinhoLocal[idx].qtd || 1;
-      if (qtdAtual > 1) {
-        carrinhoLocal[idx].quantidade = qtdAtual - 1;
+  document.querySelectorAll(".btn-menos-cart").forEach(botao => {
+    botao.addEventListener("click", async (evento) => {
+      const indice = Number(evento.currentTarget.getAttribute("data-index"));
+      const quantidadeAtual = carrinhoLocal[indice].quantidade || carrinhoLocal[indice].qtd || 1;
+      if (quantidadeAtual > 1) {
+        carrinhoLocal[indice].quantidade = quantidadeAtual - 1;
         await salvarCarrinhoNoBanco();
         renderizarCarrinho();
       }
     });
   });
 
-  document.querySelectorAll(".btn-mais-cart").forEach(btn => {
-    btn.addEventListener("click", async (e) => {
-      const idx = Number(e.currentTarget.getAttribute("data-index"));
-      const qtdAtual = carrinhoLocal[idx].quantidade || carrinhoLocal[idx].qtd || 1;
-      carrinhoLocal[idx].quantidade = qtdAtual + 1;
+  document.querySelectorAll(".btn-mais-cart").forEach(botao => {
+    botao.addEventListener("click", async (evento) => {
+      const indice = Number(evento.currentTarget.getAttribute("data-index"));
+      const quantidadeAtual = carrinhoLocal[indice].quantidade || carrinhoLocal[indice].qtd || 1;
+      carrinhoLocal[indice].quantidade = quantidadeAtual + 1;
       await salvarCarrinhoNoBanco();
       renderizarCarrinho();
     });
@@ -208,32 +211,33 @@ function vincularEventosItens() {
 }
 
 function obterItensSelecionados() {
-  const checkboxes = document.querySelectorAll(".chk-item");
+  const caixasSelecao = document.querySelectorAll(".chk-item");
   const itensComprados = [];
   const indicesParaRemover = [];
   let subtotal = 0;
 
-  checkboxes.forEach((chk) => {
-    if (chk.checked) {
-      const idx = Number(chk.getAttribute("data-index"));
-      const item = carrinhoLocal[idx];
+  caixasSelecao.forEach((caixa) => {
+    if (caixa.checked) {
+      const indice = Number(caixa.getAttribute("data-index"));
+      const item = carrinhoLocal[indice];
       if (item) {
-        const qtd = item.quantidade || item.qtd || 1;
-        subtotal += (Number(item.preco) || 0) * qtd;
+        const quantidade = item.quantidade || item.qtd || 1;
+        subtotal += (Number(item.preco) || 0) * quantidade;
         
         itensComprados.push({
           nome: item.nome,
           preco: Number(item.preco) || 0,
-          quantidade: qtd,
+          quantidade: quantidade,
           tamanho: formatarTamanhoItem(item),
           img: item.img || ''
         });
 
-        indicesParaRemover.push(idx);
+        indicesParaRemover.push(indice);
       }
     }
   });
 
+  valorDescontoAplicado = percentualDescontoAtivo > 0 ? subtotal * (percentualDescontoAtivo / 100) : 0;
   const totalComDesconto = Math.max(0, subtotal - valorDescontoAplicado);
 
   return { itensComprados, indicesParaRemover, subtotal, totalComDesconto };
@@ -242,22 +246,22 @@ function obterItensSelecionados() {
 function atualizarResumo() {
   const { itensComprados, totalComDesconto } = obterItensSelecionados();
 
-  const totalEl = document.getElementById("valor-total-carrinho");
-  if (totalEl) totalEl.textContent = `R$ ${totalComDesconto.toFixed(2)}`;
+  const elementoTotal = document.getElementById("valor-total-carrinho");
+  if (elementoTotal) elementoTotal.textContent = `R$ ${totalComDesconto.toFixed(2)}`;
 
-  const btnComprar = document.getElementById("btn-finalizar-compra");
-  if (btnComprar) {
-    btnComprar.textContent = `Comprar Selecionados (${itensComprados.length})`;
-    btnComprar.disabled = itensComprados.length === 0;
+  const botaoComprar = document.getElementById("btn-finalizar-compra");
+  if (botaoComprar) {
+    botaoComprar.textContent = `Comprar Selecionados (${itensComprados.length})`;
+    botaoComprar.disabled = itensComprados.length === 0;
   }
 }
 
 async function salvarCarrinhoNoBanco() {
-  if (!uidUsuario) return;
+  if (!identificadorUsuario) return;
   try {
-    await setDoc(doc(db, "usuarios", uidUsuario), { carrinho: carrinhoLocal }, { merge: true });
-  } catch (error) {
-    console.error("Erro ao salvar carrinho:", error);
+    await setDoc(doc(db, "usuarios", identificadorUsuario), { carrinho: carrinhoLocal }, { merge: true });
+  } catch (erro) {
+    console.error("Erro ao salvar carrinho:", erro);
   }
 }
 
@@ -269,11 +273,11 @@ function abrirModalCheckout() {
     return;
   }
 
-  const modal = document.getElementById("modal-checkout");
-  const resumoBox = document.getElementById("resumo-pedido");
+  const janelaModal = document.getElementById("modal-checkout");
+  const caixaResumo = document.getElementById("resumo-pedido");
 
-  if (resumoBox) {
-    resumoBox.innerHTML = `
+  if (caixaResumo) {
+    caixaResumo.innerHTML = `
       <p>Itens selecionados: <strong>${itensComprados.length}</strong></p>
       <p>Subtotal: <strong>R$ ${subtotal.toFixed(2)}</strong></p>
       ${valorDescontoAplicado > 0 ? `<p style="color:#e74c3c">Desconto: <strong>- R$ ${valorDescontoAplicado.toFixed(2)} (${cupomAplicadoNome})</strong></p>` : ''}
@@ -282,17 +286,19 @@ function abrirModalCheckout() {
   }
 
   carregarCartoesSalvos();
-  if (modal) modal.classList.remove("hidden");
+  if (janelaModal) janelaModal.classList.remove("hidden");
 }
 
-document.getElementById("select-cupons-usuario")?.addEventListener("change", (e) => {
-  const perc = Number(e.target.value) || 0;
-  if (perc > 0) {
-    const { subtotal } = obterItensSelecionados();
-    valorDescontoAplicado = subtotal * (perc / 100);
-    cupomAplicadoNome = `${perc}% OFF (Joguinho)`;
+document.getElementById("select-cupons-usuario")?.addEventListener("change", (evento) => {
+  const percentual = Number(evento.target.value) || 0;
+  const opcaoSelecionada = evento.target.options[evento.target.selectedIndex];
+  const nomeCupom = opcaoSelecionada ? opcaoSelecionada.getAttribute("data-nome") : "";
+
+  if (percentual > 0) {
+    percentualDescontoAtivo = percentual;
+    cupomAplicadoNome = nomeCupom || `${percentual}% OFF`;
   } else {
-    valorDescontoAplicado = 0;
+    percentualDescontoAtivo = 0;
     cupomAplicadoNome = "";
   }
   atualizarResumo();
@@ -300,27 +306,35 @@ document.getElementById("select-cupons-usuario")?.addEventListener("change", (e)
 });
 
 document.getElementById("btn-aplicar-cupom")?.addEventListener("click", () => {
-  const cupom = document.getElementById("input-cupom").value.trim().toUpperCase();
-  const msg = document.getElementById("msg-cupom");
+  const codigoDigitado = document.getElementById("input-cupom").value.trim().toUpperCase();
+  const mensagemCupom = document.getElementById("msg-cupom");
 
-  if (cupom === "BUENAO10") {
-    const { subtotal } = obterItensSelecionados();
-    valorDescontoAplicado = subtotal * 0.10;
-    cupomAplicadoNome = "BUENAO10";
-    if (msg) {
-      msg.style.color = "#27ae60";
-      msg.textContent = "Cupom de 10% aplicado!";
+  const cupomGanho = cuponsUsuarioLocal.find(item => item.nome.toUpperCase() === codigoDigitado);
+
+  if (cupomGanho) {
+    percentualDescontoAtivo = Number(cupomGanho.desconto) || 0;
+    cupomAplicadoNome = cupomGanho.nome;
+    if (mensagemCupom) {
+      mensagemCupom.style.color = "#27ae60";
+      mensagemCupom.textContent = `Cupom de ${percentualDescontoAtivo}% aplicado!`;
     }
-  } else if (cupom === "") {
-    valorDescontoAplicado = 0;
+  } else if (codigoDigitado === "BUENAO10") {
+    percentualDescontoAtivo = 10;
+    cupomAplicadoNome = "BUENAO10";
+    if (mensagemCupom) {
+      mensagemCupom.style.color = "#27ae60";
+      mensagemCupom.textContent = "Cupom de 10% aplicado!";
+    }
+  } else if (codigoDigitado === "") {
+    percentualDescontoAtivo = 0;
     cupomAplicadoNome = "";
-    if (msg) msg.textContent = "";
+    if (mensagemCupom) mensagemCupom.textContent = "";
   } else {
-    valorDescontoAplicado = 0;
+    percentualDescontoAtivo = 0;
     cupomAplicadoNome = "";
-    if (msg) {
-      msg.style.color = "#e74c3c";
-      msg.textContent = "Cupom não encontrado.";
+    if (mensagemCupom) {
+      mensagemCupom.style.color = "#e74c3c";
+      mensagemCupom.textContent = "Cupom não encontrado.";
     }
   }
   atualizarResumo();
@@ -328,57 +342,57 @@ document.getElementById("btn-aplicar-cupom")?.addEventListener("click", () => {
 });
 
 document.getElementById("btn-toggle-endereco")?.addEventListener("click", () => {
-  const boxNovo = document.getElementById("box-novo-endereco");
-  const btn = document.getElementById("btn-toggle-endereco");
+  const caixaNovoEndereco = document.getElementById("box-novo-endereco");
+  const botaoAlternar = document.getElementById("btn-toggle-endereco");
   
-  if (boxNovo.classList.contains("hidden")) {
-    boxNovo.classList.remove("hidden");
-    btn.innerHTML = `<i class="fa-solid fa-rotate-left"></i> Usar endereço padrão`;
+  if (caixaNovoEndereco.classList.contains("hidden")) {
+    caixaNovoEndereco.classList.remove("hidden");
+    botaoAlternar.innerHTML = `<i class="fa-solid fa-rotate-left"></i> Usar endereço padrão`;
   } else {
-    boxNovo.classList.add("hidden");
+    caixaNovoEndereco.classList.add("hidden");
     document.getElementById("checkout-novo-endereco").value = "";
-    btn.innerHTML = `<i class="fa-solid fa-plus"></i> Usar outro endereço`;
+    botaoAlternar.innerHTML = `<i class="fa-solid fa-plus"></i> Usar outro endereço`;
   }
 });
 
 async function carregarCartoesSalvos() {
-  const selectCartao = document.getElementById("select-cartao-usuario");
-  if (!selectCartao || !uidUsuario) return;
+  const selecaoCartao = document.getElementById("select-cartao-usuario");
+  if (!selecaoCartao || !identificadorUsuario) return;
 
-  selectCartao.innerHTML = "";
+  selecaoCartao.innerHTML = "";
 
   try {
-    const userSnap = await getDoc(doc(db, "usuarios", uidUsuario));
-    if (userSnap.exists() && userSnap.data().cartoes && userSnap.data().cartoes.length > 0) {
-      userSnap.data().cartoes.forEach(cartao => {
-        const option = document.createElement("option");
-        option.value = cartao.final;
-        option.textContent = `${cartao.bandeira || 'Cartão'} terminado em ${cartao.final}`;
-        selectCartao.appendChild(option);
+    const documentoUsuario = await getDoc(doc(db, "usuarios", identificadorUsuario));
+    if (documentoUsuario.exists() && documentoUsuario.data().cartoes && documentoUsuario.data().cartoes.length > 0) {
+      documentoUsuario.data().cartoes.forEach(cartao => {
+        const opcao = document.createElement("option");
+        opcao.value = cartao.final;
+        opcao.textContent = `${cartao.bandeira || 'Cartão'} terminado em ${cartao.final}`;
+        selecaoCartao.appendChild(opcao);
       });
     } else {
-      selectCartao.innerHTML = `<option value="">Nenhum cartão cadastrado</option>`;
+      selecaoCartao.innerHTML = `<option value="">Nenhum cartão cadastrado</option>`;
     }
-  } catch (error) {
-    console.error("Erro ao carregar cartões:", error);
+  } catch (erro) {
+    console.error("Erro ao carregar cartões:", erro);
   }
 }
 
-async function processarCompra(e) {
-  e.preventDefault();
+async function processarCompra(evento) {
+  evento.preventDefault();
 
   const { itensComprados, indicesParaRemover, totalComDesconto } = obterItensSelecionados();
   
-  const boxNovoEscondido = document.getElementById("box-novo-endereco")?.classList.contains("hidden");
-  const novoEnderecoVal = document.getElementById("checkout-novo-endereco")?.value.trim();
+  const novoEnderecoEscondido = document.getElementById("box-novo-endereco")?.classList.contains("hidden");
+  const novoEnderecoValor = document.getElementById("checkout-novo-endereco")?.value.trim();
 
   let enderecoFinal = enderecoPadraoTexto;
-  if (!boxNovoEscondido && novoEnderecoVal) {
-    enderecoFinal = novoEnderecoVal;
+  if (!novoEnderecoEscondido && novoEnderecoValor) {
+    enderecoFinal = novoEnderecoValor;
   }
 
-  const radioPagamento = document.querySelector('input[name="formaPagamento"]:checked');
-  const formaPagamento = radioPagamento ? radioPagamento.value : 'Pix';
+  const opcaoPagamento = document.querySelector('input[name="formaPagamento"]:checked');
+  const formaPagamento = opcaoPagamento ? opcaoPagamento.value : 'Pix';
 
   let detalhePagamento = formaPagamento;
   if (formaPagamento === "Cartao") {
@@ -391,16 +405,16 @@ async function processarCompra(e) {
   }
 
   try {
-    const userSnap = await getDoc(doc(db, "usuarios", uidUsuario));
-    const nomeCliente = userSnap.exists() ? (userSnap.data().nome || usuarioEmail) : usuarioEmail;
+    const documentoUsuario = await getDoc(doc(db, "usuarios", identificadorUsuario));
+    const nomeCliente = documentoUsuario.exists() ? (documentoUsuario.data().nome || emailUsuario) : emailUsuario;
 
     const dataEntrega = new Date();
     dataEntrega.setDate(dataEntrega.getDate() + 5);
 
     await addDoc(collection(db, "pedidos"), {
-      uidCliente: uidUsuario,
+      uidCliente: identificadorUsuario,
       nomeCliente: nomeCliente || 'Cliente',
-      userEmail: usuarioEmail || '',
+      userEmail: emailUsuario || '',
       endereco: enderecoFinal,
       itens: itensComprados,
       total: totalComDesconto,
@@ -411,34 +425,42 @@ async function processarCompra(e) {
       criadoEm: serverTimestamp()
     });
 
-    carrinhoLocal = carrinhoLocal.filter((_, index) => !indicesParaRemover.includes(index));
-    await salvarCarrinhoNoBanco();
+    carrinhoLocal = carrinhoLocal.filter((_, indice) => !indicesParaRemover.includes(indice));
+
+    if (cupomAplicadoNome) {
+      cuponsUsuarioLocal = cuponsUsuarioLocal.filter(item => item.nome !== cupomAplicadoNome);
+    }
+
+    await setDoc(doc(db, "usuarios", identificadorUsuario), {
+      carrinho: carrinhoLocal,
+      cupons: cuponsUsuarioLocal
+    }, { merge: true });
 
     alert("🎉 Compra realizada com sucesso!");
     document.getElementById("modal-checkout")?.classList.add("hidden");
     window.location.href = "index02.html";
 
-  } catch (error) {
-    console.error("Erro ao processar compra:", error);
+  } catch (erro) {
+    console.error("Erro ao processar compra:", erro);
     alert("Erro ao processar o pedido. Tente novamente.");
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("select-all")?.addEventListener("change", (e) => {
-    const checked = e.target.checked;
-    document.querySelectorAll(".chk-item").forEach(chk => chk.checked = checked);
+  document.getElementById("select-all")?.addEventListener("change", (evento) => {
+    const marcado = evento.target.checked;
+    document.querySelectorAll(".chk-item").forEach(caixa => caixa.checked = marcado);
     atualizarResumo();
   });
 
   document.getElementById("btn-finalizar-compra")?.addEventListener("click", abrirModalCheckout);
 
-  document.querySelectorAll('input[name="formaPagamento"]').forEach(radio => {
-    radio.addEventListener('change', (e) => {
-      const area = document.getElementById("area-cartoes");
-      if (area) {
-        if (e.target.value === "Cartao") area.classList.remove("hidden");
-        else area.classList.add("hidden");
+  document.querySelectorAll('input[name="formaPagamento"]').forEach(opcao => {
+    opcao.addEventListener('change', (evento) => {
+      const areaCartoes = document.getElementById("area-cartoes");
+      if (areaCartoes) {
+        if (evento.target.value === "Cartao") areaCartoes.classList.remove("hidden");
+        else areaCartoes.classList.add("hidden");
       }
     });
   });
@@ -452,3 +474,4 @@ document.addEventListener("DOMContentLoaded", () => {
 window.irParaPagamentos = () => {
   window.location.href = "pagamentos.html";
 };
+    
