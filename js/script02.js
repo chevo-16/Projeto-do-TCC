@@ -3,15 +3,9 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/fi
 import { doc, getDoc, setDoc, collection, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 import { todosProdutos as produtosFeminino } from './feminino.js';
-import { todosProdutos as produtosMasculino } from './masculino.js';
-import { todosProdutos as produtosCalcados } from './calcados.js';
-import { todosProdutos as produtosInfantil } from './infantil.js';
 
 const produtosMaisVendidosBase = [
-  ...produtosFeminino,
-  ...produtosMasculino,
-  ...produtosCalcados,
-  ...produtosInfantil
+  ...produtosFeminino
 ];
 
 let produtosExibidos = [...produtosMaisVendidosBase];
