@@ -1,200 +1,213 @@
-let rows = 9,
-  cols = 9,
-  mines = 10;
-let currentDiscount = "5%";
-let currentLevelName = "Nível 1";
-let board = [];
-let revealed = [];
-let flagged = [];
-let gameOver = false;
-let timerInterval;
-let seconds = 0;
-let firstClick = true;
+import { auth, db } from './firebase-config.js';
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-const grid = document.getElementById("grid");
-const mineCountEl = document.getElementById("mine-count");
-const timerEl = document.getElementById("timer");
-const resetBtn = document.getElementById("reset-btn");
-const discountBanner = document.getElementById("discount-banner");
-const discountVal = document.getElementById("discount-val");
-const couponCode = document.getElementById("coupon-code");
+let linhas = 9;
+let colunas = 9;
+let minas = 10;
+let descontoAtual = "5%";
+let nomeNivelAtual = "Nível 1";
+let tabuleiro = [];
+let reveladas = [];
+let marcadas = [];
+let fimDeJogo = false;
+let intervaloTempo;
+let segundos = 0;
+let primeiroClique = true;
+let identificadorUsuario = null;
 
-const retryBanner = document.getElementById("retry-banner");
-const retryLevelName = document.getElementById("retry-level-name");
+onAuthStateChanged(auth, (usuario) => {
+  if (usuario) {
+    identificadorUsuario = usuario.uid;
+  }
+});
 
-function setDifficulty(r, c, m, discount) {
-  rows = r;
-  cols = c;
-  mines = m;
-  currentDiscount = discount;
+const gradeJogo = document.getElementById("grid");
+const contadorMinasEl = document.getElementById("mine-count");
+const cronometroEl = document.getElementById("timer");
+const botaoReiniciar = document.getElementById("reset-btn");
+const bannerDesconto = document.getElementById("discount-banner");
+const valorDescontoEl = document.getElementById("discount-val");
+const codigoCupomEl = document.getElementById("coupon-code");
 
-  if (discount === "5%") currentLevelName = "Nível 1";
-  else if (discount === "10%") currentLevelName = "Nível 2";
-  else currentLevelName = "Nível 3";
+const bannerTentarNovamente = document.getElementById("retry-banner");
+const nomeNivelTentativa = document.getElementById("retry-level-name");
 
-  resetGame();
+function definirDificuldade(l, c, m, desconto) {
+  linhas = l;
+  colunas = c;
+  minas = m;
+  descontoAtual = desconto;
+
+  if (desconto === "5%") nomeNivelAtual = "Nível 1";
+  else if (desconto === "10%") nomeNivelAtual = "Nível 2";
+  else nomeNivelAtual = "Nível 3";
+
+  reiniciarJogo();
 }
 
-function createEmptyBoard() {
-  board = Array(rows)
+window.setDifficulty = definirDificuldade;
+
+function criarTabuleiroVazio() {
+  tabuleiro = Array(linhas)
     .fill()
-    .map(() => Array(cols).fill(0));
-  revealed = Array(rows)
+    .map(() => Array(colunas).fill(0));
+  reveladas = Array(linhas)
     .fill()
-    .map(() => Array(cols).fill(false));
-  flagged = Array(rows)
+    .map(() => Array(colunas).fill(false));
+  marcadas = Array(linhas)
     .fill()
-    .map(() => Array(cols).fill(false));
+    .map(() => Array(colunas).fill(false));
 }
 
-function placeMines(excludeRow, excludeCol) {
-  let placed = 0;
-  while (placed < mines) {
-    const r = Math.floor(Math.random() * rows);
-    const c = Math.floor(Math.random() * cols);
+function posicionarMinas(linhaExcluida, colunaExcluida) {
+  let posicionadas = 0;
+  while (posicionadas < minas) {
+    const l = Math.floor(Math.random() * linhas);
+    const c = Math.floor(Math.random() * colunas);
 
-    if (r === excludeRow && c === excludeCol) continue;
-    if (board[r][c] === "M") continue;
+    if (l === linhaExcluida && c === colunaExcluida) continue;
+    if (tabuleiro[l][c] === "M") continue;
 
-    board[r][c] = "M";
-    placed++;
+    tabuleiro[l][c] = "M";
+    posicionadas++;
   }
 }
 
-function calculateNumbers() {
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      if (board[i][j] === "M") continue;
+function calcularNumeros() {
+  for (let i = 0; i < linhas; i++) {
+    for (let j = 0; j < colunas; j++) {
+      if (tabuleiro[i][j] === "M") continue;
 
-      let count = 0;
+      let contagem = 0;
       for (let di = -1; di <= 1; di++) {
         for (let dj = -1; dj <= 1; dj++) {
           if (di === 0 && dj === 0) continue;
-          const ni = i + di,
-            nj = j + dj;
+          const ni = i + di;
+          const nj = j + dj;
           if (
             ni >= 0 &&
-            ni < rows &&
+            ni < linhas &&
             nj >= 0 &&
-            nj < cols &&
-            board[ni][nj] === "M"
+            nj < colunas &&
+            tabuleiro[ni][nj] === "M"
           ) {
-            count++;
+            contagem++;
           }
         }
       }
-      board[i][j] = count;
+      tabuleiro[i][j] = contagem;
     }
   }
 }
 
-function renderGrid() {
-  grid.style.gridTemplateColumns = `repeat(${cols}, 32px)`;
-  grid.innerHTML = "";
+function renderizarGrade() {
+  gradeJogo.style.gridTemplateColumns = `repeat(${colunas}, 32px)`;
+  gradeJogo.innerHTML = "";
 
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      const cell = document.createElement("div");
-      cell.classList.add("cell");
-      cell.dataset.row = i;
-      cell.dataset.col = j;
+  for (let i = 0; i < linhas; i++) {
+    for (let j = 0; j < colunas; j++) {
+      const celula = document.createElement("div");
+      celula.classList.add("cell");
+      celula.dataset.row = i;
+      celula.dataset.col = j;
 
-      if (revealed[i][j]) {
-        cell.classList.add("revealed");
-        if (board[i][j] === "M") {
-          cell.classList.add("mine");
-        } else if (board[i][j] > 0) {
-          cell.textContent = board[i][j];
-          cell.classList.add(`num${board[i][j]}`);
+      if (reveladas[i][j]) {
+        celula.classList.add("revealed");
+        if (tabuleiro[i][j] === "M") {
+          celula.classList.add("mine");
+        } else if (tabuleiro[i][j] > 0) {
+          celula.textContent = tabuleiro[i][j];
+          celula.classList.add(`num${tabuleiro[i][j]}`);
         }
-      } else if (flagged[i][j]) {
-        cell.classList.add("flagged");
+      } else if (marcadas[i][j]) {
+        celula.classList.add("flagged");
       }
 
-      cell.addEventListener("click", handleLeftClick);
-      cell.addEventListener("contextmenu", handleRightClick);
-      grid.appendChild(cell);
+      celula.addEventListener("click", lidarCliqueEsquerdo);
+      celula.addEventListener("contextmenu", lidarCliqueDireito);
+      gradeJogo.appendChild(celula);
     }
   }
 }
 
-function handleLeftClick(e) {
-  if (gameOver) return;
+function lidarCliqueEsquerdo(evento) {
+  if (fimDeJogo) return;
 
-  const row = parseInt(e.target.dataset.row);
-  const col = parseInt(e.target.dataset.col);
+  const linha = parseInt(evento.target.dataset.row);
+  const coluna = parseInt(evento.target.dataset.col);
 
-  if (flagged[row][col]) return;
+  if (marcadas[linha][coluna]) return;
 
-  if (firstClick) {
-    firstClick = false;
-    placeMines(row, col);
-    calculateNumbers();
-    startTimer();
+  if (primeiroClique) {
+    primeiroClique = false;
+    posicionarMinas(linha, coluna);
+    calcularNumeros();
+    iniciarCronometro();
   }
 
-  if (revealed[row][col]) return;
+  if (reveladas[linha][coluna]) return;
 
-  revealCell(row, col);
+  revelarCelula(linha, coluna);
 
-  if (board[row][col] === "M") {
-    gameOver = true;
-    revealAllMines();
-    resetBtn.textContent = "😅";
-    clearInterval(timerInterval);
-    showRetry();
-  } else if (checkWin()) {
-    gameOver = true;
-    resetBtn.textContent = "🎉";
-    clearInterval(timerInterval);
-    showDiscount();
+  if (tabuleiro[linha][coluna] === "M") {
+    fimDeJogo = true;
+    revelarTodasMinas();
+    botaoReiniciar.textContent = "😅";
+    clearInterval(intervaloTempo);
+    mostrarTentarNovamente();
+  } else if (verificarVitoria()) {
+    fimDeJogo = true;
+    botaoReiniciar.textContent = "🎉";
+    clearInterval(intervaloTempo);
+    mostrarDesconto();
   }
 }
 
-function revealCell(row, col) {
-  if (row < 0 || row >= rows || col < 0 || col >= cols || revealed[row][col])
+function revelarCelula(linha, coluna) {
+  if (linha < 0 || linha >= linhas || coluna < 0 || coluna >= colunas || reveladas[linha][coluna])
     return;
 
-  revealed[row][col] = true;
+  reveladas[linha][coluna] = true;
 
-  if (board[row][col] === 0) {
+  if (tabuleiro[linha][coluna] === 0) {
     for (let i = -1; i <= 1; i++) {
       for (let j = -1; j <= 1; j++) {
         if (i === 0 && j === 0) continue;
-        revealCell(row + i, col + j);
+        revelarCelula(linha + i, coluna + j);
       }
     }
   }
-  renderGrid();
+  renderizarGrade();
 }
 
-function handleRightClick(e) {
-  e.preventDefault();
-  if (gameOver || firstClick) return;
+function lidarCliqueDireito(evento) {
+  evento.preventDefault();
+  if (fimDeJogo || primeiroClique) return;
 
-  const row = parseInt(e.target.dataset.row);
-  const col = parseInt(e.target.dataset.col);
+  const linha = parseInt(evento.target.dataset.row);
+  const coluna = parseInt(evento.target.dataset.col);
 
-  if (revealed[row][col]) return;
+  if (reveladas[linha][coluna]) return;
 
-  flagged[row][col] = !flagged[row][col];
-  renderGrid();
-  updateMineCount();
+  marcadas[linha][coluna] = !marcadas[linha][coluna];
+  renderizarGrade();
+  atualizarContagemMinas();
 }
 
-function revealAllMines() {
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      if (board[i][j] === "M") revealed[i][j] = true;
+function revelarTodasMinas() {
+  for (let i = 0; i < linhas; i++) {
+    for (let j = 0; j < colunas; j++) {
+      if (tabuleiro[i][j] === "M") reveladas[i][j] = true;
     }
   }
-  renderGrid();
+  renderizarGrade();
 }
 
-function checkWin() {
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      if (board[i][j] !== "M" && !revealed[i][j]) {
+function verificarVitoria() {
+  for (let i = 0; i < linhas; i++) {
+    for (let j = 0; j < colunas; j++) {
+      if (tabuleiro[i][j] !== "M" && !reveladas[i][j]) {
         return false;
       }
     }
@@ -202,51 +215,86 @@ function checkWin() {
   return true;
 }
 
-function showDiscount() {
-  discountVal.textContent = currentDiscount;
-  couponCode.textContent = `BUENAO${currentDiscount.replace("%", "")}OFF`;
-  discountBanner.classList.remove("hidden");
-  retryBanner.classList.add("hidden");
+async function salvarCupomNoBanco(codigoCupom, percentualDesconto) {
+  if (!identificadorUsuario) return;
+
+  try {
+    const referenciaUsuario = doc(db, "usuarios", identificadorUsuario);
+    const documentoUsuario = await getDoc(referenciaUsuario);
+
+    let listaCupons = [];
+    if (documentoUsuario.exists() && Array.isArray(documentoUsuario.data().cupons)) {
+      listaCupons = documentoUsuario.data().cupons;
+    }
+
+    const jaPossui = listaCupons.some(item => item.nome === codigoCupom);
+    if (!jaPossui) {
+      listaCupons.push({
+        nome: codigoCupom,
+        desconto: percentualDesconto,
+        ganhoEm: new Date().toISOString()
+      });
+
+      await setDoc(referenciaUsuario, { cupons: listaCupons }, { merge: true });
+    }
+  } catch (erro) {
+    console.error("Erro ao salvar cupom no Firestore:", erro);
+  }
 }
 
-function showRetry() {
-  retryLevelName.textContent = currentLevelName;
-  retryBanner.classList.remove("hidden");
-  discountBanner.classList.add("hidden");
+async function mostrarDesconto() {
+  const percentual = Number(descontoAtual.replace("%", ""));
+  const codigoGerado = `BUENAO${percentual}OFF`;
+
+  valorDescontoEl.textContent = descontoAtual;
+  codigoCupomEl.textContent = codigoGerado;
+  bannerDesconto.classList.remove("hidden");
+  bannerTentarNovamente.classList.add("hidden");
+
+  await salvarCupomNoBanco(codigoGerado, percentual);
 }
 
-function updateMineCount() {
-  let remaining = mines;
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      if (flagged[i][j]) remaining--;
+function mostrarTentarNovamente() {
+  nomeNivelTentativa.textContent = nomeNivelAtual;
+  bannerTentarNovamente.classList.remove("hidden");
+  bannerDesconto.classList.add("hidden");
+}
+
+function atualizarContagemMinas() {
+  let restantes = minas;
+  for (let i = 0; i < linhas; i++) {
+    for (let j = 0; j < colunas; j++) {
+      if (marcadas[i][j]) restantes--;
     }
   }
-  mineCountEl.textContent = String(remaining).padStart(3, "0");
+  contadorMinasEl.textContent = String(restantes).padStart(3, "0");
 }
 
-function startTimer() {
-  seconds = 0;
-  timerEl.textContent = "000";
-  clearInterval(timerInterval);
-  timerInterval = setInterval(() => {
-    seconds++;
-    timerEl.textContent = String(seconds).padStart(3, "0");
+function iniciarCronometro() {
+  segundos = 0;
+  cronometroEl.textContent = "000";
+  clearInterval(intervaloTempo);
+  intervaloTempo = setInterval(() => {
+    segundos++;
+    cronometroEl.textContent = String(segundos).padStart(3, "0");
   }, 1000);
 }
 
-function resetGame() {
-  clearInterval(timerInterval);
-  firstClick = true;
-  gameOver = false;
-  seconds = 0;
-  timerEl.textContent = "000";
-  resetBtn.textContent = "🛍️";
-  discountBanner.classList.add("hidden");
-  retryBanner.classList.add("hidden");
-  createEmptyBoard();
-  renderGrid();
-  updateMineCount();
+function reiniciarJogo() {
+  clearInterval(intervaloTempo);
+  primeiroClique = true;
+  fimDeJogo = false;
+  segundos = 0;
+  cronometroEl.textContent = "000";
+  botaoReiniciar.textContent = "🛍️";
+  bannerDesconto.classList.add("hidden");
+  bannerTentarNovamente.classList.add("hidden");
+  criarTabuleiroVazio();
+  renderizarGrade();
+  atualizarContagemMinas();
 }
 
-resetGame();
+window.resetGame = reiniciarJogo;
+
+reiniciarJogo();
+    
