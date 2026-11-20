@@ -1,4 +1,4 @@
-import { auth, db } from './firebase-config.js';
+import { auth, db } from '../js/firebase-config.js';
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
@@ -25,7 +25,6 @@ onAuthStateChanged(auth, (usuario) => {
 function definirDificuldade(l, c, m, desconto) {
   linhas = l;
   colunas = c;
-  mines = m;
   minas = m;
   descontoAtual = desconto;
 
@@ -315,4 +314,5 @@ if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", reiniciarJogo);
 } else {
   reiniciarJogo();
-                              }
+}
+  
