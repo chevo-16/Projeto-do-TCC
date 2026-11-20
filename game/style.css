@@ -47,6 +47,23 @@ body {
   font-weight: 500;
 }
 
+.btn-voltar-loja {
+  margin-top: 8px;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--green-main);
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-voltar-loja:hover {
+  background: var(--green-light);
+  transform: translateY(-1px);
+}
+
 .game-wrapper {
   max-width: 800px;
   margin: 20px auto;
@@ -87,6 +104,8 @@ body {
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   border: 2px solid var(--green-light);
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 .header {
@@ -180,17 +199,35 @@ body {
   color: #7b1fa2;
 }
 
-.discount-banner {
-  margin-top: 20px;
-  background: #e8f5e9;
-  border: 2px dashed var(--green-main);
-  padding: 20px;
-  border-radius: 10px;
-  animation: popIn 0.5s ease;
+.discount-banner,
+.retry-banner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  width: 90%;
+  max-width: 390px;
+  margin: 0;
+  padding: 24px 20px;
+  border-radius: 16px;
+  box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.72), 0 14px 35px rgba(0, 0, 0, 0.35);
+  animation: popInModal 0.35s ease;
 }
 
-.discount-banner.hidden {
-  display: none;
+.discount-banner {
+  background: #e8f5e9;
+  border: 2px dashed var(--green-main);
+}
+
+.retry-banner {
+  background: #fff3e0;
+  border: 2px dashed #f57c00;
+}
+
+.discount-banner.hidden,
+.retry-banner.hidden {
+  display: none !important;
 }
 
 .coupon-code {
@@ -204,19 +241,6 @@ body {
   border: 1px solid var(--green-main);
   margin-top: 10px;
   letter-spacing: 3px;
-}
-
-.retry-banner {
-  margin-top: 20px;
-  background: #fff3e0;
-  border: 2px dashed #f57c00;
-  padding: 20px;
-  border-radius: 10px;
-  animation: popIn 0.5s ease;
-}
-
-.retry-banner.hidden {
-  display: none;
 }
 
 .retry-banner h3 {
@@ -244,13 +268,13 @@ body {
   transform: scale(1.05);
 }
 
-@keyframes popIn {
+@keyframes popInModal {
   from {
-    transform: scale(0.8);
+    transform: translate(-50%, -50%) scale(0.8);
     opacity: 0;
   }
   to {
-    transform: scale(1);
+    transform: translate(-50%, -50%) scale(1);
     opacity: 1;
   }
 }
