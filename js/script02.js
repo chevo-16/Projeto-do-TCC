@@ -33,7 +33,9 @@ const produtosMaisVendidosBase = [
   { id: 'inf_t3', nome: 'Camisa  ', preco: 65, img: '../', categoria: 'infantil' }
 ];
 
-let produtosExibidos = [...produtosMaisVendidosBase];
+const baseComImagem = produtosMaisVendidosBase.filter(p => p.img && p.img !== '../');
+
+let produtosExibidos = [...baseComImagem];
 let uidUsuario = null;
 let curtidasUsuario = [];
 let carrinhoUsuario = [];
@@ -57,13 +59,12 @@ async function carregarProdutosFirebase() {
         id: documento.id,
         ...documento.data()
       });
-    });
-
-    produtosExibidos = [...produtosFirebase, ...produtosMaisVendidosBase];
+    })
+    produtosExibidos = [...produtosFirebase, ...baseComImagem];
     renderizarProdutos();
   } catch (error) {
     console.error("Erro ao carregar produtos do Firebase:", error);
-    produtosExibidos = [...produtosMaisVendidosBase];
+    produtosExibidos = [...baseComImagem];
     renderizarProdutos();
   }
 }
