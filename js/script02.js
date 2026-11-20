@@ -2,29 +2,27 @@ import { auth, db } from './firebase-config.js';
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { doc, getDoc, setDoc, collection, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-// Importa a lista 'todosProdutos' de cada arquivo de categoria
-import { todosProdutos as fem } from './feminino.js';
-import { todosProdutos as masc } from './masculino.js';
-import { todosProdutos as calc } from './calcados.js';
-import { todosProdutos as inf } from './infantil.js';
+import { todosProdutos as produtosFeminino } from './feminino.js';
+import { todosProdutos as produtosMasculino } from './masculino.js';
+import { todosProdutos as produtosCalcados } from './calcados.js';
+import { todosProdutos as produtosInfantil } from './infantil.js';
 
-// Junta todos os produtos das categorias automaticamente com as fotos e IDs originais
 const produtosMaisVendidosBase = [
-  ...fem,
-  ...masc,
-  ...calc,
-  ...inf
+  ...produtosFeminino,
+  ...produtosMasculino,
+  ...produtosCalcados,
+  ...produtosInfantil
 ];
 
 let produtosExibidos = [...produtosMaisVendidosBase];
-let uidUsuario = null;
+let identificadorUsuario = null;
 let curtidasUsuario = [];
 let carrinhoUsuario = [];
 
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    uidUsuario = user.uid;
-    await carregarEstadoUsuario(uidUsuario);
+onAuthStateChanged(auth, async (usuario) => {
+  if (usuario) {
+    identificadorUsuario = usuario.uid;
+    await carregarEstadoUsuario(identificadorUsuario);
   } else {
     await carregarProdutosFirebase();
   }
@@ -32,10 +30,10 @@ onAuthStateChanged(auth, async (user) => {
 
 async function carregarProdutosFirebase() {
   try {
-    const querySnapshot = await getDocs(collection(db, "produtos"));
+    const consultaProdutos = await getDocs(collection(db, "produtos"));
     const produtosFirebase = [];
 
-    querySnapshot.forEach((documento) => {
+    consultaProdutos.forEach((documento) => {
       produtosFirebase.push({
         id: documento.id,
         ...documento.data()
@@ -44,39 +42,39 @@ async function carregarProdutosFirebase() {
 
     produtosExibidos = [...produtosFirebase, ...produtosMaisVendidosBase];
     renderizarProdutos();
-  } catch (error) {
-    console.error("Erro ao carregar produtos do Firebase:", error);
+  } catch (erro) {
+    console.error("Erro ao carregar produtos do Firebase:", erro);
     produtosExibidos = [...produtosMaisVendidosBase];
     renderizarProdutos();
   }
 }
 
-async function carregarEstadoUsuario(uid) {
+async function carregarEstadoUsuario(identificador) {
   try {
-    const userRef = doc(db, "usuarios", uid);
-    const userSnap = await getDoc(userRef);
+    const referenciaUsuario = doc(db, "usuarios", identificador);
+    const documentoUsuario = await getDoc(referenciaUsuario);
 
-    if (userSnap.exists()) {
-      const data = userSnap.data();
-      curtidasUsuario = data.curtidas || [];
-      carrinhoUsuario = data.carrinho || [];
+    if (documentoUsuario.exists()) {
+      const dadosUsuario = documentoUsuario.data();
+      curtidasUsuario = dadosUsuario.curtidas || [];
+      carrinhoUsuario = dadosUsuario.carrinho || [];
     }
     await carregarProdutosFirebase();
-  } catch (error) {
-    console.error("Erro ao carregar dados do usuário:", error);
+  } catch (erro) {
+    console.error("Erro ao carregar dados do usuário:", erro);
     await carregarProdutosFirebase();
   }
 }
 
 function obterOpcoesTamanho(produto) {
-  const pId = String(produto.id || '').toLowerCase();
-  const cat = String(produto.categoria || '').toLowerCase();
+  const codigoProduto = String(produto.id || '').toLowerCase();
+  const categoriaProduto = String(produto.categoria || '').toLowerCase();
 
-  if (pId.startsWith('sap_i') || cat === 'calcados_infantil') {
+  if (codigoProduto.startsWith('sap_i') || categoriaProduto === 'calcados_infantil') {
     return ['22', '24', '26', '28', '30', '32', '34', '36'];
-  } else if (pId.startsWith('sap_') || cat === 'calcados') {
+  } else if (codigoProduto.startsWith('sap_') || categoriaProduto === 'calcados') {
     return ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44'];
-  } else if (pId.startsWith('inf_') || cat === 'infantil') {
+  } else if (codigoProduto.startsWith('inf_') || categoriaProduto === 'infantil') {
     return ['2', '4', '6', '8', '10', '12', '14', '16'];
   } else {
     return ['P', 'M', 'G', 'GG'];
@@ -84,23 +82,23 @@ function obterOpcoesTamanho(produto) {
 }
 
 function renderizarProdutos() {
-  const grid = document.getElementById("main-product-grid");
-  if (!grid) return;
-  grid.innerHTML = "";
+  const gradeProdutos = document.getElementById("main-product-grid");
+  if (!gradeProdutos) return;
+  gradeProdutos.innerHTML = "";
 
-  const idsCurtidas = curtidasUsuario.map(p => typeof p === 'object' ? p.id : p);
-  const idsCarrinho = carrinhoUsuario.map(p => typeof p === 'object' ? p.id : p);
+  const codigosCurtidas = curtidasUsuario.map(item => typeof item === 'object' ? item.id : item);
+  const codigosCarrinho = carrinhoUsuario.map(item => typeof item === 'object' ? item.id : item);
 
   produtosExibidos.forEach(produto => {
-    const eCurtido = idsCurtidas.includes(produto.id);
-    const noCarrinho = idsCarrinho.includes(produto.id);
+    const estaCurtido = codigosCurtidas.includes(produto.id);
+    const estaNoCarrinho = codigosCarrinho.includes(produto.id);
     const estaEsgotado = produto.esgotado === true;
 
-    const card = document.createElement("div");
-    card.className = `product-card ${estaEsgotado ? 'produto-esgotado' : ''}`;
-    card.setAttribute("data-id", produto.id);
+    const cartaoProduto = document.createElement("div");
+    cartaoProduto.className = `product-card ${estaEsgotado ? 'produto-esgotado' : ''}`;
+    cartaoProduto.setAttribute("data-id", produto.id);
 
-    card.innerHTML = `
+    cartaoProduto.innerHTML = `
       <div class="img-container" style="cursor: ${estaEsgotado ? 'not-allowed' : 'pointer'}; position: relative;">
         <img src="${produto.img}" alt="${produto.nome}" style="${estaEsgotado ? 'filter: grayscale(80%); opacity: 0.6;' : ''}" />
         ${estaEsgotado ? '<span style="position: absolute; top: 10px; right: 10px; background: #e74c3c; color: white; padding: 4px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: bold;">Esgotado</span>' : ''}
@@ -111,18 +109,18 @@ function renderizarProdutos() {
           <span class="p-price">R$ ${Number(produto.preco).toFixed(2)}</span>
         </div>
         <div class="card-actions">
-          <button type="button" class="btn-fav ${eCurtido ? 'favoritado' : ''}" title="Favoritar">
-            <i class="${eCurtido ? 'fa-solid fa-heart' : 'fa-regular fa-heart'}" ${eCurtido ? 'style="color: #38a11e;"' : ''}></i>
+          <button type="button" class="btn-fav ${estaCurtido ? 'favoritado' : ''}" title="Favoritar">
+            <i class="${estaCurtido ? 'fa-solid fa-heart' : 'fa-regular fa-heart'}" ${estaCurtido ? 'style="color: #38a11e;"' : ''}></i>
           </button>
-          <button type="button" class="btn-cart ${noCarrinho ? 'no-carrinho' : ''}" ${estaEsgotado ? 'disabled style="opacity: 0.4; cursor: not-allowed;"' : ''} title="${estaEsgotado ? 'Produto Esgotado' : 'Carrinho'}">
-            <i class="fa-solid ${noCarrinho ? 'fa-check' : 'fa-cart-shopping'}" ${noCarrinho ? 'style="color: #38a11e;"' : ''}></i>
+          <button type="button" class="btn-cart ${estaNoCarrinho ? 'no-carrinho' : ''}" ${estaEsgotado ? 'disabled style="opacity: 0.4; cursor: not-allowed;"' : ''} title="${estaEsgotado ? 'Produto Esgotado' : 'Carrinho'}">
+            <i class="fa-solid ${estaNoCarrinho ? 'fa-check' : 'fa-cart-shopping'}" ${estaNoCarrinho ? 'style="color: #38a11e;"' : ''}></i>
           </button>
         </div>
       </div>
     `;
 
-    const imgEl = card.querySelector(".img-container");
-    imgEl.addEventListener("click", () => {
+    const caixaImagem = cartaoProduto.querySelector(".img-container");
+    caixaImagem.addEventListener("click", () => {
       if (estaEsgotado) {
         alert("Este produto está esgotado no momento.");
         return;
@@ -130,29 +128,29 @@ function renderizarProdutos() {
       abrirModalSelecao(produto);
     });
 
-    const btnFav = card.querySelector(".btn-fav");
-    btnFav.addEventListener("click", (e) => {
-      e.stopPropagation();
-      alternarFavorito(produto, btnFav);
+    const botaoFavoritar = cartaoProduto.querySelector(".btn-fav");
+    botaoFavoritar.addEventListener("click", (evento) => {
+      evento.stopPropagation();
+      alternarFavorito(produto, botaoFavoritar);
     });
 
-    const btnCart = card.querySelector(".btn-cart");
-    btnCart.addEventListener("click", (e) => {
-      e.stopPropagation();
+    const botaoCarrinho = cartaoProduto.querySelector(".btn-cart");
+    botaoCarrinho.addEventListener("click", (evento) => {
+      evento.stopPropagation();
       if (estaEsgotado) return;
       abrirModalSelecao(produto);
     });
 
-    grid.appendChild(card);
+    gradeProdutos.appendChild(cartaoProduto);
   });
 }
 
 function abrirModalSelecao(produto) {
-  const modal = document.getElementById("modal-produto");
-  if (!modal) return;
+  const janelaModal = document.getElementById("modal-produto");
+  if (!janelaModal) return;
 
-  const tamanhos = obterOpcoesTamanho(produto);
-  let tamanhoSelecionado = tamanhos[0];
+  const listaTamanhos = obterOpcoesTamanho(produto);
+  let tamanhoSelecionado = listaTamanhos[0];
   let quantidade = 1;
 
   document.getElementById("modal-p-img").src = produto.img;
@@ -160,20 +158,20 @@ function abrirModalSelecao(produto) {
   document.getElementById("modal-p-preco").textContent = `R$ ${Number(produto.preco).toFixed(2)}`;
   document.getElementById("modal-p-qtd").textContent = quantidade;
 
-  const gridTamanhos = document.getElementById("modal-p-tamanhos");
-  gridTamanhos.innerHTML = "";
+  const gradeTamanhos = document.getElementById("modal-p-tamanhos");
+  gradeTamanhos.innerHTML = "";
 
-  tamanhos.forEach(tam => {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = `btn-tamanho ${tam === tamanhoSelecionado ? 'active' : ''}`;
-    btn.textContent = tam;
-    btn.onclick = () => {
-      document.querySelectorAll(".btn-tamanho").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      tamanhoSelecionado = tam;
+  listaTamanhos.forEach(tamanho => {
+    const botaoTamanho = document.createElement("button");
+    botaoTamanho.type = "button";
+    botaoTamanho.className = `btn-tamanho ${tamanho === tamanhoSelecionado ? 'active' : ''}`;
+    botaoTamanho.textContent = tamanho;
+    botaoTamanho.onclick = () => {
+      document.querySelectorAll(".btn-tamanho").forEach(botao => botao.classList.remove("active"));
+      botaoTamanho.classList.add("active");
+      tamanhoSelecionado = tamanho;
     };
-    gridTamanhos.appendChild(btn);
+    gradeTamanhos.appendChild(botaoTamanho);
   });
 
   document.getElementById("btn-qtd-menos").onclick = () => {
@@ -189,7 +187,7 @@ function abrirModalSelecao(produto) {
   };
 
   document.getElementById("btn-confirmar-carrinho").onclick = async () => {
-    if (!uidUsuario) {
+    if (!identificadorUsuario) {
       alert("Por favor, faça login para adicionar ao carrinho.");
       return;
     }
@@ -205,122 +203,121 @@ function abrirModalSelecao(produto) {
     carrinhoUsuario.push(itemCarrinho);
 
     try {
-      const userRef = doc(db, "usuarios", uidUsuario);
-      await setDoc(userRef, { carrinho: carrinhoUsuario }, { merge: true });
+      const referenciaUsuario = doc(db, "usuarios", identificadorUsuario);
+      await setDoc(referenciaUsuario, { carrinho: carrinhoUsuario }, { merge: true });
       renderizarProdutos();
-      modal.classList.add("hidden");
-    } catch (error) {
-      console.error("Erro ao adicionar produto ao carrinho:", error);
+      janelaModal.classList.add("hidden");
+    } catch (erro) {
+      console.error("Erro ao adicionar produto ao carrinho:", erro);
     }
   };
 
-  const btnCloseModal = document.getElementById("btn-close-produto");
-  if (btnCloseModal) {
-    btnCloseModal.onclick = () => modal.classList.add("hidden");
+  const botaoFecharModal = document.getElementById("btn-close-produto");
+  if (botaoFecharModal) {
+    botaoFecharModal.onclick = () => janelaModal.classList.add("hidden");
   }
 
-  modal.classList.remove("hidden");
+  janelaModal.classList.remove("hidden");
 }
 
-async function alternarFavorito(produto, btnFav) {
-  if (!uidUsuario) return;
+async function alternarFavorito(produto, botaoFavoritar) {
+  if (!identificadorUsuario) return;
 
-  const icone = btnFav.querySelector("i");
-  const eCurtido = btnFav.classList.contains("favoritado");
+  const iconeCoracao = botaoFavoritar.querySelector("i");
+  const estaCurtido = botaoFavoritar.classList.contains("favoritado");
 
-  if (eCurtido) {
-    btnFav.classList.remove("favoritado");
-    icone.className = "fa-regular fa-heart";
-    icone.style.color = "";
-    curtidasUsuario = curtidasUsuario.filter(p => (typeof p === 'object' ? p.id : p) !== produto.id);
+  if (estaCurtido) {
+    botaoFavoritar.classList.remove("favoritado");
+    iconeCoracao.className = "fa-regular fa-heart";
+    iconeCoracao.style.color = "";
+    curtidasUsuario = curtidasUsuario.filter(item => (typeof item === 'object' ? item.id : item) !== produto.id);
   } else {
-    btnFav.classList.add("favoritado");
-    icone.className = "fa-solid fa-heart";
-    icone.style.color = "#38a11e";
+    botaoFavoritar.classList.add("favoritado");
+    iconeCoracao.className = "fa-solid fa-heart";
+    iconeCoracao.style.color = "#38a11e";
     curtidasUsuario.push(produto);
   }
 
   try {
-    const userRef = doc(db, "usuarios", uidUsuario);
-    await setDoc(userRef, { curtidas: curtidasUsuario }, { merge: true });
-  } catch (error) {
-    console.error("Erro ao sincronizar favoritos no banco:", error);
+    const referenciaUsuario = doc(db, "usuarios", identificadorUsuario);
+    await setDoc(referenciaUsuario, { curtidas: curtidasUsuario }, { merge: true });
+  } catch (erro) {
+    console.error("Erro ao sincronizar favoritos no banco:", erro);
   }
 }
 
-// Inicialização da página, modal de categorias e carrossel
 function iniciarInterface() {
-  const btnOpen = document.getElementById("btn-open-cat");
-  const btnClose = document.getElementById("btn-close-cat");
-  const modalCat = document.getElementById("modal-categorias");
+  const botaoAbrirCategorias = document.getElementById("btn-open-cat");
+  const botaoFecharCategorias = document.getElementById("btn-close-cat");
+  const modalCategorias = document.getElementById("modal-categorias");
 
-  if (btnOpen && modalCat) {
-    btnOpen.addEventListener("click", (e) => {
-      e.preventDefault();
-      modalCat.classList.remove("hidden");
+  if (botaoAbrirCategorias && modalCategorias) {
+    botaoAbrirCategorias.addEventListener("click", (evento) => {
+      evento.preventDefault();
+      modalCategorias.classList.remove("hidden");
     });
   }
 
-  if (btnClose && modalCat) {
-    btnClose.addEventListener("click", () => {
-      modalCat.classList.add("hidden");
+  if (botaoFecharCategorias && modalCategorias) {
+    botaoFecharCategorias.addEventListener("click", () => {
+      modalCategorias.classList.add("hidden");
     });
   }
 
-  if (modalCat) {
-    modalCat.addEventListener("click", (e) => {
-      if (e.target === modalCat) modalCat.classList.add("hidden");
+  if (modalCategorias) {
+    modalCategorias.addEventListener("click", (evento) => {
+      if (evento.target === modalCategorias) modalCategorias.classList.add("hidden");
     });
   }
 
-  const cardTop = document.querySelector(".side-card:nth-child(1)");
-  const cardBottom = document.querySelector(".side-card:nth-child(2)");
-  const imgTop = document.getElementById("side-img-1");
-  const imgBottom = document.getElementById("side-img-2");
+  const cartaoSuperior = document.querySelector(".side-card:nth-child(1)");
+  const cartaoInferior = document.querySelector(".side-card:nth-child(2)");
+  const imagemSuperior = document.getElementById("side-img-1");
+  const imagemInferior = document.getElementById("side-img-2");
 
   let bannerFirebaseAtivo = false;
 
-  onSnapshot(doc(db, "configuracoes", "carrossel"), (docSnap) => {
-    if (docSnap.exists()) {
-      const data = docSnap.data();
-      if (data.banners && data.banners.length >= 2) {
+  onSnapshot(doc(db, "configuracoes", "carrossel"), (documentoCarrossel) => {
+    if (documentoCarrossel.exists()) {
+      const dadosCarrossel = documentoCarrossel.data();
+      if (dadosCarrossel.banners && dadosCarrossel.banners.length >= 2) {
         bannerFirebaseAtivo = true;
-        if (imgTop && data.banners[0]) imgTop.src = data.banners[0];
-        if (imgBottom && data.banners[1]) imgBottom.src = data.banners[1];
+        if (imagemSuperior && dadosCarrossel.banners[0]) imagemSuperior.src = dadosCarrossel.banners[0];
+        if (imagemInferior && dadosCarrossel.banners[1]) imagemInferior.src = dadosCarrossel.banners[1];
       }
     }
   });
 
-  const topBanners = [
+  const bannersSuperiores = [
     { img: "../images/feminino/vestido/b53252b2-93bd-4e1b-89c4-03adaee337f5.png", bg: "linear-gradient(90deg, #369374 0%, #FC78E1 100%)" },
     { img: "../images/masculino/blusas/46c25090-f284-455d-8ee3-703f8c7c8b7e.png", bg: "linear-gradient(90deg, #369374 0%, #0866FF 100%)" }
   ];
 
-  const bottomBanners = [
+  const bannersInferiores = [
     { img: "../images/calçados/masculino/9bd99f3e-9a69-423c-aad5-b27f43e21404.png", bg: "linear-gradient(90deg, #369374 0%, #4ade80 100%)" },
     { img: "../images/calçados/infantil/7054fa50-ea1e-4438-9b96-c00ec0af27cd.png", bg: "linear-gradient(90deg, #369374 0%, #FC78E1 50%, #38bdf8 100%)" }
   ];
 
-  let currentIdx = 0;
+  let indiceAtual = 0;
 
-  if (cardTop && cardBottom) {
+  if (cartaoSuperior && cartaoInferior) {
     setInterval(() => {
-      if (imgTop) imgTop.classList.add("fade-out");
-      if (imgBottom) imgBottom.classList.add("fade-out");
+      if (imagemSuperior) imagemSuperior.classList.add("fade-out");
+      if (imagemInferior) imagemInferior.classList.add("fade-out");
 
       setTimeout(() => {
-        currentIdx = (currentIdx + 1) % topBanners.length;
+        indiceAtual = (indiceAtual + 1) % bannersSuperiores.length;
 
-        cardTop.style.background = topBanners[currentIdx].bg;
-        cardBottom.style.background = bottomBanners[currentIdx].bg;
+        cartaoSuperior.style.background = bannersSuperiores[indiceAtual].bg;
+        cartaoInferior.style.background = bannersInferiores[indiceAtual].bg;
 
         if (!bannerFirebaseAtivo) {
-          if (imgTop) imgTop.src = topBanners[currentIdx].img;
-          if (imgBottom) imgBottom.src = bottomBanners[currentIdx].img;
+          if (imagemSuperior) imagemSuperior.src = bannersSuperiores[indiceAtual].img;
+          if (imagemInferior) imagemInferior.src = bannersInferiores[indiceAtual].img;
         }
 
-        if (imgTop) imgTop.classList.remove("fade-out");
-        if (imgBottom) imgBottom.classList.remove("fade-out");
+        if (imagemSuperior) imagemSuperior.classList.remove("fade-out");
+        if (imagemInferior) imagemInferior.classList.remove("fade-out");
       }, 400);
     }, 3000);
   }
@@ -330,4 +327,4 @@ if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", iniciarInterface);
 } else {
   iniciarInterface();
-    }
+}
