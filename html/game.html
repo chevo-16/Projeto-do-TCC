@@ -20,6 +20,15 @@
       </div>
       <div class="address-bar">
         📍 Cascavel - PR | Encontre o produto premiado e ganhe descontos!
+        <br />
+        <button
+          type="button"
+          onclick="window.location.href='index02.html'"
+          class="btn-voltar-loja"
+          style="margin-top: 8px; padding: 6px 14px; border: none; border-radius: 8px; background: #ffffff; color: #369374; font-weight: bold; cursor: pointer;"
+        >
+          ⬅️ Voltar para a Loja
+        </button>
       </div>
     </header>
 
@@ -31,13 +40,13 @@
       </p>
 
       <div class="controls">
-        <button onclick="setDifficulty(9, 9, 10, '5%')">
+        <button type="button" onclick="setDifficulty(9, 9, 10, '5%')">
           Nível 1 (5% OFF)
         </button>
-        <button onclick="setDifficulty(12, 12, 20, '10%')">
+        <button type="button" onclick="setDifficulty(12, 12, 20, '10%')">
           Nível 2 (10% OFF)
         </button>
-        <button onclick="setDifficulty(16, 16, 35, '15%')">
+        <button type="button" onclick="setDifficulty(16, 16, 35, '15%')">
           Nível 3 (15% OFF)
         </button>
       </div>
@@ -45,7 +54,7 @@
       <div class="game-container">
         <div class="header">
           <div id="mine-count" title="Peças para encontrar">000</div>
-          <button id="reset-btn" onclick="resetGame()">🛍️</button>
+          <button type="button" id="reset-btn" onclick="resetGame()">🛍️</button>
           <div id="timer" title="Tempo decorrido">000</div>
         </div>
         <div id="grid" class="grid"></div>
@@ -57,10 +66,10 @@
           DESCONTO!
         </h3>
         <p>Apresente o código abaixo no caixa das lojas Buenão em Cascavel ou use no carrinho:</p>
-        <div class="coupon-code" id="coupon-code">BUENAO10</div>
+        <div class="coupon-code" id="coupon-code">BUENAO10OFF</div>
         
         <br>
-        <button onclick="window.location.href='index02.html'" class="retry-btn">
+        <button type="button" onclick="window.location.href='index02.html'" class="retry-btn">
           🛒 Ir para a Loja Usar o Cupom
         </button>
       </div>
@@ -71,12 +80,21 @@
           Você encontrou uma peça esgotada no
           <span id="retry-level-name">Nível 1</span>.
         </p>
-        <button onclick="resetGame()" class="retry-btn">
+        <button type="button" onclick="resetGame()" class="retry-btn">
           🔄 Reiniciar Nível
+        </button>
+        <br /><br />
+        <button
+          type="button"
+          onclick="window.location.href='index02.html'"
+          class="retry-btn"
+          style="background-color: #666;"
+        >
+          ⬅️ Voltar para a Loja
         </button>
       </div>
     </main>
 
-    <script src="../game/script.js"></script>
+    <script type="module" src="../game/script.js"></script>
   </body>
 </html>
