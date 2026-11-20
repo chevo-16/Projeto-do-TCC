@@ -2,18 +2,18 @@ import { auth, db } from './firebase-config.js';
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { doc, getDoc, setDoc, collection, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-// Importa as listas já prontas de cada página de categoria (sem precisar repetir caminhos de imagens)
-import { produtosFeminino } from './feminino.js';
-import { produtosMasculino } from './masculino.js';
-import { produtosCalcados } from './calcados.js';
-import { produtosInfantil } from './infantil.js';
+// Importa a lista 'todosProdutos' de cada arquivo de categoria
+import { todosProdutos as fem } from './feminino.js';
+import { todosProdutos as masc } from './masculino.js';
+import { todosProdutos as calc } from './calcados.js';
+import { todosProdutos as inf } from './infantil.js';
 
-// Junta automaticamente todos os produtos das categorias mantendo os mesmos IDs e fotos
+// Junta todos os produtos das categorias automaticamente com as fotos e IDs originais
 const produtosMaisVendidosBase = [
-  ...produtosFeminino,
-  ...produtosMasculino,
-  ...produtosCalcados,
-  ...produtosInfantil
+  ...fem,
+  ...masc,
+  ...calc,
+  ...inf
 ];
 
 let produtosExibidos = [...produtosMaisVendidosBase];
@@ -248,7 +248,8 @@ async function alternarFavorito(produto, btnFav) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+// Inicialização da página, modal de categorias e carrossel
+function iniciarInterface() {
   const btnOpen = document.getElementById("btn-open-cat");
   const btnClose = document.getElementById("btn-close-cat");
   const modalCat = document.getElementById("modal-categorias");
@@ -277,10 +278,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const imgTop = document.getElementById("side-img-1");
   const imgBottom = document.getElementById("side-img-2");
 
+  let bannerFirebaseAtivo = false;
+
   onSnapshot(doc(db, "configuracoes", "carrossel"), (docSnap) => {
     if (docSnap.exists()) {
       const data = docSnap.data();
       if (data.banners && data.banners.length >= 2) {
+        bannerFirebaseAtivo = true;
         if (imgTop && data.banners[0]) imgTop.src = data.banners[0];
         if (imgBottom && data.banners[1]) imgBottom.src = data.banners[1];
       }
@@ -310,12 +314,20 @@ document.addEventListener("DOMContentLoaded", () => {
         cardTop.style.background = topBanners[currentIdx].bg;
         cardBottom.style.background = bottomBanners[currentIdx].bg;
 
-        if (imgTop && !imgTop.src.startsWith('http')) imgTop.src = topBanners[currentIdx].img;
-        if (imgBottom && !imgBottom.src.startsWith('http')) imgBottom.src = bottomBanners[currentIdx].img;
+        if (!bannerFirebaseAtivo) {
+          if (imgTop) imgTop.src = topBanners[currentIdx].img;
+          if (imgBottom) imgBottom.src = bottomBanners[currentIdx].img;
+        }
 
         if (imgTop) imgTop.classList.remove("fade-out");
         if (imgBottom) imgBottom.classList.remove("fade-out");
       }, 400);
     }, 3000);
   }
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", iniciarInterface);
+} else {
+  iniciarInterface();
+    }
