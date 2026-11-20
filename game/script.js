@@ -22,20 +22,10 @@ onAuthStateChanged(auth, (usuario) => {
   }
 });
 
-const gradeJogo = document.getElementById("grid");
-const contadorMinasEl = document.getElementById("mine-count");
-const cronometroEl = document.getElementById("timer");
-const botaoReiniciar = document.getElementById("reset-btn");
-const bannerDesconto = document.getElementById("discount-banner");
-const valorDescontoEl = document.getElementById("discount-val");
-const codigoCupomEl = document.getElementById("coupon-code");
-
-const bannerTentarNovamente = document.getElementById("retry-banner");
-const nomeNivelTentativa = document.getElementById("retry-level-name");
-
 function definirDificuldade(l, c, m, desconto) {
   linhas = l;
   colunas = c;
+  mines = m;
   minas = m;
   descontoAtual = desconto;
 
@@ -102,6 +92,9 @@ function calcularNumeros() {
 }
 
 function renderizarGrade() {
+  const gradeJogo = document.getElementById("grid");
+  if (!gradeJogo) return;
+
   gradeJogo.style.gridTemplateColumns = `repeat(${colunas}, 32px)`;
   gradeJogo.innerHTML = "";
 
@@ -150,15 +143,17 @@ function lidarCliqueEsquerdo(evento) {
 
   revelarCelula(linha, coluna);
 
+  const botaoReiniciar = document.getElementById("reset-btn");
+
   if (tabuleiro[linha][coluna] === "M") {
     fimDeJogo = true;
     revelarTodasMinas();
-    botaoReiniciar.textContent = "😅";
+    if (botaoReiniciar) botaoReiniciar.textContent = "😅";
     clearInterval(intervaloTempo);
     mostrarTentarNovamente();
   } else if (verificarVitoria()) {
     fimDeJogo = true;
-    botaoReiniciar.textContent = "🎉";
+    if (botaoReiniciar) botaoReiniciar.textContent = "🎉";
     clearInterval(intervaloTempo);
     mostrarDesconto();
   }
@@ -246,21 +241,33 @@ async function mostrarDesconto() {
   const percentual = Number(descontoAtual.replace("%", ""));
   const codigoGerado = `BUENAO${percentual}OFF`;
 
-  valorDescontoEl.textContent = descontoAtual;
-  codigoCupomEl.textContent = codigoGerado;
-  bannerDesconto.classList.remove("hidden");
-  bannerTentarNovamente.classList.add("hidden");
+  const valorDescontoEl = document.getElementById("discount-val");
+  const codigoCupomEl = document.getElementById("coupon-code");
+  const bannerDesconto = document.getElementById("discount-banner");
+  const bannerTentarNovamente = document.getElementById("retry-banner");
+
+  if (valorDescontoEl) valorDescontoEl.textContent = descontoAtual;
+  if (codigoCupomEl) codigoCupomEl.textContent = codigoGerado;
+  if (bannerDesconto) bannerDesconto.classList.remove("hidden");
+  if (bannerTentarNovamente) bannerTentarNovamente.classList.add("hidden");
 
   await salvarCupomNoBanco(codigoGerado, percentual);
 }
 
 function mostrarTentarNovamente() {
-  nomeNivelTentativa.textContent = nomeNivelAtual;
-  bannerTentarNovamente.classList.remove("hidden");
-  bannerDesconto.classList.add("hidden");
+  const nomeNivelTentativa = document.getElementById("retry-level-name");
+  const bannerTentarNovamente = document.getElementById("retry-banner");
+  const bannerDesconto = document.getElementById("discount-banner");
+
+  if (nomeNivelTentativa) nomeNivelTentativa.textContent = nomeNivelAtual;
+  if (bannerTentarNovamente) bannerTentarNovamente.classList.remove("hidden");
+  if (bannerDesconto) bannerDesconto.classList.add("hidden");
 }
 
 function atualizarContagemMinas() {
+  const contadorMinasEl = document.getElementById("mine-count");
+  if (!contadorMinasEl) return;
+
   let restantes = minas;
   for (let i = 0; i < linhas; i++) {
     for (let j = 0; j < colunas; j++) {
@@ -271,12 +278,13 @@ function atualizarContagemMinas() {
 }
 
 function iniciarCronometro() {
+  const cronometroEl = document.getElementById("timer");
   segundos = 0;
-  cronometroEl.textContent = "000";
+  if (cronometroEl) cronometroEl.textContent = "000";
   clearInterval(intervaloTempo);
   intervaloTempo = setInterval(() => {
     segundos++;
-    cronometroEl.textContent = String(segundos).padStart(3, "0");
+    if (cronometroEl) cronometroEl.textContent = String(segundos).padStart(3, "0");
   }, 1000);
 }
 
@@ -285,10 +293,17 @@ function reiniciarJogo() {
   primeiroClique = true;
   fimDeJogo = false;
   segundos = 0;
-  cronometroEl.textContent = "000";
-  botaoReiniciar.textContent = "🛍️";
-  bannerDesconto.classList.add("hidden");
-  bannerTentarNovamente.classList.add("hidden");
+
+  const cronometroEl = document.getElementById("timer");
+  const botaoReiniciar = document.getElementById("reset-btn");
+  const bannerDesconto = document.getElementById("discount-banner");
+  const bannerTentarNovamente = document.getElementById("retry-banner");
+
+  if (cronometroEl) cronometroEl.textContent = "000";
+  if (botaoReiniciar) botaoReiniciar.textContent = "🛍️";
+  if (bannerDesconto) bannerDesconto.classList.add("hidden");
+  if (bannerTentarNovamente) bannerTentarNovamente.classList.add("hidden");
+
   criarTabuleiroVazio();
   renderizarGrade();
   atualizarContagemMinas();
@@ -296,5 +311,8 @@ function reiniciarJogo() {
 
 window.resetGame = reiniciarJogo;
 
-reiniciarJogo();
-    
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", reiniciarJogo);
+} else {
+  reiniciarJogo();
+                              }
