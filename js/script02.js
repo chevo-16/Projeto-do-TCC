@@ -2,40 +2,21 @@ import { auth, db } from './firebase-config.js';
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { doc, getDoc, setDoc, collection, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+// Importa as listas já prontas de cada página de categoria (sem precisar repetir caminhos de imagens)
+import { produtosFeminino } from './feminino.js';
+import { produtosMasculino } from './masculino.js';
+import { produtosCalcados } from './calcados.js';
+import { produtosInfantil } from './infantil.js';
+
+// Junta automaticamente todos os produtos das categorias mantendo os mesmos IDs e fotos
 const produtosMaisVendidosBase = [
-  { id: 'fem_v1', nome: 'Vestido', preco: 150, img: '../images/feminino/vestido/2ab05ce1-a652-49e0-a775-00e7b8e6ca2e.png', categoria: 'feminino' },
-  { id: 'fem_c1', nome: 'Calça ', preco: 150, img: '../images/feminino/calças/3d486810-c3e9-42f8-8c95-6d2f0f6579b0.png', categoria: 'feminino' },
-  { id: 'fem_b1', nome: 'Blusa ', preco: 90, img: '../images/feminino/blusa/1ecd57b0-92b5-4f6b-9d2e-f3084fa572a7.png', categoria: 'feminino' },
-  { id: 'fem_s1', nome: 'Shorts ', preco: 110, img: '../images/feminino/shorts/1f50825e-e512-47c4-8d22-33f9a37b1514.png', categoria: 'feminino' },
-  { id: 'masc_b1', nome: 'Blusa ', preco: 160, img: '../images/masculino/blusas/43ca4c30-b52c-427d-a858-99e7f06b9ab8.png', categoria: 'masculino' },
-  { id: 'masc_c1', nome: 'Calça ', preco: 150, img: '../images/masculino/calça/3e4764a2-519e-41ea-9d25-126dfe9b1d9b.png', categoria: 'masculino' },
-  { id: 'masc_s1', nome: 'Shorts ', preco: 110, img: '../images/masculino/shorts/0b2a3a17-a116-4ca6-8d76-ab5a900a592a.png', categoria: 'masculino' },
-  { id: 'masc_t1', nome: 'Camiseta', preco: 70, img: '../images/masculino/camiseta/2f240c7b-ecf2-493d-aa21-6df20fe0437a.png', categoria: 'masculino' },
-  { id: 'sap_m1', nome: 'Bota Couro ', preco: 210, img: '../', categoria: 'calcados' },
-  { id: 'sap_m2', nome: 'Sapato ', preco: 190, img: '../', categoria: 'calcados' },
-  { id: 'sap_f1', nome: 'Bota ', preco: 220, img: '../', categoria: 'calcados' },
-  { id: 'sap_f2', nome: 'Sapato', preco: 180, img: '../', categoria: 'calcados' },
-  { id: 'sap_i1', nome: 'Bota ', preco: 140, img: '../', categoria: 'calcados_infantil' },
-  { id: 'sap_i4', nome: 'Tênis', preco: 130, img: '../', categoria: 'calcados_infantil' },
-  { id: 'inf_b1', nome: 'Casaco ', preco: 95, img: '../', categoria: 'infantil' },
-  { id: 'inf_c1', nome: 'Calça ', preco: 85, img: '../', categoria: 'infantil' },
-  { id: 'inf_s1', nome: 'Shorts ', preco: 65, img: '../', categoria: 'infantil' },
-  { id: 'inf_t1', nome: 'Camiseta ', preco: 45, img: '../', categoria: 'infantil' },
-  { id: 'inf_v1', nome: 'Vestido ', preco: 85, img: '../', categoria: 'infantil' },
-  { id: 'inf_b2', nome: 'Jaqueta ', preco: 120, img: '../', categoria: 'infantil' },
-  { id: 'inf_v3', nome: 'Vestido ', preco: 130, img: '../images/feminino/vestido/9eb5d0fa-933a-4493-97de-fddae96171d0.png', categoria: 'infantil' },
-  { id: 'fem_v2', nome: 'Vestido ', preco: 150, img: '../images/feminino/vestido/9f443dff-2c2c-48c3-9b36-e7a005ed743b.png', categoria: 'feminino' },
-  { id: 'fem_c3', nome: 'Calça ', preco: 170, img: '../', categoria: 'feminino' },
-  { id: 'masc_b2', nome: 'Jaqueta ', preco: 220, img: '../', categoria: 'masculino' },
-  { id: 'masc_t3', nome: 'Camisa ', preco: 110, img: '../', categoria: 'masculino' },
-  { id: 'sap_f3', nome: 'Sandália ', preco: 110, img: '../', categoria: 'calcados' },
-  { id: 'sap_m4', nome: 'Sapatênis ', preco: 160, img: '../', categoria: 'calcados' },
-  { id: 'inf_t3', nome: 'Camisa  ', preco: 65, img: '../', categoria: 'infantil' }
+  ...produtosFeminino,
+  ...produtosMasculino,
+  ...produtosCalcados,
+  ...produtosInfantil
 ];
 
-const baseComImagem = produtosMaisVendidosBase.filter(p => p.img && p.img !== '../');
-
-let produtosExibidos = [...baseComImagem];
+let produtosExibidos = [...produtosMaisVendidosBase];
 let uidUsuario = null;
 let curtidasUsuario = [];
 let carrinhoUsuario = [];
@@ -59,12 +40,13 @@ async function carregarProdutosFirebase() {
         id: documento.id,
         ...documento.data()
       });
-    })
-    produtosExibidos = [...produtosFirebase, ...baseComImagem];
+    });
+
+    produtosExibidos = [...produtosFirebase, ...produtosMaisVendidosBase];
     renderizarProdutos();
   } catch (error) {
     console.error("Erro ao carregar produtos do Firebase:", error);
-    produtosExibidos = [...baseComImagem];
+    produtosExibidos = [...produtosMaisVendidosBase];
     renderizarProdutos();
   }
 }
@@ -267,7 +249,6 @@ async function alternarFavorito(produto, btnFav) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-
   const btnOpen = document.getElementById("btn-open-cat");
   const btnClose = document.getElementById("btn-close-cat");
   const modalCat = document.getElementById("modal-categorias");
