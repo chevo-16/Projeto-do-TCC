@@ -395,10 +395,20 @@ body {
   display: flex;
   justify-content: center;
   gap: 12px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 5px;
+}
+
+.filter-pills::-webkit-scrollbar {
+  display: none;
 }
 
 .pill {
+  flex-shrink: 0;
+  white-space: nowrap;
   background-color: rgba(255, 255, 255, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 18px;
@@ -580,13 +590,10 @@ body {
   }
 
   .filter-pills {
-    overflow-x: auto;
     justify-content: flex-start;
-    padding-bottom: 5px;
   }
 
   .pill {
-    white-space: nowrap;
     padding: 6px 14px;
     font-size: 13px;
   }
@@ -613,3 +620,4 @@ body {
     gap: 8px;
   }
   }
+  
