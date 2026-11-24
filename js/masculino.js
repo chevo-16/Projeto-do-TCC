@@ -23,15 +23,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const todosProdutos = [
   
     { id: 'masc_b1', tipo: 'blusa', nome: 'Blusa ', preco: '160', img: '../images/masculino/blusas/43ca4c30-b52c-427d-a858-99e7f06b9ab8.png', categoria: 'masculino' },
-    { id: 'masc_b2', tipo: 'blusa', nome: 'Jaqueta ', preco: '220', img: '../images/masculino/blusas/46c25090-f284-455d-8ee3-703f8c7c8b7e.png', categoria: 'masculino' },
-    { id: 'masc_b3', tipo: 'blusa', nome: 'Casaco ', preco: '200', img: '../images/masculino/blusas/299e3481-38e7-475a-886d-936614ed42ff.png', categoria: 'masculino' },
-    { id: 'masc_b4', tipo: 'blusa', nome: 'Jaqueta ', preco: '180', img: '../images/masculino/blusas/597a1e2d-1179-4079-abbb-090fbf16be8b.png', categoria: 'masculino' },
+    { id: 'masc_b2', tipo: 'blusa', nome: 'Blusa ', preco: '220', img: '../images/masculino/blusas/46c25090-f284-455d-8ee3-703f8c7c8b7e.png', categoria: 'masculino' },
+    { id: 'masc_b3', tipo: 'blusa', nome: 'Blusa ', preco: '200', img: '../images/masculino/blusas/299e3481-38e7-475a-886d-936614ed42ff.png', categoria: 'masculino' },
+    { id: 'masc_b4', tipo: 'blusa', nome: 'Blusa ', preco: '180', img: '../images/masculino/blusas/597a1e2d-1179-4079-abbb-090fbf16be8b.png', categoria: 'masculino' },
     { id: 'masc_b5', tipo: 'blusa', nome: 'Blusa ', preco: '150', img: '../images/masculino/blusas/b8226e1c-1621-4f82-ae96-e8184558d085.png', categoria: 'masculino' },
-    { id: 'masc_b6', tipo: 'blusa', nome: 'Suéter ', preco: '140', img: '../images/masculino/blusas/bff22c4b-0ef8-49b3-a78e-97d66962c849.png', categoria: 'masculino' },
-    { id: 'masc_b7', tipo: 'blusa', nome: 'Jaqueta ', preco: '170', img: '../images/masculino/blusas/blusa.png', categoria: 'masculino' },
+    { id: 'masc_b6', tipo: 'blusa', nome: 'Blusa ', preco: '140', img: '../images/masculino/blusas/bff22c4b-0ef8-49b3-a78e-97d66962c849.png', categoria: 'masculino' },
+    { id: 'masc_b7', tipo: 'blusa', nome: 'Blusa ', preco: '170', img: '../images/masculino/blusas/blusa.png', categoria: 'masculino' },
     { id: 'masc_b8', tipo: 'blusa', nome: 'Blusa ', preco: '130', img: '../images/masculino/blusas/blusa2.png', categoria: 'masculino' },
-    { id: 'masc_b9', tipo: 'blusa', nome: 'Jaqueta ', preco: '190', img: '../images/masculino/blusas/jaqueta1.png', categoria: 'masculino' },
-    { id: 'masc_b10', tipo: 'blusa', nome: 'Blusa ', preco: '145', img: '../images/masculino/blusas/jaqueta2.png', categoria: 'masculino' },
+    { id: 'masc_b9', tipo: 'blusa', nome: 'Blusa ', preco: '190', img: '../images/masculino/blusas/jaqueta1.png', categoria: 'masculino' },
+    { id: 'masc_b10', tipo: 'blusa', nome: 'Jaqueta ', preco: '145', img: '../images/masculino/blusas/jaqueta2.png', categoria: 'masculino' },
 
     { id: 'masc_c1', tipo: 'calca', nome: 'Calça ', preco: '150', img: '../images/masculino/calça/3e4764a2-519e-41ea-9d25-126dfe9b1d9b.png', categoria: 'masculino' },
     { id: 'masc_c2', tipo: 'calca', nome: 'Calça ', preco: '165', img: '../images/masculino/calça/5f6657d6-90dc-4e20-968f-37a52a1a7489.png', categoria: 'masculino' },

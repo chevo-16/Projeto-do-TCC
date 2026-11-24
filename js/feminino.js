@@ -27,14 +27,14 @@ export const todosProdutos = [
 
   { id: 'fem_b1', tipo: 'blusa', nome: 'Blusa ', preco: '90', img: '../images/feminino/blusa/1ecd57b0-92b5-4f6b-9d2e-f3084fa572a7.png', categoria: 'feminino' },
   { id: 'fem_b2', tipo: 'blusa', nome: 'Blusa ', preco: '70', img: '../images/feminino/blusa/7fc9d90a-86db-4b9f-acef-2f9cd8f5987d.png', categoria: 'feminino' },
-  { id: 'fem_b3', tipo: 'blusa', nome: 'Cropped ', preco: '85', img: '../images/feminino/blusa/8e53ab14-030b-4f92-b2f8-33edcff467eb.png', categoria: 'feminino' },
-  { id: 'fem_b4', tipo: 'blusa', nome: 'Camisa ', preco: '130', img: '../images/feminino/blusa/9e2c7737-0c92-439b-86d2-a1b2c6d02eae.png', categoria: 'feminino' },
+  { id: 'fem_b3', tipo: 'blusa', nome: 'Blusa ', preco: '85', img: '../images/feminino/blusa/8e53ab14-030b-4f92-b2f8-33edcff467eb.png', categoria: 'feminino' },
+  { id: 'fem_b4', tipo: 'blusa', nome: 'Blusa ', preco: '130', img: '../images/feminino/blusa/9e2c7737-0c92-439b-86d2-a1b2c6d02eae.png', categoria: 'feminino' },
   { id: 'fem_b5', tipo: 'blusa', nome: 'Blusa ', preco: '60', img: '../images/feminino/blusa/9f803d1f-aff2-4506-bab1-e749d47e0c83.png', categoria: 'feminino' },
   { id: 'fem_b6', tipo: 'blusa', nome: 'Blusa ', preco: '95', img: '../images/feminino/blusa/773dfff9-a5e0-4634-8253-77d7e27e0fb9.png', categoria: 'feminino' },
   { id: 'fem_b7', tipo: 'blusa', nome: 'Blusa ', preco: '100', img: '../images/feminino/blusa/63055f0c-07ce-4884-8f79-0fca7159ce77.png', categoria: 'feminino' },
-  { id: 'fem_b8', tipo: 'blusa', nome: 'Body ', preco: '110', img: '../images/feminino/blusa/ad01f097-1391-4996-b201-9ebd5a3d9cb2.png', categoria: 'feminino' },
+  { id: 'fem_b8', tipo: 'blusa', nome: 'Blusa ', preco: '110', img: '../images/feminino/blusa/ad01f097-1391-4996-b201-9ebd5a3d9cb2.png', categoria: 'feminino' },
   { id: 'fem_b9', tipo: 'blusa', nome: 'Blusa ', preco: '85', img: '../images/feminino/blusa/f9d1e342-a98d-414f-b9b5-53be6c565541.png', categoria: 'feminino' },
-  { id: 'fem_b10', tipo: 'blusa', nome: 'Camisa ', preco: '140', img: '../images/feminino/blusa/f3471c72-036c-4540-b249-d08ce2bd8c94.png', categoria: 'feminino' },
+  { id: 'fem_b10', tipo: 'blusa', nome: 'Blusa ', preco: '140', img: '../images/feminino/blusa/f3471c72-036c-4540-b249-d08ce2bd8c94.png', categoria: 'feminino' },
 
   { id: 'fem_s1', tipo: 'shorts', nome: 'Shorts ', preco: '110', img: '../images/feminino/shorts/1f50825e-e512-47c4-8d22-33f9a37b1514.png', categoria: 'feminino' },
   { id: 'fem_s2', tipo: 'shorts', nome: 'Shorts ', preco: '120', img: '../images/feminino/shorts/8f9d8778-1b32-44b0-828d-00ceaf3ec9ed.png', categoria: 'feminino' },
